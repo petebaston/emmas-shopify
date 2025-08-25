@@ -190,6 +190,71 @@
     {% if template contains 'customers/account' %}
       {%- render 'flits_capture_code' with 'load_snippet', template: 'flits_snippet' -%}
     {% endif %}
+  <!-- Checkout address pre-fill script -->
+  <script>
+    // This script helps pass verified address data to checkout
+    if (window.theme && window.theme.pageType === 'cart') {
+      document.addEventListener('DOMContentLoaded', function() {
+        // Listen for checkout form submission
+        const checkoutForms = document.querySelectorAll('form[action*="/cart"], form[action*="/checkout"]');
+        checkoutForms.forEach(form => {
+          form.addEventListener('submit', function(e) {
+            // Check if we have stored address data
+            const addressData = sessionStorage.getItem('checkoutAddress');
+            if (addressData) {
+              try {
+                const address = JSON.parse(addressData);
+                console.log('Passing address to checkout:', address);
+                
+                // The address data is already stored in cart attributes
+                // It will be available in checkout as cart.attributes
+              } catch (error) {
+                console.error('Error parsing address data:', error);
+              }
+            }
+          });
+        });
+      });
+    }
+    
+    // For Shopify Plus stores with checkout scripts access
+    if (window.Shopify && window.Shopify.Checkout) {
+      document.addEventListener('DOMContentLoaded', function() {
+        // Try to get address from sessionStorage
+        const addressData = sessionStorage.getItem('checkoutAddress');
+        if (addressData) {
+          try {
+            const address = JSON.parse(addressData);
+            
+            // Attempt to fill shipping address fields if they exist
+            const fillField = (selector, value) => {
+              const field = document.querySelector(selector);
+              if (field && value) {
+                field.value = value;
+                field.dispatchEvent(new Event('change', { bubbles: true }));
+              }
+            };
+            
+            // Common checkout field selectors
+            fillField('#checkout_shipping_address_first_name', address.name ? address.name.split(' ')[0] : '');
+            fillField('#checkout_shipping_address_last_name', address.name ? address.name.split(' ').slice(1).join(' ') : '');
+            fillField('#checkout_shipping_address_address1', address.address1);
+            fillField('#checkout_shipping_address_city', address.city);
+            fillField('#checkout_shipping_address_province', address.state);
+            fillField('#checkout_shipping_address_zip', address.zip);
+            fillField('#checkout_shipping_address_country', address.country);
+            
+            console.log('Checkout address fields populated');
+            
+            // Clear the data after use
+            sessionStorage.removeItem('checkoutAddress');
+          } catch (error) {
+            console.error('Error filling checkout address:', error);
+          }
+        }
+      });
+    }
+  </script>
   </body>
 </html>
 

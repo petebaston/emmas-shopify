@@ -206,10 +206,19 @@
     <label for="catalog_attribute">Free Catalog?</label>
   </p>
   <input type="hidden" id="is_manual_input" name="attributes[Manual Input]" value="No">
+  <!-- Hidden fields to store address data -->
+  <input type="hidden" id="inmate_address" name="attributes[Inmate Address]" value="">
+  <input type="hidden" id="inmate_city" name="attributes[Inmate City]" value="">
+  <input type="hidden" id="inmate_state" name="attributes[Inmate State]" value="">
+  <input type="hidden" id="inmate_zip" name="attributes[Inmate Zip]" value="">
 </div>
 <script>
   const wrapper = document.querySelector(".exat-attributes-wrap")
   const facilities = ["Adirondack Correctional Facility", "Albion Correctional Facility", "Altona Correctional Facility", "Attica Correctional Facility", "Auburn Correctional Facility", "Bare Hill Correctional Facility", "Bedford Hills Correctional Facility", "Cape Vincent Correctional Facility", "Cayuga Correctional Facility", "Clinton Correctional Facility", "Collins Correctional Facility", "Coxsackie Correctional Facility", "Downstate Correctional Facility", "Eastern Correctional Facility", "Elmira Correctional Facility", "Fishkill Correctional Facility", "Five Points Correctional Facility", "Franklin Correctional Facility", "Gouverneur Correctional Facility", "Great Meadow Correctional Facility", "Green Haven Correctional Facility", "Greene Correctional Facility", "Groveland Correctional Facility", "Hale Creek Asactc Correctional Facility", "Hudson Correctional Facility", "Lakeview Shock Incarceration Correctional Facility", "Marcy Correctional Facility", "Midstate Correctional Facility", "Mohawk Correctional Facility", "Moriah Shock Incarceration Correctional Facility", "Ogdensburg Correctional Facility", "Orleans Correctional Facility", "Otisville Correctional Facility", "Riverview Correctional Facility", "Shawangunk Correctional Facility", "Sing Sing Correctional Facility", "Southport Correctional Facility", "Sullivan Correctional Facility", "Taconic Correctional Facility", "Ulster Correctional Facility", "Upstate Correctional Facility", "Wallkill Correctional Facility", "Washington Correctional Facility", "Wende Correctional Facility", "Willard Drug Treatment", "Woodbourne Correctional Facility", "Wyoming Correctional Facility"];
+  
+  // Store the verified address data globally
+  let verifiedAddressData = null;
+  
   document.addEventListener("DOMContentLoaded", (event) => {
     function initListeners() {
       const din = document.getElementById("din_attribute");
@@ -270,6 +279,27 @@
           
           facility.value=facilities.find(f=>f.toLowerCase().includes(data.facility.toLowerCase()))
   
+          // Store address data from API response
+          if (data.address || data.facilityAddress) {
+            verifiedAddressData = {
+              name: data.name,
+              address1: data.address || data.facilityAddress || facility.value,
+              city: data.city || data.facilityCity || '',
+              state: data.state || data.facilityState || 'NY',
+              zip: data.zip || data.facilityZip || '',
+              country: 'United States',
+              facility: facility.value
+            };
+            
+            // Store in hidden fields for cart attributes
+            document.getElementById("inmate_address").value = verifiedAddressData.address1;
+            document.getElementById("inmate_city").value = verifiedAddressData.city;
+            document.getElementById("inmate_state").value = verifiedAddressData.state;
+            document.getElementById("inmate_zip").value = verifiedAddressData.zip;
+            
+            console.log('Address data stored:', verifiedAddressData);
+          }
+  
           inmateName.disabled = true
           facility.disabled = true
           ismanual.value = "No"
@@ -292,11 +322,45 @@
         ismanual.value = "Yes"
         wrapper.classList.add("manual")
       })
-      form.addEventListener("submit", function(e){
+      form.addEventListener("submit", async function(e){
         if(inmateName.value==="" || facility.value===""){
           e.preventDefault();
           return;
         } 
+        
+        // Pre-fill checkout with address data if available
+        if (verifiedAddressData && !wrapper.classList.contains("manual")) {
+          // Store the address data in sessionStorage to use after checkout redirect
+          sessionStorage.setItem('checkoutAddress', JSON.stringify(verifiedAddressData));
+          
+          // Update cart attributes with address data
+          try {
+            const cartUpdateData = {
+              attributes: {
+                'Shipping Name': verifiedAddressData.name,
+                'Shipping Address': verifiedAddressData.address1,
+                'Shipping City': verifiedAddressData.city,
+                'Shipping State': verifiedAddressData.state,
+                'Shipping Zip': verifiedAddressData.zip,
+                'Shipping Country': verifiedAddressData.country,
+                'Shipping Facility': verifiedAddressData.facility
+              }
+            };
+            
+            await fetch('/cart/update.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(cartUpdateData)
+            });
+            
+            console.log('Cart attributes updated with shipping address');
+          } catch (error) {
+            console.error('Failed to update cart attributes:', error);
+          }
+        }
+        
         inmateName.disabled=false;
         facility.disabled=false;
       })
