@@ -1,0 +1,900 @@
+
+{% comment %} PLEASE DON'T MAKE CHANGES IN THIS FILE IT'S AFFECT THE CODE IF YOU NEED ANY HELP PLEASE CONTACT TO FLITS TEAM support@getflits.com {% endcomment %}
+{% liquid
+	capture navigation_profileText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.profile',default_template:'My Profile'
+	endcapture
+	capture navigation_myOrdersText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.my_orders',default_template:'My Orders'
+	endcapture
+	capture navigation_topOrdersText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.top_ordered_products',default_template:'Top Ordered Products'
+	endcapture
+	capture navigation_deliveryAddressText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.delivery_address',default_template:'Delivery Address'
+	endcapture
+  	capture navigation_changePasswordText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.change_password',default_template:'Change Password'
+	endcapture
+	capture navigation_wishlistText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.wishlist',default_template:'My Wishlist'
+	endcapture
+	capture navigation_recentlyViewText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.recently_viewed_products',default_template:'Recently Viewed'
+	endcapture
+	capture navigation_storeCreditText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.store_credit',default_template:'My Credits'
+	endcapture
+	capture navigation_howToManageCreditText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.how_to_manage_credit',default_template:'How To Manage Credits'
+	endcapture
+	capture navigation_referFriendText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.refer_friend',default_template:'Refer Friend'
+	endcapture
+	capture profile_firstNameText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.first_name',default_template:'First Name'
+	endcapture
+	capture profile_lastNameText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.last_name',default_template:'Last Name'
+	endcapture
+	capture profile_emailText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.email',default_template:'Email'
+	endcapture
+	capture profile_contactNoText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.contact_number',default_template:'Contact Number'
+	endcapture
+	capture profile_birthdateText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.birthdate',default_template:'Birthdate'
+	endcapture
+	capture profile_genderText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.gender',default_template:'Gender'
+	endcapture
+	capture profile_maleText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.male',default_template:'Male'
+	endcapture
+	capture profile_femaleText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.female',default_template:'Female'
+	endcapture
+	capture profile_otherText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.other',default_template:'Other'
+	endcapture
+	capture profile_buttonEditText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.edit_button',default_template:'Edit'
+	endcapture
+	capture profile_buttonCancelText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.cancel_button',default_template:'Cancel'
+	endcapture
+	capture profile_buttonSaveText
+		render 'flits_capture_code' with 'translation',template:'flits.profile_page.save_button',default_template:'Save'
+	endcapture
+	
+	capture order_reorderText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.reorder',default_template:'Re-order'
+	endcapture
+	capture updatePassword_updatePasswordButtonText
+		render 'flits_capture_code' with 'translation',template:'flits.update_password_page.update_password_button',default_template:'Update Password'
+	endcapture
+	capture updatePassword_newPasswordText
+		render 'flits_capture_code' with 'translation',template:'flits.update_password_page.new_password',default_template:'New Password'
+	endcapture
+	capture updatePassword_newPasswordPlaceholderText
+		render 'flits_capture_code' with 'translation',template:'flits.update_password_page.new_password_placeholder',default_template:'Enter New Password'
+	endcapture
+	capture updatePassword_confirmNewPasswordText
+		render 'flits_capture_code' with 'translation',template:'flits.update_password_page.confirm_new_password',default_template:'Confirm New Password'
+	endcapture
+	capture updatePassword_confirmPasswordPlaceholderText
+		render 'flits_capture_code' with 'translation',template:'flits.update_password_page.confirm_password_placeholder',default_template:'Confirm New Password'
+	endcapture
+	capture updatePassword_passwordHintMessageText
+		render 'flits_capture_code' with 'translation',template:'flits.update_password_page.password_hint_message',default_template:'Password must between 6 to 40 characters'
+	endcapture
+	capture refer_youAreReferredByText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.you_are_referred_by',default_template:'Referred by'
+	endcapture
+	capture refer_referProgramHowItWorkTitleText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.refer_program_how_it_work_title',default_template:'How it works'
+	endcapture
+	capture refer_referProgramHowItWorkStep1Text
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.refer_program_how_it_work_step_1',default_template:'Share your referral link'
+	endcapture
+	capture refer_referProgramHowItWorkStep2Text
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.refer_program_how_it_work_step_2',default_template:'When your friend signup'
+	endcapture
+	capture refer_referProgramHowItWorkStep3Text
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.refer_program_how_it_work_step_3',default_template:'You get rewarded'
+	endcapture
+	capture refer_creditsActivityText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.credit_activity',default_template:'Referral History'
+	endcapture
+	capture refer_earnedCreditsText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.earned_credit',default_template:'Earned Credit'
+	endcapture
+	capture refer_referralCustomerNameText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.referral_customer_name',default_template:'Referred To'
+	endcapture
+	capture refer_referralCustomerEmailText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.referral_customer_email',default_template:"Referral's Email"
+	endcapture
+	capture refer_creditsText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.credit',default_template:'Credit'
+	endcapture
+	capture refer_timeText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.time',default_template:'Referred Since'
+	endcapture
+	capture refer_noHistoryYetText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.blank_screen_line_1_html',default_template:"You have no referrals so far.<br>You can earn rewards by referring our store to your friends.<br>Copy the above link and share it with your friends or"
+	endcapture
+	capture refer_marketingLineText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.blank_screen_line_2_html',default_template:"Share the link directly via WhatsApp and Facebook."
+	endcapture
+	capture wishlist_noWishlistViewText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.blank_screen_line_1_html',default_template:"Your wish is our command but<br>you haven’t wishlisted any products."
+	endcapture
+	capture wishlist_marketingLineText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.blank_screen_line_2_html',default_template:"You can wishlist products<br>and buy them later"
+	endcapture
+	capture recentlyViewed_noProductsViewText
+		render 'flits_capture_code' with 'translation',template:'flits.recently_viewed_product_page.blank_screen_line_1_html',default_template:"Looks like you haven’t checked out<br>any of our products recently.<br>We have a vast collection of quality products."
+	endcapture
+	capture recentlyViewed_marketingLineText
+		render 'flits_capture_code' with 'translation',template:'flits.recently_viewed_product_page.blank_screen_line_2_html',default_template:"So why wait? Check out our products."
+	endcapture
+	capture howToEarn_noRulesFoundText
+		render 'flits_capture_code' with 'translation',template:'flits.how_to_earn_credit_page.no_rule_found',default_template:'The store has not set up any rules yet'
+	endcapture
+	capture howToEarn_fromAdminText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.from_admin',default_template:'From Store Owner'
+	endcapture
+	capture howToEarn_earningText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.how_to_earn_credit',default_template:'How To Earn'
+	endcapture
+	capture howToEarn_spentText
+		render 'flits_capture_code' with 'translation',template:'flits.navigation.how_to_spend_credit',default_template:'How To Spend'
+	endcapture
+	capture credit_earnedCreditsText
+		render 'flits_capture_code' with 'translation',template:'flits.credit_page.earned_credit',default_template:"Earned Credit"
+	endcapture
+	capture credit_spentCreditsText
+		render 'flits_capture_code' with 'translation',template:'flits.credit_page.spent_credit',default_template:"Spent Credit"
+	endcapture
+	capture credit_currentCreditsText
+		render 'flits_capture_code' with 'translation',template:'flits.credit_page.current_credit',default_template:"Current Credit"
+	endcapture
+	capture credits_activity_text
+		render 'flits_capture_code' with 'translation',template:'flits.credit_page.credit_activity',default_template:'Recent Transactions'
+	endcapture
+	capture credits_creditsText
+		render 'flits_capture_code' with 'translation',template:'flits.credit_page.credit',default_template:'CR/DR'
+	endcapture
+	capture credits_reasonForCreditsText
+		render 'flits_capture_code' with 'translation',template:'flits.credit_page.reason_for_credit',default_template:'Credit Reason'
+	endcapture
+	capture credits_timeText
+		render 'flits_capture_code' with 'translation',template:'flits.credit_page.time',default_template:'Date'
+	endcapture
+	capture credit_noHistoryYetText
+		render 'flits_capture_code' with 'translation',template:'flits.credit_page.blank_screen_line_1_html',default_template:"You are missing out on taking advantage of<br>our Reward Program."
+	endcapture
+	capture credit_marketingLineText
+		render 'flits_capture_code' with 'translation',template:'flits.credit_page.blank_screen_line_2_html',default_template:"So why wait? Start shopping our products to start earning rewards."
+	endcapture
+	capture topOrder_searchPlaceholderText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.search_placeholder',default_template:'Search product here'
+	endcapture
+	capture topOrder_searchProductNotFoundText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.search_product_not_found',default_template:"No product/s found"
+	endcapture
+	capture topOrder_filterText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.filter',default_template:'Filter'
+	endcapture
+	capture topOrder_noneText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.none',default_template:'None'
+	endcapture
+	capture topOrder_numberOfOrderLowToHighText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.number_of_order_low_to_high',default_template:'Number of order (Low to High)'
+	endcapture
+	capture topOrder_numberOfOrderHighToLowText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.number_of_order_high_to_low',default_template:'Number of order (High to Low)'
+	endcapture
+	capture topOrder_sortByPriceLowToHighText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.sort_by_price_low_to_high',default_template:'Sort by price (Low to High)'
+	endcapture
+	capture topOrder_sortByPriceHighToLowText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.sort_by_price_high_to_low',default_template:'Sort by price (High to Low)'
+	endcapture
+	capture topOrder_last30DaysText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.last_30_days',default_template:'Last 30 days'
+	endcapture
+	capture topOrder_last60DaysText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.last_60_days',default_template:'Last 60 days'
+	endcapture
+	capture topOrder_noProductsViewText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.blank_screen_line_1_html',default_template:"There are no top ordered products to display.<br>We are pretty sure that a few products<br>from our fantastic collection<br>will make it to your top products."
+	endcapture
+	capture order_orderDateFormatText
+		render 'flits_capture_code' with 'translation',template: 'flits.order_page.order_date_format' ,default_template:'%B %d, %Y'
+	endcapture
+	capture order_orderNumberText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.order_number',default_template:'Order'
+	endcapture
+	capture order_grandTotalText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.grand_total',default_template:'Grand Total'
+	endcapture
+	capture order_orderDateText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.order_date',default_template:'Date'
+	endcapture
+	capture order_cancelAtText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.cancel_at',default_template:'Cancelled at'
+	endcapture
+	capture order_fulfillmentStatusText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.fulfillment_status',default_template:'Fulfillment Status'
+	endcapture
+	capture order_totalItemText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.total_items',default_template:'Total Items'
+	endcapture
+	capture order_paymentStatusText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.payment_status',default_template:'Payment'
+	endcapture
+	capture order_shippingAddressText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.shipping_address',default_template:'Shipping Address'
+	endcapture
+	capture order_billingAddressText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.billing_address',default_template:'Billing Address'
+	endcapture
+	capture order_costBreakupText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.cost_breakup',default_template:'Cost Breakup'
+	endcapture
+	capture order_subtotalText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.subtotal',default_template:'Sub Total'
+	endcapture
+	capture order_discountCodeText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.discount_code',default_template:'Discount'
+	endcapture
+	capture order_shippingAndHandlingText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.shipping_and_handling',default_template:'Shipping Cost'
+	endcapture
+	capture order_paymentTypeText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.payment_type',default_template:'Payment Type'
+	endcapture
+	capture order_productNotExistText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.product_unavailable',default_template:'Unavailable'
+	endcapture
+	capture order_soldOutText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.sold_out',default_template:'Sold Out'
+	endcapture
+	capture order_showOrderDetailsText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.show_order_details',default_template:'View Order'
+	endcapture
+	capture order_hideOrderDetailsText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.hide_order_details',default_template:'Hide Order'
+	endcapture
+	capture order_noOrdersViewText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.blank_screen_line_1_html',default_template:"You haven't placed any orders yet.<br>We can't wait to have you as a customer."
+	endcapture
+	capture order_marketingLineText
+		render 'flits_capture_code' with 'translation',template:'flits.order_page.blank_screen_line_2_html',default_template:"Take a look at our products here"
+	endcapture
+	capture address_defaultAddressLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.default_address_label',default_template:'Default'
+	endcapture
+	capture address_editButtonText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.edit_button',default_template:'Edit'
+	endcapture
+	capture address_setDefaultButtonText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.mark_as_default_button',default_template:'Mark as Default'
+	endcapture
+	capture address_deleteButtonText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.delete_button',default_template:'Delete'
+	endcapture
+	capture address_deleteConfirmationMessageText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.delete_confirmation_message',default_template:'Are you sure you want to delete this address?'
+	endcapture
+	capture address_addANewAddressText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.add_new_address',default_template:'Add New Address'
+	endcapture
+	capture address_firstNameText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.first_name',default_template:'First Name'
+	endcapture
+	capture address_lastNameText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.last_name',default_template:'Last Name:'
+	endcapture
+	capture address_address1Text
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.address1',default_template:'Address Line 1'
+	endcapture
+	capture address_address2Text
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.address2',default_template:'Address Line 2'
+	endcapture
+	capture address_companyText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.company',default_template:'Company'
+	endcapture
+	capture address_zipText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.zip',default_template:'Postal/Zip Code'
+	endcapture
+	capture address_phoneText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.contact_number',default_template:'Contact Number'
+	endcapture
+	capture address_cityText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.city',default_template:'City'
+	endcapture
+	capture address_countryText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.country',default_template:'Country'
+	endcapture
+	capture address_provinceText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.province',default_template:'Province'
+	endcapture
+	capture address_setAsDefaultAddressText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.mark_as_default_checkbox',default_template:'Mark as Default Address'
+	endcapture
+	capture address_cancelAddressText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.cancel_button',default_template:'Cancel'
+	endcapture
+	capture address_saveAddressText
+		render 'flits_capture_code' with 'translation',template:'flits.address_page.save_button',default_template:'Save'
+	endcapture
+
+ capture flitsOrdertracking
+  render 'flits_capture_code' with 'translation',template:' flits.order_page.tracking_number',default_template:"Tracking Number"
+endcapture
+
+   capture flitsTrackyourOrder
+  render 'flits_capture_code' with 'translation',template:' flits.order_page.track_your_order',default_template:"Track Your Order Here!"
+endcapture
+
+%}
+
+{%- case flits_custom_code -%}
+
+  {%- when 'module_address_content' -%}
+	<div class="flits-tab-box-body">
+        {% assign count = 0 %}
+		<div class='flits-d-none flits-address-form'>
+			{% form 'customer_address', customer.new_address %}
+				{% render 'flits_capture_code' with 'component',template:'comp_flitsInput',
+					type:'hidden', 
+					value:'new',
+					name: 'form_type',
+					attr:'id="form_type"',
+				%}
+				<h2 class="flits-address-form-title" data-original-text="{{ address_addANewAddressText | strip }}">{{ address_addANewAddressText | strip }}</h2>
+				<div class='flits-row'>
+					<div class='flits-col-md-6 flits-mb-15'>
+						{% render 'flits_capture_code' with 'component',template:'comp_flitsLabelInput',
+							type:'text', 
+							label:address_firstNameText, 
+							value:form.first_name,
+							name: 'address[first_name]',
+							attr:'id="AddressFirstNameNew" maxlength="255"',
+						%} 
+					</div>
+					<div class='flits-col-md-6 flits-mb-15'>
+						{% render 'flits_capture_code' with 'component',template:'comp_flitsLabelInput',
+							type:'text', 
+							label:address_lastNameText, 
+							value:form.last_name,
+							name: 'address[last_name]',
+							attr:'id="AddressLastNameNew" maxlength="255"',
+						%} 
+					</div>
+				</div>
+				<div class='flits-row '>
+					<div class='flits-col-md-12 flits-mb-15'>
+						{% render 'flits_capture_code' with 'component',template:'comp_flitsLabelInput',
+							type:'text', 
+							label:address_address1Text, 
+							value:form.address1,
+							name: 'address[address1]',
+							attr:'id="AddressAddress1New" maxlength="255"',
+						%} 
+					</div>
+				</div>
+				<div class='flits-row'>
+					<div class='flits-col-md-12 flits-mb-15'>
+						{% render 'flits_capture_code' with 'component',template:'comp_flitsLabelInput',
+							type:'text', 
+							label:address_address2Text, 
+							value:form.address2,
+							name: 'address[address2]',
+							attr:'id="AddressAddress2New" maxlength="255"',
+						%}
+					</div>
+				</div>
+				<div class='flits-row'>
+					<div class='flits-col-md-4 flits-mb-15'>
+						{% render 'flits_capture_code' with 'component',template:'comp_flitsLabelInput',
+							type:'text', 
+							label:address_companyText, 
+							value:form.company,
+							name: 'address[company]',
+							attr:'id="AddressCompanyNew" maxlength="255"',
+						%}
+					</div>
+					<div class='flits-col-md-4 flits-mb-15'>
+						{% render 'flits_capture_code' with 'component',template:'comp_flitsLabelInput',
+							type:'text', 
+							label:address_zipText, 
+							value:form.zip,
+							name: 'address[zip]',
+							attr:'id="AddressZipNew" autocapitalize="characters" maxlength="255"',
+						%}
+					</div>
+					<div class='flits-col-md-4 flits-mb-15'>
+						<div class="flits-phone-with-country-div flits-address-phone-with-country-div">
+							<div class="flits-input-wrap">
+								<label class="flits-input-label">{{ address_phoneText | strip }} : </label>
+								<input type="tel" class="flits-input" name="address[phone]" value="{{ form.phone }}" id="AddressPhoneNew">
+								<input type="text" class="flits-input flits-country-code-textbox" disabled>
+								<div class="flits-country-drpdown">
+									<span class="flits-country-flag"></span>
+									<div class="flits-select-row">
+										<select class="flits-input"></select>
+										<div class="flits-select-arrow">
+											<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" shape-rendering="geometricPrecision">
+												<path d="M6 9l6 6 6-6"></path>
+											</svg> 
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='flits-row'>
+					<div class='flits-col-md-4 flits-mb-15'>
+						{% render 'flits_capture_code' with 'component',template:'comp_flitsLabelInput',
+							type:'text', 
+							label:address_cityText, 
+							value:form.city,
+							name: 'address[city]',
+							attr:'id="AddressCityNew" maxlength="255"',
+						%}
+					</div>
+					<div class='flits-col-md-4 flits-mb-15'>
+						{% render 'flits_capture_code' with 'component',template:'comp_flitsLabelSelect',
+							label:address_countryText, 
+							name: 'address[country]',
+							attr:'id="AddressCountryNew" data-default="{{ form.country }}"',
+							options: country_option_tags
+						%}
+					</div>
+					<div class='flits-col-md-4 flits-mb-15' id="AddressProvinceContainerNew" style="display:none">
+						{% render 'flits_capture_code' with 'component',template:'comp_flitsLabelSelect',
+							label:address_provinceText, 
+							name: 'address[province]',
+							attr:'id="AddressProvinceNew" data-default="{{ form.province }}"',
+						%}
+					</div>
+				</div>
+				<div class='flits-row'>
+					<div class='flits-col-md-12'>
+						{% render 'flits_capture_code' with 'component',template:'comp_flitsCheckbox',
+							label:address_setAsDefaultAddressText, 
+							name: 'address[default]',
+							attr:'id="address_default_address_new"',
+							value: "1"
+							for:"address_default_address_new"
+						%}
+					</div>
+				</div>
+{% comment %}
+				<div class='flits-row'>
+					<div class='flits-col-md-12 flits-text-right'>
+						{% render 'flits_capture_code' with 'component',template:'comp_button',
+							type:'button',
+							text:address_cancelAddressText,
+							class:'flits-secondary-btn flits-mt-15 flits-address-cancel-btn'
+						%} 
+						{% render 'flits_capture_code' with 'component',template:'comp_button',
+							type:'button',
+							text:address_saveAddressText,
+							class:'flits-primary-btn flits-mt-15 flits-address-add-save-button'
+						%} 
+					</div>
+				</div>
+{% endcomment %}
+			{% endform %}
+		</div>
+		<div class="flits-address-display-container flits-d-none" data-address-count="{{ customer.orders_count }}" id="flits-address-list">
+			{% comment %}<div class="flits-address-list flits-address-list-static-row">
+				{% render 'flits_capture_code' with 'component',template:'comp_addAddressCard' text: address_addANewAddressText %}
+				{% if customer.orders.size != 0 %}
+					<div class="flits-address-card flits-address-default"
+						data-phone="{{ customer.default_address.phone }}"
+						data-phone="{{ customer.default_address.phone }}" 
+						data-first-name="{{ customer.default_address.first_name }}" 
+						data-last-name="{{ customer.default_address.last_name }}"
+						data-company="{{ customer.default_address.company }}"
+						data-address1="{{ customer.default_address.address1 }}"
+						data-address2="{{ customer.default_address.address2 }}"
+						data-zip="{{ customer.default_address.zip }}" 
+						data-city="{{ customer.default_address.city }}" 
+						data-province="{{ customer.default_address.province }}"
+						data-country="{{ customer.default_address.country }}"
+						data-id="{{ customer.default_address.id }}"
+						data-default="true">
+						<div class="flits-default-section">
+							<span>{{ address_defaultAddressLabelText | strip  }}</span>
+						</div>
+						<div class="flits-address-card-action">
+							<ul>
+								<li class="flits-action-item flits-address-edit-btn" data-tippy-content="{{ address_editButtonText | strip }}" data-tippy-placement="left"  data-form-id="{{ customer.default_address.id }}">
+									<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+								</li>
+								<li class="flits-action-item flits-address-remove-btn" data-tippy-content="{{ address_deleteButtonText | strip }}" data-tippy-placement="left" data-form-id="{{ customer.default_address.id }}" data-confirm-message="{{ address_deleteConfirmationMessageText | strip }}">
+									<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+								</li>
+								<li class="flits-action-item flits-address-default-btn" data-tippy-content="{{ address_setDefaultButtonText | strip }}" data-tippy-placement="left" data-form-id="{{ customer.default_address.id }}">
+									<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+								</li>
+							</ul>
+						</div>
+						<div class="flits-address-section">
+							<ul class="flits-address-deatils-list">
+								<li>
+									<p class="flits-address-name flits-address-list-item">{{ customer.default_address.first_name }} {{ customer.default_address.last_name }}</p>
+								</li>
+								<li>
+									<p class="flits-company-name flits-address-list-item">{{ customer.default_address.company }}</p>
+								</li>
+								<li>
+									<p class="flits-address1-name flits-address-list-item"> {{ customer.default_address.address1 }}</p>
+								</li>
+								<li>
+									<p class="flits-address2-name flits-address-list-item"> {{ customer.default_address.address2 }}</p>
+								</li>
+								<li>
+									<p class="flits-city-name flits-address-list-item">{{ customer.default_address.zip }} {{ customer.default_address.city }} {{ customer.default_address.province_code }}</p>
+								</li>
+								<li>
+									<p class="flits-country-name flits-address-list-item">{{ customer.default_address.country }}</p>
+								</li>
+								<li>
+									<p class="flits-phone-number flits-address-list-item"> {{ customer.default_address.phone }}</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				{% endif %}
+			</div>{% endcomment %}
+			<div class="flits-address-list flits-address-list-pagination-row list flits-d-none">
+				{% if customer.orders.size != 0 %}
+					{% paginate customer.orders by 6 %}
+						
+                            {% for customer_order in customer.orders %}
+                                {% assign myObject = customer_order.attributes | json %}
+                                {% if myObject.size > 2 %}
+								<div class="flits-address-card"
+									data-default="false">
+									<div class="flits-address-section">
+                                        <p><strong>Order name</strong>:{{ customer_order.name }}</p>
+										<ul class="flits-address-deatils-list">
+                                           {% for attribute in customer_order.attributes %}
+                                            {% assign firstWord = attribute | first %}
+                                            {% if firstWord != "facility" %}
+											<li>
+												<p class="flits-address-name flits-address-list-item"><strong>{{ attribute | first }}</strong>: {{ attribute | last }}</p>
+											</li>
+                                              {% endif %}
+                                                  {% endfor %}
+										</ul>
+									</div>
+								</div>
+                                {% else %}
+                                  {% assign count = count | plus: 1 %}
+                                  {% endif %}
+							{% endfor %}
+						
+					{% endpaginate %}
+				{% endif %}
+			</div>
+            <div class="flits-unavailable-ship-address-count" style="display:none;" flits-ship-address-unavailable-count={{ count }}></div>
+			{% render 'flits_capture_code' with 'component',template:'comp_pagination', class:'flits-address-pagination', attr:'data-flits-pagination="flits-delivery-address"' %}
+			{% render 'flits_capture_code' with 'component',template:'comp_flitsLoader', class:'flits-address-pagination-loader' %}
+		</div>
+        {% render 'flits_capture_code' with 'component',template:'comp_empty_section',text_1:order_noOrdersViewText,text_2:order_marketingLineText class:'flits-d-none flits-address-empty' %}
+		{% render 'flits_capture_code' with 'component',template:'comp_flitsLoader', class:'flits-address-loader' %}
+		
+		{% comment %} ADDRESS CLONE CARD HTML {% endcomment %}
+		<div class="flits-address-card flits-address-card-template flits-d-none">
+			<div class="flits-default-section">
+				<span>{{ address_defaultAddressLabelText | strip  }}</span>
+			</div>
+			<div class="flits-address-card-action">
+				<ul>
+					<li class="flits-action-item flits-address-edit-btn" data-tippy-content="{{ address_editButtonText | strip }}" data-tippy-placement="left" >
+						<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+					</li>
+					<li class="flits-action-item flits-address-remove-btn" data-tippy-content="{{ address_deleteButtonText | strip }}" data-tippy-placement="left" >
+						<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+					</li>
+					<li class="flits-action-item flits-address-default-btn" data-tippy-content="{{ address_setDefaultButtonText | strip }}" data-tippy-placement="left">
+						<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+					</li>
+				</ul>
+			</div>
+			<div class="flits-address-section">
+				<ul class="flits-address-deatils-list">
+					<li>
+						<p class="flits-address-name flits-address-list-item"></p>
+					</li>
+					<li>
+						<p class="flits-company-name flits-address-list-item"></p>
+					</li>
+					<li>
+						<p class="flits-address1-name flits-address-list-item"></p>
+					</li>
+					<li>
+						<p class="flits-address2-name flits-address-list-item"></p>
+					</li>
+					<li>
+						<p class="flits-city-name flits-address-list-item"></p>
+					</li>
+					<li>
+						<p class="flits-country-name  flits-address-list-item">‬</p>
+					</li>
+					<li>
+						<p class="flits-phone-number flits-address-list-item"></p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+  
+  {%- when 'module_order_content' -%}
+	<script>
+		if (typeof window.flits_orders == "undefined"){
+			window.flitsOrder= [];
+		}
+	</script>
+    <div class="flits-tab-box-body">
+		<div class="flits-order-list-container flits-d-none" id="flits-order-list">
+			<div class="flits-order-list list" data-order-count="{{ customer.orders_count }}" data-order-size="{{ customer.orders.size }}">
+				{% if customer.orders.size != 0 %}
+					{% paginate customer.orders by 3 %}
+						{% for order in customer.orders %}
+							{% assign order_date_month_original = order.created_at | date: '%B' %}
+							{% assign order_date_month_downcase = order.created_at | date: '%B' | downcase %}
+							{% assign order_date_month_text = 'flits.months.' | append:order_date_month_downcase  %}
+							{% liquid
+								capture order_date_month_text
+									render 'flits_capture_code' with 'translation',template: order_date_month_text ,default_template: order_date_month_downcase 
+								endcapture
+							%}
+							{% assign order_date = order.created_at | date:order_orderDateFormatText | replace:order_date_month_original,order_date_month_text | strip %}
+							{% assign order_cancelled_month_original = order.cancelled_at | date: '%B' %}
+							{% assign order_cancelled_month_downcase = order.cancelled_at | date: '%B' | downcase  %}
+							{% assign order_cancelled_month_text = 'flits.months.' | append:order_cancelled_month_downcase  %}
+							{% liquid
+								capture order_cancelled_month_text
+									render 'flits_capture_code' with 'translation',template: order_cancelled_month_text ,default_template:order_cancelled_month_downcase
+								endcapture
+							%}
+							{% assign order_cancelled_date = order.cancelled_at | date:order_orderDateFormatText | replace:order_cancelled_month_original,order_cancelled_month_text %}
+							{% assign soldCount = 0 %}
+							{% assign notExistCount = 0 %}
+							{% assign countTotal = 0 %}
+							{% assign totalItemQuantity = 0 %}
+							{% assign isDisable = 'disabled' %}
+							{% for item in order.line_items %}
+							{% assign totalItemQuantity = totalItemQuantity | plus: item.quantity %}
+							{% if item.variant.available == false %}
+							{% assign soldCount = soldCount | plus: 1 %}
+							{% endif %}
+							{% unless item.variant.id %}
+							{% assign notExistCount = notExistCount | plus: 1 %}
+							{% endunless %}
+							{% endfor %}
+							{% assign countTotal = soldCount | plus: notExistCount %}
+							<div class="flits-order-card">
+								<div class="flits-order-row flits-order-status-row">	
+									<div class="flits-order-row">
+										<span class="flits-label">{{ order_orderNumberText | strip }}:</span>
+										<span class="flits-value">{{ order.name | strip }}</span>
+									</div>
+									<div class="flits-order-row">
+										<span class="flits-label">{{ order_grandTotalText | strip }}:</span>
+										<span class="flits-value" data-value='{{ order.total_price }}'>{{ order.total_price | money_without_trailing_zeros }}</span>
+									</div>
+								</div>
+								<div class="flits-order-row flits-order-detail-row">
+									<div>
+										<div class="flits-order-row">
+											<span class="flits-label">{{ order_orderDateText | strip }}:</span>
+											<span class="flits-value">{{ order_date }}</span>
+										</div>
+										<div class="flits-order-row">
+											{% if order.cancelled %}
+											<span class="flits-label" data-value='{{ order.cancelled_at }}'>{{ order_cancelAtText | strip}}:</span>
+											<span class='flits-value'>{{ order_cancelled_date }}</span>
+											{% else %}                    
+											<span class="flits-label">{{ order_fulfillmentStatusText | strip }}:</span>
+											<span class="flits-value">{{ order.fulfillment_status_label }}</span>
+											{% endif %}
+										</div>
+									</div>
+									<div class="flits-text-right">
+										<div class="flits-order-row">
+											<span class="flits-label">{{ order_totalItemText | strip }}:</span>
+											<span class="flits-value">{{ totalItemQuantity }}</span>
+										</div>
+										<div class="flits-order-row">
+											<span class="flits-label">{{ order_paymentStatusText | strip }}:</span>
+											<span class="flits-value">{{ order.financial_status_label }}</span>
+										</div>
+									</div>
+								</div>
+								<div class="flits-order-row flits-line-items-row">
+									<div class="flits-order-item-row">
+										{% assign order_line_item_price = 0 %}
+										<script>
+											window.flitsOrder[{{order.id}}] = []
+										</script>
+										{% for item in order.line_items %}
+										<script>
+											window.flitsOrder[{{order.id}}].push({
+											variant_id:'{{ item.variant_id }}',
+											quantity:'{{ item.quantity }}',
+											available: '{{ item.variant.available }}',
+											inventory_quantity: '{{ item.variant.inventory_quantity }}',
+											item_title: '{{ item.title }}',
+											item_variant_id: '{{ item.variant.id }}'
+										});
+										</script>
+											<div class="flits-order-item" data-variant-id="{{ item.variant.id }}" data-variant-available="{{ item.variant.available }}">
+												<div class="flits-item-img">
+													<a href="javascript:void(0);">
+														<img src="{{item.image | img_url: 'small'}}" alt="" />
+													</a>
+													<span class="flits-badge flits-badge-primary">{{ item.quantity }}</span>
+												{% if item.variant.available == false %}
+													<div class="flits-ribbion-overlay">
+														<span class="flits-bottom-full flits-ribbion flits-red">{{ order_soldOutText }}</span>
+													</div>
+												{% endif %}
+												</div>
+
+												<div class="flits-item-deatils flits-left">
+													{% if item.url %}
+														<a href="{{ item.url }}" class="flits-link flits-item-title" data-tippy-content="{{ item.title | strip }}">
+															{{ item.title | strip }}
+														</a>
+													{% else %}
+														<a href="javascript:void(0);" class="flits-link flits-item-title" data-tippy-content="{{ order_productNotExistText | strip }}">
+															{{ item.title | strip }}
+														</a>
+													{% endif %}
+													<p class="flits-item-price">{{ item.price | money_without_trailing_zeros }}</p>
+
+                                                      <!--     Start :  Order Tracking Number -->
+                                                      {% if item.fulfillment and item.fulfillment.tracking_number != blank %}
+                                                      <div class="flits-row flits-m-t-10">
+                                                      <div class="flits-col-md-12 flits-line-item-track">
+                                                      {{ flitsOrdertracking }} : <a href="{{ item.fulfillment.tracking_url }}" 
+                                                      class="flits-order-tracking"
+                                                      data-tippy-content="{{ flitsTrackyourOrder | strip }}"
+                                                      data-line-item-id="{{ item.id }}"
+                                                      data-order-id = "{{ order.id }}"
+                                                      data-tracking-number="{{ item.fulfillment.tracking_number }}"
+                                                      target="_blank">{{ item.fulfillment.tracking_number }}</a>	                                                
+                                                      </div>
+                                                      </div>
+                                                      {% endif %}
+                                                      <!--    End -->
+													{% unless item.variant.id %}
+														<p>{{ order_productNotExistText | strip }}</p>
+													{% endunless %}
+												</div>
+											</div>
+											{% assign order_line_item_price = order_line_item_price | plus: item.line_price %}
+										{% endfor %}
+									</div>
+								</div>
+								<div class="flits-order-row flits-order-action-row flits-text-right">
+                                    {% for item in order.line_items | limit:1 %}
+                                      {% if item.fulfillment and item.fulfillment.tracking_number != blank %}
+                                        <a href="{{ item.fulfillment.tracking_url }}" class="flits-button flits-secondary-btn flits-mt-10" target="_blank">Track order</a>
+                                      {% endif %}
+                                    {% endfor %}
+									{% if shop.metafields.Flits.IS_ORDER_CONTACT_US_ENABLE and shop.metafields.Flits.IS_ORDER_CONTACT_US_ENABLE == 1 %}
+										{% render 'flits_capture_code' with 'component', template:'contact_us_button', customer:customer, order:order class:'flits-secondary-btn'%}
+									{% endif %}
+									{% render 'flits_capture_code' with 'component',template:'comp_button',
+										type:'button',
+										text:order_showOrderDetailsText,
+										class:'flits-secondary-btn flits-mt-10 flits-order-details-btn'
+									%}
+									{% if shop.metafields.Flits.IS_REORDER_ENABLE and shop.metafields.Flits.IS_REORDER_ENABLE == 1 %}
+										
+										{% if order.line_items.size !=  countTotal  %}
+										{% assign isDisable = '' %}
+										{% endif %}
+										{% assign dataTarget = order.id | prepend: 'data-target=' | append: " " | append: isDisable %}
+										{% render 'flits_capture_code' with 'component',template:'comp_button',
+											type:'button',
+											text:order_reorderText,
+											attr: dataTarget,
+											class:'flits-primary-btn flits-mt-10 flits-reorder-btn'
+										%} 
+									{% endif %}   
+								</div>
+								<div class="flits-order-details-summary">
+									<div class="flits-order-row flits-address-row">
+										<div class="flits-address-section">
+                         
+											<div class="flits-shipping-address flits-address-box">
+                                            {% comment %}
+												<p class="flits-address-label flits-title">{{ order_shippingAddressText | strip }}</p>
+												{{ order.shipping_address | format_address }}
+                                            {% endcomment %}
+
+                                            <!-- ORDER ADDITIONAL DETAILS START -->
+                           
+                                            <p class="flits-address-label flits-title">{{ 'flits.order_page.additional' | t }}</p>
+                                            {% if order.attributes %}
+                                               <div class="flits-order-note"> <ul>
+                                                {% for attribute in order.attributes %}
+                                                  <li><strong>{{ attribute | first }}</strong>: {{ attribute | last }}</li>
+                                                {% endfor %}
+                                                </ul></div>
+                                            {% endif %}
+
+                                            <!-- ORDER ADDITIONAL DETAILS END -->
+                          
+											</div>
+                          
+											<div class="flits-shipping-address flits-address-box">
+												<p class="flits-address-label flits-title">{{ order_billingAddressText | strip }}</p>
+												{{ order.billing_address | format_address }}
+											</div>
+										</div>
+									</div>
+									<div class="flits-order-row flits-cost-breakup-row">
+										<div class="flits-order-cost-breakup">
+											<p class="flits-title">{{ order_costBreakupText | strip }}</p>
+											<div class="flits-order-row flits-order-subtotal">
+												<span class="flits-label">{{ order_subtotalText | strip }}</span>
+												<span class="flits-value">{{ order_line_item_price | money_without_trailing_zeros }}</span>
+											</div>
+											{% for discount in order.discounts %}
+												<div class="flits-order-row flits-order-discount">
+													<span class="flits-label">{{ order_discountCodeText | strip }}: <p class="flits-discount-truncate">{{ discount.code }}</P></span>
+													<span class="flits-value">{{ discount.savings | money_without_trailing_zeros }}</span>
+												</div>
+											{% endfor %}
+											{% for tax_line in order.tax_lines %}
+												<div class="flits-order-row flits-order-tax">
+													<span class="flits-label">{{ tax_line.title }} {{ tax_line.rate | times: 100 }}%</span>
+													<span class="flits-value">{{ tax_line.price | money_without_trailing_zeros }}</span>
+												</div>
+											{% endfor %}
+											<div class="flits-order-row flits-order-shipping-price">
+												<span class="flits-label">{{ order_shippingAndHandlingText | strip }}</span>
+												<span class="flits-value">{{ order.shipping_price | money_without_trailing_zeros }}</span>
+											</div>
+											<div class="flits-order-row flits-order-grand-total">
+												<span class="flits-label">{{ order_grandTotalText | strip }}</span>
+												<span class="flits-value">{{ order.total_price | money_without_trailing_zeros }}</span>
+											</div>
+											<div class="flits-order-row flits-order-payment-type">
+												<span class="flits-label">{{ order_paymentTypeText | strip }}</span>
+												<span class="flits-value">{{ order.transactions[0].gateway | replace: '_',' ' | capitalize }}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+                                <div class="flits-order-row flits-order-status">
+                                     Order adjustments at time of shipping will not be reflected here. Please <a href="{{ order.order_status_url }}" class="flits-order-status-url" target="_blank">click here</a> to see the updated details.
+                                </div>
+							</div> 
+						{% endfor %}
+					{% endpaginate %}
+				{% endif %}
+			</div>
+			{% render 'flits_capture_code' with 'component',template:'comp_pagination', attr:'data-flits-pagination="flits-order"' %}
+		</div>
+		{% render 'flits_capture_code' with 'component',template:'comp_order_card_skeleton_loader', class:'flits-order-loader' %}
+        {% render 'flits_capture_code' with 'component',template:'comp_empty_section',text_1:order_noOrdersViewText,text_2:order_marketingLineText class:'flits-d-none flits-order-empty' %}
+	</div>
+                                                                                                                                                                    
+{%- endcase -%}

@@ -1,0 +1,626 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta name="google-site-verification" content="UTEL8OMTiUZnMEWXKkeXMPgQWP_8jg8TGyEfQJiMMEc" />
+    <meta http-equiv="Cache-Control" content="max-age=31536000, must-revalidate">
+    <style>
+      body { font-display: swap; } /* Improves font loading */
+      .main-content { visibility: visible; } /* Prevents Flash of Invisible Content */
+    </style>
+    <!-- Added by AVADA SEO Suite -->
+    {% include 'avada-seo' %}
+    <!-- /Added by AVADA SEO Suite -->
+    {% render 'callback_script' %}
+
+    <meta charset="utf-8">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=1.0"
+    >
+    <meta name="theme-color" content="{{ settings.accent_color }}">
+
+    {%- capture seo_title -%}
+      {%- if request.page_type == 'search' and search.performed == true -%}
+       {{ 'header.search.heading' | t: count: search.results_count }}: {{ 'header.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+      {%- else -%}
+        {{ page_title }}
+      {%- endif -%}
+      {%- if current_tags -%}
+        {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+      {%- endif -%}
+      {%- if current_page != 1 -%}
+        &ndash; {{ 'general.meta.page' | t: page: current_page }}
+      {%- endif -%}
+      {%- assign escaped_page_title = page_title | escape -%}
+      {%- unless escaped_page_title contains shop.name -%}
+        &ndash; {{ shop.name }}
+      {%- endunless -%}
+    {%- endcapture -%}
+    <title>{{ seo_title }}</title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '96x96' }}" type="image/png">
+    {%- endif -%}
+
+    {%- comment -%}Few prefech to increase performance on commonly used third-parties{%- endcomment -%}
+    <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
+    <link rel="preload" as="script" href="{{ 'theme.js' | asset_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com">
+    <link rel="preconnect" href="https://fonts.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+    <link rel="dns-prefetch" href="https://maps.googleapis.com">
+    <link rel="dns-prefetch" href="https://maps.gstatic.com">
+
+    {% render 'social-meta-tags' %}
+    {% render 'css-variables' %}
+
+    {{ content_for_header }}
+
+    <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    {% render 'microdata-schema' %}
+
+    <script>
+      // This allows to expose several variables to the global scope, to be used in scripts
+      window.theme = {
+        pageType: {{ request.page_type | json }},
+        cartCount: {{ cart.item_count | json }},
+        moneyFormat: {{ shop.money_format | json }},
+        moneyWithCurrencyFormat: {{ shop.money_with_currency_format | json }},
+        currencyCodeEnabled: {{ settings.currency_code_enabled | json }},
+        showDiscount: {{ settings.show_discount | json }},
+        discountMode: {{ settings.discount_mode | json }},
+        searchMode: {{ settings.search_mode | json }},
+        searchUnavailableProducts: {{ settings.search_unavailable_products | json }},
+        cartType: {{ settings.cart_type | json }}
+      };
+
+      window.routes = {
+        rootUrl: {{ routes.root_url | json }},
+        rootUrlWithoutSlash: {% if routes.root_url == '/' %}''{% else %}{{ routes.root_url | json }}{% endif %},
+        cartUrl: {{ routes.cart_url | json }},
+        cartAddUrl: {{ routes.cart_add_url | json }},
+        cartChangeUrl: {{ routes.cart_change_url | json }},
+        searchUrl: {{ routes.search_url | json }},
+        productRecommendationsUrl: {{ routes.product_recommendations_url | json }}
+      };
+
+      window.languages = {
+        productRegularPrice: {{ 'product.general.regular_price' | t | json }},
+        productSalePrice: {{ 'product.general.sale_price' | t | json }},
+        collectionOnSaleLabel: {{ 'collection.product.discount_html' | t | json }},
+        productFormUnavailable: {{ 'product.form.unavailable' | t | json }},
+        productFormAddToCart: {% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | json }}{% else %}{{ 'product.form.add_to_cart' | t | json }}{% endif %},
+        productFormSoldOut: {{ 'product.form.sold_out' | t | json }},
+        productAdded: {{ 'product.form.added' | t | json }},
+        productAddedShort: {{ 'product.form.added_short' | t | json }},
+        shippingEstimatorNoResults: {{ 'cart.shipping_estimator.no_results_title' | t | json }},
+        shippingEstimatorOneResult: {{ 'cart.shipping_estimator.one_result_title' | t | json }},
+        shippingEstimatorMultipleResults: {{ 'cart.shipping_estimator.multiple_results_title' | t | json }},
+        shippingEstimatorErrors: {{ 'cart.shipping_estimator.errors' | t | json }}
+      };
+
+      window.lazySizesConfig = {
+        loadHidden: false,
+        hFac: 0.8,
+        expFactor: 3,
+        customMedia: {
+          '--phone': '(max-width: 640px)',
+          '--tablet': '(min-width: 641px) and (max-width: 1023px)',
+          '--lap': '(min-width: 1024px)'
+        }
+      };
+
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+
+    {%- if request.page_type == 'customers/addresses' -%}
+      <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+      <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
+    {%- endif -%}
+
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    {%- if request.page_type != 'cart' -%}
+      <script>
+        (function () {
+          window.onpageshow = function() {
+            // We force re-freshing the cart content onpageshow, as most browsers will serve a cache copy when hitting the
+            // back button, which cause staled data
+            document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+              bubbles: true,
+              detail: {scrollToTop: false}
+            }));
+          };
+        })();
+      </script>
+    {%- endif -%}
+
+    <script src="{{ 'quantity_selector.js' | asset_url}}" async></script>
+
+    <!-- Leveraging Browser Caching -->
+    <meta http-equiv="Expires" content="30">
+  </head>
+  <script defer src="{{ 'theme.js' | asset_url }}"></script>
+
+  <body
+    class="warehouse--v1 {% if settings.animation_image_zoom %}features--animate-zoom{% endif%} template-{{ request.page_type | handle }} {% if request.page_type contains '/' %}template-{{ request.page_type | split: '/' | last | handle }}{% endif %}"
+    data-instant-intensity="viewport"
+  >
+    {%- comment -%}Common SVG definitions that we are re-using in several places{%- endcomment -%}
+    <svg class="visually-hidden">
+      <linearGradient id="rating-star-gradient-half">
+        <stop offset="50%" stop-color="var(--product-review-star-color)" />
+        <stop offset="50%" stop-color="rgba(var(--text-color-rgb), .4)" stop-opacity="0.4" />
+      </linearGradient>
+    </svg>
+
+    <a href="#main" class="visually-hidden skip-to-content">{{ 'general.accessibility.skip_to_content' | t }}</a>
+    <span class="loading-bar"></span>
+    {% section 'announcement-bar' %}
+    {%- unless request.page_type == 'cart' -%}
+      {%- comment -%}As required by Shopify rules, popup must be removed on cart page to remove distraction{%- endcomment -%}
+      {% section 'popups' %}
+    {%- endunless -%}
+
+    {% section 'header' %}
+
+    <main id="main" role="main">
+      {{ content_for_layout }}
+
+      <!-- Start of emmaspremiumservices Zendesk Widget script -->
+      <script
+        id="ze-snippet"
+        src="https://static.zdassets.com/ekr/snippet.js?key=1d28f94d-1482-4d74-87ab-ba7fc12ed1bf"
+      ></script>
+      <!-- End of emmaspremiumservices Zendesk Widget script -->
+    </main>
+
+    {% section 'static-text-with-icons' %}
+    {% section 'footer' %}
+    {% if template contains 'customers/account' %}
+      {%- render 'flits_capture_code' with 'load_snippet', template: 'flits_snippet' -%}
+    {% endif %}
+  </body>
+</html>
+
+<style>
+  .product-block-list__item--info .jdgm-preview-badge {
+    margin-bottom: 1.5rem !important;
+  }
+</style>
+
+<!-- Add this to your theme.liquid file, just before the closing </body> tag -->
+
+<!-- Add this to your theme.liquid file, just before the closing </body> tag -->
+
+<!-- Global Klaviyo Back in Stock Modal -->
+<div id="klaviyo-bis-modal" class="klaviyo-bis-modal" style="display: none;">
+  <div class="klaviyo-bis-modal-overlay">
+    <div class="klaviyo-bis-modal-content">
+      <button class="klaviyo-bis-modal-close">&times;</button>
+      <h3 id="klaviyo-bis-product-name"></h3>
+      <p>Register to receive a notification when this item comes back in stock.</p>
+      <form id="klaviyo-bis-form">
+        <div class="form-group">
+          <label for="klaviyo-bis-email">Email Address *</label>
+          <input type="email" id="klaviyo-bis-email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group" style="display:none !important;">
+          <label for="klaviyo-bis-birthday">Birthday of your loved one (optional)</label>
+          <input type="date" id="klaviyo-bis-birthday" placeholder="Select birthday">
+          <small class="form-hint">Help us recommend the perfect gift timing!</small>
+        </div>
+        <button type="submit" class="product-item__action-button button button--small button--primary" style="display:block; margin: auto;">Notify me when available</button>
+      </form>
+      <div id="klaviyo-bis-success" style="display: none;">
+        <div class="success-icon">✓</div>
+        <h4>You're all set!</h4>
+        <p>We'll notify you as soon as this item is back in stock.</p>
+      </div>
+      <div id="klaviyo-bis-error" style="display: none;">
+        <div class="error-icon">⚠</div>
+        <p>Something went wrong. Please try again.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.klaviyo-bis-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.klaviyo-bis-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.klaviyo-bis-modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 480px;
+  width: 90%;
+  position: relative;
+  text-align: left;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.3s ease-out;
+}
+
+.klaviyo-bis-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.klaviyo-bis-modal-close:hover {
+  color: #333;
+}
+
+#klaviyo-bis-product-name {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.3;
+}
+
+.klaviyo-bis-modal-content > p {
+  margin: 0 0 30px 0;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #439fdb;
+  box-shadow: 0 0 0 3px rgba(67, 159, 219, 0.1);
+}
+
+.form-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #439fdb 0%, #357abd 100%);
+  color: white;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #357abd 0%, #2a629a 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(67, 159, 219, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+#klaviyo-bis-success {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.success-icon {
+  width: 60px;
+  height: 60px;
+  background: #1B9500;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0 auto 20px;
+  animation: scaleIn 0.5s ease-out;
+}
+
+#klaviyo-bis-success h4 {
+  margin: 0 0 12px 0;
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#klaviyo-bis-success p {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+}
+
+#klaviyo-bis-error {
+  background-color: #fcd6d7;
+  color: #C72E2F;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.error-icon {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .klaviyo-bis-modal-content {
+    padding: 30px 20px;
+    margin: 20px;
+    width: calc(100% - 40px);
+  }
+  
+  #klaviyo-bis-product-name {
+    font-size: 20px;
+  }
+  
+  .form-group input {
+    padding: 14px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  let currentProductData = {};
+  
+  // Handle back in stock button clicks
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('klaviyo-bis-trigger')) {
+      e.preventDefault();
+      
+      currentProductData = {
+        variant_id: e.target.getAttribute('data-product-variant'),
+        product_id: e.target.getAttribute('data-product-id'),
+        title: e.target.getAttribute('data-product-title'),
+        url: e.target.getAttribute('data-product-url'),
+        image: e.target.getAttribute('data-product-image')
+      };
+      
+      showBackInStockModal();
+    }
+  });
+  
+  function showBackInStockModal() {
+    const modal = document.getElementById('klaviyo-bis-modal');
+    const productName = document.getElementById('klaviyo-bis-product-name');
+    const form = document.getElementById('klaviyo-bis-form');
+    const success = document.getElementById('klaviyo-bis-success');
+    const error = document.getElementById('klaviyo-bis-error');
+    
+    // Reset modal state
+    form.style.display = 'block';
+    success.style.display = 'none';
+    error.style.display = 'none';
+    document.getElementById('klaviyo-bis-email').value = '';
+    document.getElementById('klaviyo-bis-birthday').value = '';
+    
+    // Set product name
+    productName.textContent = currentProductData.title;
+    
+    // Show modal
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+  
+  function hideBackInStockModal() {
+    document.getElementById('klaviyo-bis-modal').style.display = 'none';
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+  
+  // Close modal handlers
+  document.querySelector('.klaviyo-bis-modal-close').addEventListener('click', hideBackInStockModal);
+  document.querySelector('.klaviyo-bis-modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+      hideBackInStockModal();
+    }
+  });
+  
+  // Escape key to close modal
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('klaviyo-bis-modal').style.display === 'block') {
+      hideBackInStockModal();
+    }
+  });
+  
+  // Form submission
+  document.getElementById('klaviyo-bis-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('klaviyo-bis-email').value;
+    const birthday = document.getElementById('klaviyo-bis-birthday').value;
+    const form = document.getElementById('klaviyo-bis-form');
+    const success = document.getElementById('klaviyo-bis-success');
+    const error = document.getElementById('klaviyo-bis-error');
+    
+    // Prepare profile attributes (only email for back-in-stock API)
+    const profileAttributes = {
+      email: email
+    };
+    
+    // Prepare payload for Klaviyo's client-side API
+    const payload = {
+      "data": {
+        "type": "back-in-stock-subscription",
+        "attributes": {
+          "profile": {
+            "data": {
+              "type": "profile",
+              "attributes": profileAttributes
+            }
+          },
+          "channels": ["EMAIL"]
+        },
+        "relationships": {
+          "variant": {
+            "data": {
+              "type": "catalog-variant",
+              "id": `$shopify:::$default:::${currentProductData.variant_id}`
+            }
+          }
+        }
+      }
+    };
+    
+    // Submit to Klaviyo's client-side back-in-stock API
+    fetch(`https://a.klaviyo.com/client/back-in-stock-subscriptions/?company_id=HhCsH3`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'revision': '2024-06-15'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if (response.status === 202) {
+        // First, subscribe to back-in-stock (email only)
+        form.style.display = 'none';
+        success.style.display = 'block';
+        
+        // Then identify the profile with custom properties
+        window.klaviyo = window.klaviyo || [];
+        
+        if (birthday) {
+          // Identify profile with birthday as custom property
+          window.klaviyo.push(['identify', {
+            'email': email,
+            'loved_one_birthday': birthday
+          }]);
+        } else {
+          // Identify profile without birthday
+          window.klaviyo.push(['identify', {
+            'email': email
+          }]);
+        }
+        
+        // Track the back in stock subscription event
+        const trackData = {
+          'email': email,
+          'variant_id': currentProductData.variant_id,
+          'product_id': currentProductData.product_id,
+          'product_title': currentProductData.title,
+          'product_url': currentProductData.url,
+          'product_image': currentProductData.image
+        };
+        
+        if (birthday) {
+          trackData.loved_one_birthday = birthday;
+        }
+        
+        window.klaviyo.push(['track', 'Back in Stock Subscription', trackData]);
+        
+        setTimeout(hideBackInStockModal, 3000);
+      } else {
+        throw new Error('Subscription failed');
+      }
+    })
+    .catch(err => {
+      console.error('Back in stock subscription error:', err);
+      error.style.display = 'block';
+    });
+  });
+});
+</script>

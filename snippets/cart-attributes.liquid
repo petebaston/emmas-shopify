@@ -1,0 +1,354 @@
+<style>
+  .exat-attributes-wrap input:not([type="checkbox"]), .exat-attributes-wrap select {
+    padding: 0 12px !important;
+    height: 32px;
+  }
+  .exat-attributes-wrap input[disabled], .exat-attributes-wrap select[disabled] {
+    cursor: not-allowed;
+    background-color: #FAFAFA;
+  }
+  .exat-attributes-wrap input:not([type="checkbox"]):focus {
+    box-shadow: 0 0 0 1px var(--accent-color);
+    border: 1px solid var(--accent-color) !important;
+  }
+  .exat-attributes-wrap input::placeholder {
+    color: #0004;
+  }
+  .manual-mode {
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .exat-attributes-wrap.manual .manual-mode {
+    display: none !important;
+  }
+  #inmate_search {
+    min-width: 64px;
+    border-radius: 2px;
+    background-color: var(--primary-button-background, #1a73e8);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  #inmate_search:hover {
+    opacity: 0.9;
+  }
+  #din_att_con {
+    position: relative;
+  }
+  #din_att_con input {
+    padding-right: calc(12px + 64px) !important;
+  }
+  #din_att_con button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  .verify-instruction {
+    font-size: 13px;
+    color: #555;
+    margin-top: 4px;
+    font-style: italic;
+  }
+  .verify-instruction strong {
+    font-weight: bold;
+    color: #333;
+  }
+  #inmate_search.highlight {
+    animation: pulse 1.5s infinite;
+    background-color: #d32f2f;
+    box-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+  }
+  @keyframes pulse {
+    0% { opacity: 1; box-shadow: 0 0 5px rgba(211, 47, 47, 0.5); }
+    50% { opacity: 0.7; box-shadow: 0 0 15px rgba(211, 47, 47, 0.8); }
+    100% { opacity: 1; box-shadow: 0 0 5px rgba(211, 47, 47, 0.5); }
+  }
+  .verify-warning {
+    color: #d32f2f;
+    font-weight: bold;
+    margin-top: 8px;
+    display: none;
+  }
+  .verify-warning.show {
+    display: block;
+  }
+  .exat-attributes-wrap select {
+    text-transform: capitalize;
+    background-image: url("data:image/svg+xml,%3Csvg focusable='false' xmlns='http://www.w3.org/2000/svg' class='icon icon--arrow-bottom' viewBox='0 0 12 8' role='presentation'%3E%3Cpath stroke='currentColor' stroke-width='2' d='M10 2L6 6 2 2' fill='none' stroke-linecap='square'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 12px) center;
+    background-size: 12px;
+  }
+  .exat-attributes-wrap:not(.searched, .manual) .hide-not-searched {
+    display: none;
+  }
+  #catalog_attribute {
+    display: none;
+  }
+  #catalog_attribute ~ label {
+    cursor: pointer;
+    position: relative;
+    padding-left: 24px;
+    user-select: none;
+  }
+  #catalog_attribute ~ label::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border: 1px solid #767676;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 3px;
+  }
+  #catalog_attribute:checked ~ label::before {
+    background-color: var(--primary-button-background);
+    border: 1px solid var(--primary-button-background);
+  }
+  #catalog_attribute:checked ~ label::after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 -960 960 960" fill="%23fff"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>');
+  }
+  .exat-attribute .error-text {
+    margin-top: 4px;
+  }
+  .invalid-search .manual-mode {
+    display: block !important;
+  }
+</style>
+<div class="exat-attributes-wrap">
+  <!-- Inmate Din attribute -->
+  <div class="exat-attribute cart-attribute__field me-1em">
+    <label for="din_attribute">Inmate Din # *</label>
+    <div class="din-att-con" id="din_att_con">
+      <input placeholder="EX: 24A0101" class="form__field" required id="din_attribute" type="text" name="attributes[Inmate Din #]" value="">
+      <button type="button" id="inmate_search">Verify</button>  
+    </div>
+    <!-- <div class="verify-instruction">Enter din, and press verify to checkout/div> -->
+    <div class="verify-warning" id="verify_warning">Please click the Verify button before checkout</div>
+    <label class="error-text display-none" id="din_alert">Can't find the inmate data. Please try to input manually.</label>
+    <label class="error-text display-none" id="din_input_alert">The din number format should be 00X0000, like 12A3456.</label>
+    <label class="error-text display-none" id="not_incustody_alert">This inmate is not in custody. Please contact customer care.</label>
+  </div>
+  <!-- Inmate Name Attribute -->
+  <p class="exat-attribute cart-attribute__field hide-not-searched">
+    <label for="fullname_attribute">Inmate Full Name *</label>
+    <input placeholder="John Smith" class="form__field" required id="fullname_attribute" type="text" name="attributes[Inmate Full Name]" value="" disabled>
+  </p>
+  <!-- Facility attribute -->
+  <p class="exat-attribute cart-attribute__field hide-not-searched">
+    <label for="facility_attribute">Inmate Facility *</label>
+    <select class="form__field" required id="facility_attribute" name="attributes[Inmate Facility]" disabled>
+      <option value="">select</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Adirondack Correctional Facility">Adirondack Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Albion Correctional Facility">Albion Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Altona Correctional Facility">Altona Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Attica Correctional Facility">Attica Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Auburn Correctional Facility">Auburn Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Bare Hill Correctional Facility">Bare Hill Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Bedford Hills Correctional Facility">Bedford Hills Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Cape Vincent Correctional Facility">Cape Vincent Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Cayuga Correctional Facility">Cayuga Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Clinton Correctional Facility">Clinton Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Collins Correctional Facility">Collins Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Coxsackie Correctional Facility">Coxsackie Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Downstate Correctional Facility">Downstate Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Eastern Correctional Facility">Eastern Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Elmira Correctional Facility">Elmira Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Fishkill Correctional Facility">Fishkill Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Five Points Correctional Facility">Five Points Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Franklin Correctional Facility">Franklin Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Gouverneur Correctional Facility">Gouverneur Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Great Meadow Correctional Facility">Great Meadow Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Green Haven Correctional Facility">Green Haven Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Greene Correctional Facility">Greene Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Groveland Correctional Facility">Groveland Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Hale Creek Asactc Correctional Facility">Hale Creek Asactc Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Hudson Correctional Facility">Hudson Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Lakeview Shock Incarceration Correctional Facility">Lakeview Shock Incarceration Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Marcy Correctional Facility">Marcy Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Midstate Correctional Facility">Midstate Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Mohawk Correctional Facility">Mohawk Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Moriah Shock Incarceration Correctional Facility">Moriah Shock Incarceration Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Ogdensburg Correctional Facility">Ogdensburg Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Orleans Correctional Facility">Orleans Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Otisville Correctional Facility">Otisville Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Riverview Correctional Facility">Riverview Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Shawangunk Correctional Facility">Shawangunk Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Sing Sing Correctional Facility">Sing Sing Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Southport Correctional Facility">Southport Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Sullivan Correctional Facility">Sullivan Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Taconic Correctional Facility">Taconic Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Ulster Correctional Facility">Ulster Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Upstate Correctional Facility">Upstate Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Wallkill Correctional Facility">Wallkill Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Washington Correctional Facility">Washington Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Wende Correctional Facility">Wende Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Willard Drug Treatment">Willard Drug Treatment</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Woodbourne Correctional Facility">Woodbourne Correctional Facility</option>
+      <option class="" is-adjust-price="false" variant-id="0" value="Wyoming Correctional Facility">Wyoming Correctional Facility</option>
+    </select>
+  </p>
+  <!-- Catalog attribute -->
+  <div class="manual-mode hide-not-searched"><span id="enable_manual_text">If any of the information above is incorrect, please</span> <button type="button" id="enable_manual" style="color:blue;">click here</button>.</div>
+  <p class="exat-attribute cart-attribute__field">
+    <input type="hidden" name="attributes[Free Catalog? ]" value="No_Catalog">
+    <input id="catalog_attribute" type="checkbox" name="attributes[Free Catalog? ]" value="Send_Catalog">
+    <label for="catalog_attribute">Free Catalog?</label>
+  </p>
+  <input type="hidden" id="is_manual_input" name="attributes[Manual Input]" value="No">
+</div>
+<script>
+  const wrapper = document.querySelector(".exat-attributes-wrap")
+  const facilities = ["Adirondack Correctional Facility", "Albion Correctional Facility", "Altona Correctional Facility", "Attica Correctional Facility", "Auburn Correctional Facility", "Bare Hill Correctional Facility", "Bedford Hills Correctional Facility", "Cape Vincent Correctional Facility", "Cayuga Correctional Facility", "Clinton Correctional Facility", "Collins Correctional Facility", "Coxsackie Correctional Facility", "Downstate Correctional Facility", "Eastern Correctional Facility", "Elmira Correctional Facility", "Fishkill Correctional Facility", "Five Points Correctional Facility", "Franklin Correctional Facility", "Gouverneur Correctional Facility", "Great Meadow Correctional Facility", "Green Haven Correctional Facility", "Greene Correctional Facility", "Groveland Correctional Facility", "Hale Creek Asactc Correctional Facility", "Hudson Correctional Facility", "Lakeview Shock Incarceration Correctional Facility", "Marcy Correctional Facility", "Midstate Correctional Facility", "Mohawk Correctional Facility", "Moriah Shock Incarceration Correctional Facility", "Ogdensburg Correctional Facility", "Orleans Correctional Facility", "Otisville Correctional Facility", "Riverview Correctional Facility", "Shawangunk Correctional Facility", "Sing Sing Correctional Facility", "Southport Correctional Facility", "Sullivan Correctional Facility", "Taconic Correctional Facility", "Ulster Correctional Facility", "Upstate Correctional Facility", "Wallkill Correctional Facility", "Washington Correctional Facility", "Wende Correctional Facility", "Willard Drug Treatment", "Woodbourne Correctional Facility", "Wyoming Correctional Facility"];
+  document.addEventListener("DOMContentLoaded", (event) => {
+    function initListeners() {
+      const din = document.getElementById("din_attribute");
+      const alert = document.getElementById("din_alert");
+      const dinInputAlert= document.getElementById("din_input_alert");
+      const inmateName = document.getElementById("fullname_attribute");
+      const facility = document.getElementById("facility_attribute");
+      const dinCon = document.getElementById("din_att_con");
+      const ismanual = document.getElementById("is_manual_input");
+      const notInCustodyAlert = document.getElementById("not_incustody_alert");
+      const form = document.getElementById("cart_submit_form");
+      const enableManualText = document.getElementById("enable_manual_text")
+      const enableManual = document.getElementById("enable_manual")
+      const checkoutButton = document.querySelector('button[name="checkout"]');
+      const verifyWarning = document.getElementById("verify_warning");
+      const verifyBtn = document.getElementById("inmate_search");
+      var regex = /^\d{2}[A-Z]\d{4}$/i;
+      document.getElementById("inmate_search").addEventListener("click", async function(){
+        // Clear any warning when the verify button is clicked
+        verifyWarning.classList.remove("show");
+        this.classList.remove("highlight");
+        
+        wrapper.classList.remove("searched")
+        wrapper.classList.remove("manual")
+        if(!regex.test(din.value)){
+          din.focus();
+          dinInputAlert.classList.remove('display-none');
+          wrapper.classList.add("invalid-search")
+          enableManualText.textContent = "Cannot find details?"
+          enableManual.textContent = "Enter manually"
+          return;
+        }
+        try{
+          const response = await fetch("https://emma-server-ce8662596300.herokuapp.com/inmate?inmateDin="+din.value);
+          const {error, data} = await response.json();
+          if (error){
+            dinInputAlert.classList.add('display-none');
+            notInCustodyAlert.classList.add("display-none");
+            alert.classList.remove('display-none')
+            wrapper.classList.add("invalid-search")
+            enableManualText.textContent = "Cannot find details?"
+            enableManual.textContent = "Enter manually"
+            return;
+          } else if (data.status !== "IN CUSTODY"){
+            dinInputAlert.classList.add('display-none');
+            alert.classList.add('display-none');
+            notInCustodyAlert.classList.remove("display-none");
+            wrapper.classList.add("invalid-search")
+            enableManualText.textContent = "Cannot find details?"
+            enableManual.textContent = "Enter manually"
+            return;
+          }
+          dinInputAlert.classList.add('display-none');
+          alert.classList.add('display-none');
+          notInCustodyAlert.classList.add("display-none");
+          
+          inmateName.value=data.name;
+          
+          facility.value=facilities.find(f=>f.toLowerCase().includes(data.facility.toLowerCase()))
+  
+          inmateName.disabled = true
+          facility.disabled = true
+          ismanual.value = "No"
+          wrapper.classList.remove("manual")
+          wrapper.classList.add("searched")
+          wrapper.classList.remove("invalid-search")
+          enableManualText.textContent = "If any of the information above is incorrect, please"
+          enableManual.textContent = "click here"
+        } catch(err){
+          console.log(err)
+          dinInputAlert.classList.add('display-none');
+          notInCustodyAlert.classList.add("display-none");
+          alert.classList.remove('display-none')
+        }
+      })
+      
+      enableManual.addEventListener("click", async function(){
+        inmateName.disabled = false;
+        facility.disabled = false;
+        ismanual.value = "Yes"
+        wrapper.classList.add("manual")
+      })
+      form.addEventListener("submit", function(e){
+        if(inmateName.value==="" || facility.value===""){
+          e.preventDefault();
+          return;
+        } 
+        inmateName.disabled=false;
+        facility.disabled=false;
+      })
+      
+      // Also attach event listener to the document body to catch dynamically added checkout buttons
+      document.body.addEventListener("click", function(e) {
+        // Check if the clicked element is the checkout button or a child of it
+        if (e.target.matches('button[name="checkout"], button[name="checkout"] *')) {
+          // Check if verification has been done
+          if(!wrapper.classList.contains("searched") && !wrapper.classList.contains("manual")) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Show warning and highlight verify button
+            verifyWarning.classList.add("show");
+            verifyBtn.classList.add("highlight");
+            
+            // Scroll to the verify button
+            verifyBtn.scrollIntoView({behavior: "smooth", block: "center"});
+            
+            // Remove highlight after 5 seconds
+            setTimeout(() => {
+              verifyBtn.classList.remove("highlight");
+            }, 5000);
+            
+            return false;
+          }
+        }
+      }, true); // Use capture phase to catch events before they reach the checkout button
+    }
+  
+    initListeners();
+  
+    const cartSection = document.querySelector('#main .shopify-section');
+    const config = { childList: true, subtree: true };
+  
+    const observer = new MutationObserver((mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          initListeners();
+        }
+      }
+    });
+  
+    observer.observe(cartSection, config);
+    
+    // Run initListeners immediately and then again after a short delay
+    // to ensure we catch the checkout button if it's loaded dynamically
+    initListeners();
+    
+    setTimeout(() => {
+      initListeners();
+    }, 1000);
+  });
+</script>

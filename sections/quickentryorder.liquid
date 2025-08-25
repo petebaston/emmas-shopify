@@ -1,0 +1,397 @@
+<section data-section-id="{{ section.id }}" data-section-type="page">
+  <div class="container">
+    <header class="page__header page__header--centered page__header--stack">
+      <h1 class="page__title heading h1">{{ page.title }}</h1>
+
+      {%- if page.content != blank and page.template_suffix == 'contact' or page.template_suffix == 'team' -%}
+      <div class="page__description rte">
+        {{ page.content }}
+      </div>
+      {%- endif -%}
+    </header>
+
+    {%- if page.content != blank and page.template_suffix != 'contact' and page.template_suffix != 'team' -%}
+    <div class="page__content rte">
+      {{ page.content }}
+    </div>
+    {%- endif -%}
+
+    <div class="mainsearch">
+
+      <input type="text" id="ssku" placeholder="Enter Product SKU" class="inputs"/>
+      <input type="number" id="qqty" placeholder="Enter Product Quantity" class="inputs" min="1"/>
+      <button class="b">Add Product</button>
+    </div>
+    <br/>
+    <div class="card">
+      <div class="table-wrapper">
+        <table class="line-item-table table table--loose">
+          <thead class="hidden-phone">
+            <tr>
+              <th>{{ 'customer.order.product' | t }}</th>
+              <th class="table__cell--center">{{ 'customer.order.quantity' | t }}</th>
+              <th class="table__cell--right">{{ 'customer.order.total' | t }}</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {%- assign gift_wrap_product = section.settings.gift_wrap_product -%}
+
+            {%- for line_item in cart.items -%}
+            <tr class="line-item line-item--stack">
+              <td class="line-item__product-info">
+                <div class="line-item__product-info-wrapper">
+                  <div class="line-item__image-wrapper">
+                    {%- comment -%}For vertical images we force to contain them on a square ratio to avoid growing too large{%- endcomment -%}
+
+                    {%- if line_item.image.aspect_ratio < 1 -%}
+                    <div class="aspect-ratio aspect-ratio--square">
+                      <img src="{{ line_item.image | img_url: '180x' }}" alt="{{ line_item.image.alt | escape }}">
+                    </div>
+                    {%- else -%}
+                    <div class="aspect-ratio" style="padding-bottom: {{ 100.0 | divided_by: line_item.image.aspect_ratio }}%">
+                      <img src="{{ line_item.image | img_url: '180x' }}" alt="{{ line_item.image.alt | escape }}">
+                    </div>
+                    {%- endif -%}
+                  </div>
+
+                  <div class="line-item__meta">
+                    {%- if settings.show_vendor and gift_wrap_product.handle != line_item.product.handle -%}
+                    {%- assign vendor_handle = line_item.product.vendor | handle -%}
+                    {%- assign collection_for_vendor = collections[vendor_handle] -%}
+
+                    {%- unless collection_for_vendor.empty? -%}
+                    <a class="line-item__vendor link" href="{{ collection_for_vendor.url }}">{{ line_item.product.vendor }}</a>
+                    {%- else -%}
+                    <a class="line-item__vendor link" href="{{ line_item.product.vendor | url_for_vendor }}">{{ line_item.product.vendor }}</a>
+                    {%- endunless -%}
+                    {%- endif -%}
+
+                    {%- if gift_wrap_product.handle == line_item.product.handle -%}
+                    <span class="line-item__title text--strong">{{ line_item.title }}</span>
+                    {%- else -%}
+                    <a href="{{ line_item.url }}" class="line-item__title link text--strong">{{ line_item.title }}</a>
+                    {%- endif -%}
+
+                    {%- if line_item.selling_plan_allocation -%}
+                    <p class="line-item__plan-allocation">{{ line_item.selling_plan_allocation.selling_plan.name }}</p>
+                    {%- endif -%}
+
+                    {%- unless line_item.properties == blank -%}
+                    <ul class="line-item__property-list" role="list">
+                      {%- for property in line_item.properties -%}
+                      {%- assign first_character_in_key = property.first | truncate: 1, '' -%}
+
+                      {%- if property.last == blank or first_character_in_key == '_' -%}
+                      {%- continue -%}
+                      {%- endif -%}
+
+                      <li class="line-item__property">{{ property.first }}: {{ property.last }}</li>
+                      {%- endfor -%}
+                    </ul>
+                    {%- endunless -%}
+
+                    <div class="line-item__price-list">
+                      {%- if line_item.original_price > line_item.final_price -%}
+                      {%- if line_item.final_price == 0 -%}
+                      <span class="line-item__price line-item__price--highlight">{{ 'cart.general.free' | t }}</span>
+                      {%- else -%}
+                      <span class="line-item__price line-item__price--highlight">{{ line_item.final_price | money }}</span>
+                      {%- endif -%}
+
+                      <span class="line-item__price line-item__price--compare">{{ line_item.original_price | money }}</span>
+                      {%- elsif line_item.variant.compare_at_price > line_item.variant.price -%}
+                      {%- if line_item.final_price == 0 -%}
+                      <span class="line-item__price line-item__price--highlight">{{ 'cart.general.free' | t }}</span>
+                      {%- else -%}
+                      <span class="line-item__price line-item__price--highlight">{{ line_item.final_price | money }}</span>
+                      {%- endif -%}
+
+                      <span class="line-item__price line-item__price--compare">{{ line_item.variant.compare_at_price | money }}</span>
+                      {%- else -%}
+                      {%- if line_item.final_price == 0 -%}
+                      <span class="line-item__price">{{ 'cart.general.free' | t }}</span>
+                      {%- else -%}
+                      <span class="line-item__price">{{ line_item.final_price | money }}</span>
+                      {%- endif -%}
+                      {%- endif -%}
+                    </div>
+                    <div class="item-sku">
+                      Sku: {{line_item.sku}}
+                    </div> 
+                    <div class="item-sku">
+                      Weight: {{line_item.grams | divided_by: 453.592 | round: 2 | replace: ".", " lbs "| append: " oz"}}
+                    </div>
+                    {%- if line_item.unit_price_measurement -%}
+                    <div class="line-item__price-info">
+                      <div class="unit-price-measurement">
+                        <span class="unit-price-measurement__price">{{ line_item.unit_price | money }}</span>
+                        <span class="unit-price-measurement__separator">/ </span>
+
+                        {%- if line_item.unit_price_measurement.reference_value != 1 -%}
+                        <span class="unit-price-measurement__reference-value">{{ line_item.unit_price_measurement.reference_value }}</span>
+                        {%- endif -%}
+
+                        <span class="unit-price-measurement__reference-unit">{{ line_item.unit_price_measurement.reference_unit }}</span>
+                      </div>
+                    </div>
+                    {%- endif -%}
+
+                    {%- if line_item.line_level_discount_allocations != blank -%}
+                    <ul class="line-item__discount-list" role="list">
+                      {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+                      <li class="line-item__discount">
+                        {%- render 'icon', icon: 'sale' -%}{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})
+                      </li>
+                      {%- endfor -%}
+                    </ul>
+                    {%- endif -%}
+
+                    <div class="line-item__quantity hidden-tablet-and-up">
+                      {%- comment -%}If the product has the tag "__gift", we remove the price{%- endcomment -%}
+
+                      {%- unless line_item.product.tags contains '__gift' -%}
+                      <div class="quantity-selector">
+                        {%- assign allow_to_add_more = true -%}
+
+                        {%- if line_item.variant.inventory_management and line_item.variant.inventory_policy == 'deny' and line_item.quantity == line_item.variant.inventory_quantity -%}
+                        {%- assign allow_to_add_more = false -%}
+                        {%- endif -%}
+
+                        <button type="button" class="quantity-selector__button" data-action="decrease-quantity" data-href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | minus: 1 }}&line={{ forloop.index }}" data-quantity="{{ line_item.quantity | minus: 1 }}" data-line="{{ forloop.index }}" aria-label="{{ 'cart.items.decrease_quantity' | t }}" title="{{ 'cart.items.decrease_quantity' | t }}">{% render 'icon', icon: 'minus' %}</button>
+                        <input aria-label="{{ 'product.form.quantity' | t }}" class="quantity-selector__value" inputmode="numeric" data-current-value="{{ line_item.quantity }}" data-line="{{ forloop.index }}" value="{{ line_item.quantity }}" size="{{ line_item.quantity | append: '' | size | at_least: 2 }}">
+                        <button type="button" class="quantity-selector__button" data-action="increase-quantity" data-href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | plus: 1 }}&line={{ forloop.index }}" data-quantity="{{ line_item.quantity | plus: 1 }}" data-line="{{ forloop.index }}" {% if allow_to_add_more %}aria-label="{{ 'cart.items.increase_quantity' | t }}" title="{{ 'cart.items.increase_quantity' | t }}"{% else %}disabled="disabled" aria-label="{{ 'cart.items.no_more_stock' | t }}" data-tooltip="{{ 'cart.items.no_more_stock' | t }}" data-tooltip-position="bottom-left"{% endif %}>{% render 'icon', icon: 'plus' %}</button>
+                      </div>
+                      {%- else -%}
+                      <span>{{ line_item.quantity }}</span>
+                      {% endunless -%}
+
+                      <a href="{{ routes.cart_change_url }}?quantity=0&line={{ forloop.index }}" data-action="decrease-quantity" data-quantity="0" data-line="{{ forloop.index }}" class="line-item__quantity-remove link">{{ 'cart.items.remove' | t }}</a>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <td class="line-item__quantity table__cell--center hidden-phone">
+                {%- comment -%}If the product has the tag "__gift", we remove the price{%- endcomment -%}
+
+                {%- unless line_item.product.tags contains '__gift' -%}
+                <div class="quantity-selector">
+                  {%- assign allow_to_add_more = true -%}
+
+                  {%- if line_item.variant.inventory_management and line_item.variant.inventory_policy == 'deny' and line_item.quantity == line_item.variant.inventory_quantity -%}
+                  {%- assign allow_to_add_more = false -%}
+                  {%- endif -%}
+
+                  <button type="button" class="quantity-selector__button" data-action="decrease-quantity" data-href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | minus: 1 }}&line={{ forloop.index }}" data-quantity="{{ line_item.quantity | minus: 1 }}" data-line="{{ forloop.index }}" aria-label="{{ 'cart.items.decrease_quantity' | t }}" title="{{ 'cart.items.decrease_quantity' | t }}">{% render 'icon', icon: 'minus' %}</button>
+                  <input aria-label="{{ 'product.form.quantity' | t }}" class="quantity-selector__value" inputmode="numeric" data-current-value="{{ line_item.quantity }}" data-line="{{ forloop.index }}" value="{{ line_item.quantity }}" size="{{ line_item.quantity | append: '' | size | at_least: 2 }}">
+                  <button type="button" class="quantity-selector__button" data-action="increase-quantity" data-href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | plus: 1 }}&line={{ forloop.index }}" data-quantity="{{ line_item.quantity | plus: 1 }}" data-line="{{ forloop.index }}" {% if allow_to_add_more %}aria-label="{{ 'cart.items.increase_quantity' | t }}" title="{{ 'cart.items.increase_quantity' | t }}"{% else %}disabled="disabled" aria-label="{{ 'cart.items.no_more_stock' | t }}" data-tooltip="{{ 'cart.items.no_more_stock' | t }}" data-tooltip-position="bottom-left"{% endif %}>{% render 'icon', icon: 'plus' %}</button>
+                </div>
+                {%- else -%}
+                <span>{{ line_item.quantity }}</span>
+                {%- endunless -%}
+
+                <a href="{{ routes.cart_change_url }}?quantity=0&line={{ forloop.index }}" data-action="decrease-quantity" data-quantity="0" data-line="{{ forloop.index }}" class="line-item__quantity-remove link">{{ 'cart.items.remove' | t }}</a>
+              </td>
+
+              <td class="line-item__line-price table__cell--right hidden-phone">
+                {%- if line_item.final_line_price == 0 -%}
+                {{- 'cart.general.free' | t -}}
+                {%- else -%}
+                <span>{{ line_item.final_line_price | money }}</span>
+                {%- endif -%}
+              </td>
+            </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br/>
+
+    <div class="card" style="padding:10px">
+
+
+      <div class="cart-recap__price-line text--pull">
+        <span class="cart-recap__price-line-label">{{ 'cart.general.total' | t }}</span>
+        <span class="cart-recap__price-line-price">{{ cart.total_price | money_with_currency }}</span>
+      </div>
+      <div class="cart-recap__price-line text--pull">
+        <span class="cart-recap__price-line-label">Total package weight:</span>
+        <span class="cart-recap__price-line-price">{{cart.total_weight | divided_by: 453.592 | plus: 2.0 | round: 2 | replace: ".", " lbs "| append: " oz"}}</span>
+      </div>
+
+
+      <br/>
+
+<!-- 
+      <input type="hidden" name="attributes[collection_products_per_page]" value="">
+      <input type="hidden" name="attributes[collection_layout]" value="">
+      <button type="submit" name="checkout" class="cart-recap__checkout button button--primary button--full button--large">{{ 'cart.general.checkout' | t }}</button>
+
+ -->
+   <div class="mini-cart__button-container">
+          <div class="button-group button-group--loose button-group--fit">
+            <a href="{{ routes.cart_url }}" class="button button--secondary">{{ 'cart.general.view_cart' | t }}</a>
+            {%- if settings.cart_show_checkout_button -%}
+            {%- endif -%}
+          </div>
+        </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+
+  .mainsearch{
+    display:flex;align-items:center;flex-wrap:wrap;justify-content:space-around
+  }
+
+  .inputs{
+    width: 35%;
+    height: 45px;
+    border:1px solid #1e2d7d;
+
+  }
+  
+  @media screen and (max-width: 600px) {
+   .inputs{
+    width: 100%;
+    height: 45px;
+    border:1px solid #1e2d7d;
+     margin:10px
+
+  }
+      .b{
+    width:max-content !important;
+    height:max-content;
+    padding: 7px 18px 7px 15px;
+    background: var(--header-accent-color);
+      color: var(--secondary-background);
+        box-shadow: 0 1px var(--header-accent-color);
+          }
+}
+
+  .b{
+    width:20%;
+    height:max-content;
+    padding: 7px 18px 7px 15px;
+    background: var(--header-accent-color);
+      color: var(--secondary-background);
+        box-shadow: 0 1px var(--header-accent-color);
+          }
+</style>
+
+
+<script>
+
+  $(document).ready(function(){
+    
+
+
+    console.log("ready")
+
+
+    var appurl = 'https://quickentryorder.appshq.io/'
+    var shop_name = 'emmas-premium-services.myshopify.com'
+
+
+    function myStopFunction() {
+      window.location.reload()
+    }
+
+
+    $('.b').on('click',function(){
+
+      var sku = $('#ssku').val()
+           var qty = $('#qqty').val()
+      $.ajax({
+        url:appurl+'ajax_call.php',
+        type:'POST',
+        data:{
+          shop_name: shop_name,
+          sku:sku
+        },
+        dataType:'json',
+        success:function(response){
+          console.log(response.product)
+
+          let variant = response.product
+
+          let formData = {
+            'items': [{
+              'id': variant,
+              'quantity': qty
+            }]
+          };
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          })
+          .then(response => {
+            //             return response.json();
+            window.location.reload()
+
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+
+
+
+
+
+
+        },
+        error:function(jqXHR,textStatus,errorThrown){
+          console.log(textStatus, errorThrown)
+        }
+      })
+
+    })
+
+
+    $('.quantity-selector__button').on('click',function(){
+
+      console.log("Quantity Change")
+
+      setTimeout(myStopFunction, 1000);
+    })
+
+    $('.line-item__quantity-remove').on('click',function(){
+
+      console.log("Remove Variant")
+      setTimeout(myStopFunction, 1000);
+
+
+    })
+
+
+
+
+  });
+
+</script>
+
+
+
+
+{% schema %}
+  {
+    "name": "Quick Entry Order",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

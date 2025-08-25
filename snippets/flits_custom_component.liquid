@@ -1,0 +1,241 @@
+
+{% comment %} PLEASE DON'T MAKE CHANGES IN THIS FILE IT'S AFFECT THE CODE IF YOU NEED ANY HELP PLEASE CONTACT TO FLITS TEAM support@getflits.com {% endcomment %}
+{% liquid
+	capture general_greetingText
+		render 'flits_capture_code' with 'translation',template:'flits.general.greeting',default_template:'Hello'
+	endcapture
+	capture refer_copyText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.copy',default_template:'Copy'
+	endcapture
+
+	capture refer_facebookShareText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.facebook_share',default_template:'Share'
+	endcapture
+
+	capture refer_whatsappShareText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.whatsapp_share',default_template:'Share'
+	endcapture
+
+	capture refer_shareText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.share',default_template:'Share'
+	endcapture
+
+	capture refer_popupGreetingsText
+		render 'flits_capture_code' with 'translation',template:'flits.refer_friend_page.popup_greetings',default_template:'Welcome Newcomer'
+	endcapture
+
+	capture button_addToCartText
+		render 'flits_capture_code' with 'translation',template:'flits.buttons.add_to_cart',default_template:'Add to Cart'
+	endcapture
+
+	capture button_backText
+		render 'flits_capture_code' with 'translation',template:'flits.buttons.back',default_template:'Back'
+	endcapture
+
+	capture button_viewProductsText
+		render 'flits_capture_code' with 'translation',template:'flits.buttons.shop_now',default_template:'View Products'
+	endcapture
+	
+	capture socialLogin_loadingLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.social_login_page.loading_message',default_template:"Logging you in"
+	endcapture
+
+	capture wishlist_addToWishlistButtonText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.add_to_wishlist_button',default_template:'Add to Wishlist'
+	endcapture
+
+	capture wishlist_removeFromWishlistButtonText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.remove_from_wishlist_button',default_template:'Added to Wishlist'
+	endcapture
+
+	capture wishlist_whatIsYourEmailText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.what_is_your_email',default_template:"What's Your Email?"
+	endcapture
+
+	capture wishlist_emailPlaceholderText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.email_placeholder',default_template:'Email address'
+	endcapture
+
+	capture wishlist_productAddedText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.product_added_to_wishlist',default_template:'Product has been added to your wishlist'
+	endcapture
+
+	capture wishlist_viewYourWishlistMessageText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.view_your_wishlist_message',default_template:'You can view your wishlist by creating account or logging-in an existing account.'
+	endcapture
+
+	capture wishlist_createAccountThroughText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.create_account_through',default_template:'Please create account/login through {{ customer_email }} email'
+	endcapture
+
+	capture wishlist_registerText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.register',default_template:'Register'
+	endcapture
+	
+	capture wishlist_loginText
+		render 'flits_capture_code' with 'translation',template:'flits.wishlisted_product_page.login',default_template:'Login'
+	endcapture
+
+	capture topOrder_numberOfOrderText
+		render 'flits_capture_code' with 'translation',template:'flits.top_ordered_products_page.number_of_order',default_template:'Total quantity ordered till now'
+	endcapture
+
+	capture contact_us_button_text
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.contact_us_button',default_template:'Contact Us'
+	endcapture
+
+	capture contactUs_formTitleText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.form_title',default_template:'Contact Us'
+	endcapture
+
+	capture contactUs_headerText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.header_text',default_template:'Your satisfaction is our top priority'
+	endcapture
+
+	capture contactUs_customerNameLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.customer_name_label',default_template:'Customer Name'
+	endcapture
+
+	capture contactUs_FirstNameLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.first_name_label',default_template:'First Name'
+	endcapture
+
+	capture contactUs_firstNamePlaceholderText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.first_name_placeholder',default_template:'James'
+	endcapture
+
+	capture contactUs_lastNameLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.last_name_label',default_template:'Last Name'
+	endcapture
+
+	capture contactUs_lastNamePlaceholderText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.last_name_placeholder',default_template:'Grey'
+	endcapture
+
+	capture contactUs_emailLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.email_label',default_template:'Email'
+	endcapture
+
+	capture contactUs_emailPlaceholderText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.email_placeholder',default_template:'abc@xyz.com'
+	endcapture
+
+	capture contactUs_phoneNumberLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.contact_number_label',default_template:'Contact number'
+	endcapture
+
+	capture contactUs_phoneNumberPlaceholderText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.contact_number_placeholder',default_template:'1234567890'
+	endcapture
+
+	capture contactUs_reasonLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.reason_label',default_template:'Reason to Contact'
+	endcapture
+
+	capture contactUs_selectAnyReasonText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.select_any_reason',default_template:'Select a Reason'
+	endcapture
+
+	capture contactUs_orderCancelRelatedReasonText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.order_cancel_related_reason',default_template:'Cancel Order'
+	endcapture
+
+	capture contactUs_orderAndShippingRelatedReasonText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.order_and_shipping_related_reason',default_template:'Order\/Shipping'
+	endcapture
+
+	capture contactUs_returnAndExchangeRelatedReasonText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.return_and_exchange_related_reason',default_template:'Return\/Exchange'
+	endcapture
+
+	capture contactUs_productRelatedReasonText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.product_related_reason',default_template:'Product'
+	endcapture
+
+	capture contactUs_priceRelatedReasonText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.price_related_reason',default_template:'Price'
+	endcapture
+
+	capture contactUs_otherReasonText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.other_reason',default_template:'Other'
+	endcapture
+
+	capture contactUs_messageLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.message_label',default_template:'Message'
+	endcapture
+
+	capture contactUs_messagePlaceholderText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.message_placeholder',default_template:'Hello Support Team, when can I expect my order?'
+	endcapture
+
+	capture contactUs_attachmentLinkLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.attachment_link_label',default_template:'Attachment Link'
+	endcapture
+
+	capture contactUs_attachmentLinkPlaceholderText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.attachment_link_placeholder',default_template:'You can upload files on your drive and paste the link here.'
+	endcapture
+
+	capture contactUs_orderNumberLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.order_number_label',default_template:'Order Number'
+	endcapture
+
+	capture contactUs_orderNameLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.order_name_label',default_template:'Order Name'
+	endcapture
+
+	capture contactUs_orderDateLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.order_date_label',default_template:'Order Date'
+	endcapture
+
+	capture contactUs_orderTotalPriceLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.order_total_price_label',default_template:'Order Total Price'
+	endcapture
+
+	capture contactUs_orderFulfillmentStatusLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.order_fulfillment_status_label',default_template:'Order Fulfillment Status'
+	endcapture
+
+	capture contactUs_orderPaymentStatusLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.order_payment_status_label',default_template:'Order Payment Status'
+	endcapture
+
+	capture contactUs_orderLinkLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.order_link_label',default_template:'View Order in Shopify'
+	endcapture
+
+	capture contactUs_customerLinkLabelText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.customer_link_label',default_template:'View Customer in Shopify'
+	endcapture
+
+	capture contactUs_submitButtonText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.submit_button',default_template:'Submit'
+	endcapture
+
+	capture contactUs_successButtonText
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.success_button',default_template:'OK'
+	endcapture
+
+	capture contactUs_successMessageLine1Text
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.success_message_line_1',default_template:'Your request has been submitted.'
+	endcapture
+
+	capture contactUs_successMessageLine2Text
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.success_message_line_2',default_template:'You will receive a reply in the email address which you have submitted in the query form.'
+	endcapture
+
+	capture contactUs_successMessageLine3Text
+		render 'flits_capture_code' with 'translation',template:'flits.order_contact_us.success_message_line_3',default_template:'Thank you for contacting us.'
+	endcapture
+%}
+
+{% case flits_custom_component %}
+
+{%- when 'comp_referFriendModal'-%}
+	<div id="flits-referral-modal" style="display:none;">
+		<div class="flits-refer-modal">
+			<div class="flits-refer-header-title flits-text-center">{{ refer_popupGreetingsText | strip }}</div>
+			<div class="flits-refer-content flits-text-center"></div>
+		</div>
+	</div>
+{% endcase %}

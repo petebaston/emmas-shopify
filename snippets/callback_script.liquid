@@ -1,0 +1,22 @@
+<script>
+  main();
+
+  async function main() {
+    await until(() => document.querySelector("a[href='#ArchitechProCallBack']"));
+    
+    Array.prototype.forEach.call (document.querySelectorAll("a[href='#ArchitechProCallBack']"), function (node) {
+      node.onclick = function(){window.cstmClbOnPage();};
+    });
+  }
+
+  function until(condition) {
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (condition()) {
+          clearInterval(interval);
+          resolve();
+        }
+      });
+    });
+  }
+</script>

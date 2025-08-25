@@ -1,0 +1,33 @@
+<form id="account-form" action="//ca.secomapp.com/api/account" method="post">
+    <input type="hidden" name="id" value="{{customer.id}}">
+    <input type="hidden" name="shop" value="emmas-premium-services.myshopify.com">
+
+    <div class="page-width">
+        <div class="grid">
+            <div class="grid__item medium-up--one-half medium-up--push-one-quarter">
+                <div class="section-header text-center">
+                    <h1>Edit Your Account</h1>
+                    <a href="/account">Back to Account</a>
+                </div>
+
+                <div class="form-vertical">
+                                            <div class="clearfix large_form ca-attr ca-account ca-hide">
+                            <label class="ca-label ca-input-label ca-text-label ca-code-first_name label " for="first_name">{{ 'customer.register.first_name' | t }}</label>
+
+<input class="ca-value ca-input ca-text ca-code-first_name text "  size="30" type="text" name="first_name" id="first_name" value="{{customer.first_name}}" placeholder="{{ 'customer.register.first_name' | t }}"/>
+
+                        </div>
+                                            <div class="clearfix large_form ca-attr ca-account ca-hide">
+                            <label class="ca-label ca-input-label ca-text-label ca-code-last_name label " for="last_name">{{ 'customer.register.last_name' | t }}</label>
+
+<input class="ca-value ca-input ca-text ca-code-last_name text "  size="30" type="text" name="last_name" id="last_name" value="{{customer.last_name}}" placeholder="{{ 'customer.register.last_name' | t }}"/>
+
+                        </div>
+                                        <p class="text-center">form-vertical
+                        <input class="btn" type="submit" value="Update" />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

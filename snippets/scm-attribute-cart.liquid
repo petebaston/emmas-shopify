@@ -1,0 +1,682 @@
+<div class="container">
+    <div class="ca-cart ca-hide">
+</script>
+      <div class="errors ca-errors">
+            Please fill this out and you will be able to check out.
+        </div>
+        <div class="ca-attrs ca-row">
+                            <div class="ca-col-6 ca-code-inmate-din-number ">
+                    {% assign match = true %}
+
+    {% if match == true %}
+                    {% if customer and customer.metafields.customer_attribute['inmate-din-number'] %}
+    {% assign attribute_value = customer.metafields.customer_attribute['inmate-din-number'] %}
+{% else %}
+    {% assign attribute_value = "" %}
+{% endif %}
+    <label class="ca-label ca-input-label ca-text-label ca-code-inmate-din-number  " for="inmate-din-number">Inmate DIN Number <span>*</span></label>
+<input class="ca-value ca-text ca-code-inmate-din-number  "  id="inmate-din-number"  value="{{attribute_value}}" type="text" name="attributes[inmate-din-number]" placeholder="19-A-1000" required  data-ca-validate="" data-ca-validate-message="" >
+                    {% endif %}
+                </div>
+                            <div class="ca-col-6 ca-code-inmate-name ">
+                    {% assign match = true %}
+
+    {% if match == true %}
+                    {% if customer and customer.metafields.customer_attribute['inmate-name'] %}
+    {% assign attribute_value = customer.metafields.customer_attribute['inmate-name'] %}
+{% else %}
+    {% assign attribute_value = "" %}
+{% endif %}
+    <label class="ca-label ca-input-label ca-text-label ca-code-inmate-name  " for="inmate-name">Inmate Name <span>*</span></label>
+<input class="ca-value ca-text ca-code-inmate-name  "  id="inmate-name"  value="{{attribute_value}}" type="text" name="attributes[inmate-name]" placeholder="" required >
+                    {% endif %}
+                </div>
+                            <div class="ca-col-6 ca-code-facility ">
+                    {% assign match = true %}
+
+    {% if match == true %}
+                    <label class="ca-label ca-select-label ca-code-facility  " for="facility">Correctional Facility <span>*</span></label>
+<select  class="ca-value ca-select ca-code-facility  "  id="facility" name="attributes[facility]" required>
+            <option value="" hidden>Please Select A Facility</option>
+        <option value=""></option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Adirondack Correctional Facility 196 Ray Brook Road  Ray Brook  New York 12977' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Adirondack Correctional Facility 196 Ray Brook Road  Ray Brook  New York 12977" {{attribute_value}}>Adirondack Correctional Facility 196 Ray Brook Road  Ray Brook  New York 12977</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Albion Correctional Facility 3595 State School Road Albion  New York 14411-9399' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Albion Correctional Facility 3595 State School Road Albion  New York 14411-9399" {{attribute_value}}>Albion Correctional Facility 3595 State School Road Albion  New York 14411-9399</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Altona Correctional Facility 555 Devils Den Road  Altona  New York 12910-3000' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Altona Correctional Facility 555 Devils Den Road  Altona  New York 12910-3000" {{attribute_value}}>Altona Correctional Facility 555 Devils Den Road  Altona  New York 12910-3000</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Attica Correctional Facility 639 Exchange St  Attica  New York 14011-0149' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Attica Correctional Facility 639 Exchange St  Attica  New York 14011-0149" {{attribute_value}}>Attica Correctional Facility 639 Exchange St  Attica  New York 14011-0149</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Auburn Correctional Facility 135 State Street Auburn  New York 13024-9000' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Auburn Correctional Facility 135 State Street Auburn  New York 13024-9000" {{attribute_value}}>Auburn Correctional Facility 135 State Street Auburn  New York 13024-9000</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Bare Hill Correctional Facility 181 Brand Rd. Malone  New York 12953-0020' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Bare Hill Correctional Facility 181 Brand Rd. Malone  New York 12953-0020" {{attribute_value}}>Bare Hill Correctional Facility 181 Brand Rd. Malone  New York 12953-0020</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Bedford Hills Correctional Facility 247 Harris Road Bedford Hills  New York 10507-2400' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Bedford Hills Correctional Facility 247 Harris Road Bedford Hills  New York 10507-2400" {{attribute_value}}>Bedford Hills Correctional Facility 247 Harris Road Bedford Hills  New York 10507-2400</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Cape Vincent Correctional Facility 36560 State Route 12E Cape Vincent  New York 13618-0599' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Cape Vincent Correctional Facility 36560 State Route 12E Cape Vincent  New York 13618-0599" {{attribute_value}}>Cape Vincent Correctional Facility 36560 State Route 12E Cape Vincent  New York 13618-0599</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Cayuga Correctional Facility 2202 State Route 38A Moravia  New York 13118-1150' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Cayuga Correctional Facility 2202 State Route 38A Moravia  New York 13118-1150" {{attribute_value}}>Cayuga Correctional Facility 2202 State Route 38A Moravia  New York 13118-1150</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Clinton Correctional Facility 1156 Rt. 374  Dannemora  New York 12929-2000' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Clinton Correctional Facility 1156 Rt. 374  Dannemora  New York 12929-2000" {{attribute_value}}>Clinton Correctional Facility 1156 Rt. 374  Dannemora  New York 12929-2000</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Clinton Annex 1074 Rt. 374 Dannemora  New York 12929' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Clinton Annex 1074 Rt. 374 Dannemora  New York 12929" {{attribute_value}}>Clinton Annex 1074 Rt. 374 Dannemora  New York 12929</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Collins Correctional Facility Middle Road  Collins  New York 14034-0490' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Collins Correctional Facility Middle Road  Collins  New York 14034-0490" {{attribute_value}}>Collins Correctional Facility Middle Road  Collins  New York 14034-0490</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Coxsackie Correctional Facility 11260 Route 9W  Coxsackie  New York 12051-0200' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Coxsackie Correctional Facility 11260 Route 9W  Coxsackie  New York 12051-0200" {{attribute_value}}>Coxsackie Correctional Facility 11260 Route 9W  Coxsackie  New York 12051-0200</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Downstate Correctional Facility 121 Red Schoolhouse Road Fishkill  New York 12524-0445' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Downstate Correctional Facility 121 Red Schoolhouse Road Fishkill  New York 12524-0445" {{attribute_value}}>Downstate Correctional Facility 121 Red Schoolhouse Road Fishkill  New York 12524-0445</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Eastern Correctional Facility 30 Institution Rd Napanoch  New York 12458-0338' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Eastern Correctional Facility 30 Institution Rd Napanoch  New York 12458-0338" {{attribute_value}}>Eastern Correctional Facility 30 Institution Rd Napanoch  New York 12458-0338</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Edgecombe Correctional Facility 611 Edgecombe Avenue New York  New York 10032-4398' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Edgecombe Correctional Facility 611 Edgecombe Avenue New York  New York 10032-4398" {{attribute_value}}>Edgecombe Correctional Facility 611 Edgecombe Avenue New York  New York 10032-4398</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Elmira Correctional Facility 1879 Davis St Elmira  New York 14901-0500' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Elmira Correctional Facility 1879 Davis St Elmira  New York 14901-0500" {{attribute_value}}>Elmira Correctional Facility 1879 Davis St Elmira  New York 14901-0500</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Fishkill Correctional Facility 18 Strack Drive Beacon  New York 12508-0307' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Fishkill Correctional Facility 18 Strack Drive Beacon  New York 12508-0307" {{attribute_value}}>Fishkill Correctional Facility 18 Strack Drive Beacon  New York 12508-0307</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Five Points Correctional Facility 6600 State Route 96 Romulus  New York 14541' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Five Points Correctional Facility 6600 State Route 96 Romulus  New York 14541" {{attribute_value}}>Five Points Correctional Facility 6600 State Route 96 Romulus  New York 14541</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Franklin Correctional Facility 62 Bare Hill Road Malone  New York 12953-0010' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Franklin Correctional Facility 62 Bare Hill Road Malone  New York 12953-0010" {{attribute_value}}>Franklin Correctional Facility 62 Bare Hill Road Malone  New York 12953-0010</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Gouverneur Correctional Facility 112 Scotch Settlement Road Gouverneur  New York 13642-0370' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Gouverneur Correctional Facility 112 Scotch Settlement Road Gouverneur  New York 13642-0370" {{attribute_value}}>Gouverneur Correctional Facility 112 Scotch Settlement Road Gouverneur  New York 13642-0370</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Gowanda Correctional Facility South Road Gowanda  New York 14070-0350' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Gowanda Correctional Facility South Road Gowanda  New York 14070-0350" {{attribute_value}}>Gowanda Correctional Facility South Road Gowanda  New York 14070-0350</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Great Meadow Correctional Facility 11739 State Route 22 Comstock  New York 12821-0051' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Great Meadow Correctional Facility 11739 State Route 22 Comstock  New York 12821-0051" {{attribute_value}}>Great Meadow Correctional Facility 11739 State Route 22 Comstock  New York 12821-0051</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Green Haven Correctional Facility 594 Rt. 216 Stormville  New York 12582-0010' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Green Haven Correctional Facility 594 Rt. 216 Stormville  New York 12582-0010" {{attribute_value}}>Green Haven Correctional Facility 594 Rt. 216 Stormville  New York 12582-0010</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Greene Correctional Facility 165 Plank Road Coxsackie  New York 12051-0008' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Greene Correctional Facility 165 Plank Road Coxsackie  New York 12051-0008" {{attribute_value}}>Greene Correctional Facility 165 Plank Road Coxsackie  New York 12051-0008</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Groveland Correctional Facility 7000 Sonyea Road  Sonyea  New York 14556-0050' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Groveland Correctional Facility 7000 Sonyea Road  Sonyea  New York 14556-0050" {{attribute_value}}>Groveland Correctional Facility 7000 Sonyea Road  Sonyea  New York 14556-0050</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Hale Creek Correctional Facility 279 Maloney Road Johnstown  New York 12095-3769' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Hale Creek Correctional Facility 279 Maloney Road Johnstown  New York 12095-3769" {{attribute_value}}>Hale Creek Correctional Facility 279 Maloney Road Johnstown  New York 12095-3769</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Hudson Correctional Facility 50 East Court Street  Hudson  New York 12534-0576' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Hudson Correctional Facility 50 East Court Street  Hudson  New York 12534-0576" {{attribute_value}}>Hudson Correctional Facility 50 East Court Street  Hudson  New York 12534-0576</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Lakeview Shock Incarceration Correctional Facility 9300 Lake Avenue  Brocton  New York 14716-9798' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Lakeview Shock Incarceration Correctional Facility 9300 Lake Avenue  Brocton  New York 14716-9798" {{attribute_value}}>Lakeview Shock Incarceration Correctional Facility 9300 Lake Avenue  Brocton  New York 14716-9798</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Lincoln Correctional Facility 31-33 West 110th Street New York  New York 10026-4398' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Lincoln Correctional Facility 31-33 West 110th Street New York  New York 10026-4398" {{attribute_value}}>Lincoln Correctional Facility 31-33 West 110th Street New York  New York 10026-4398</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Livingston Correctional Facility 7005 Sonyea Road Sonyea  New York 14556-0049' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Livingston Correctional Facility 7005 Sonyea Road Sonyea  New York 14556-0049" {{attribute_value}}>Livingston Correctional Facility 7005 Sonyea Road Sonyea  New York 14556-0049</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Marcy Correctional Facility 9000 Old River Road  Marcy  New York 13403-5000' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Marcy Correctional Facility 9000 Old River Road  Marcy  New York 13403-5000" {{attribute_value}}>Marcy Correctional Facility 9000 Old River Road  Marcy  New York 13403-5000</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Mid-State Correctional Facility 9005 Old River Road Marcy  New York 13403-0216' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Mid-State Correctional Facility 9005 Old River Road Marcy  New York 13403-0216" {{attribute_value}}>Mid-State Correctional Facility 9005 Old River Road Marcy  New York 13403-0216</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Mohawk Correctional Facility 6514 Rt. 26 Rome  New York 13442' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Mohawk Correctional Facility 6514 Rt. 26 Rome  New York 13442" {{attribute_value}}>Mohawk Correctional Facility 6514 Rt. 26 Rome  New York 13442</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Moriah Shock Incarceration Correctional Facility 75 Burhart Lane  Mineville  New York 12956-0999' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Moriah Shock Incarceration Correctional Facility 75 Burhart Lane  Mineville  New York 12956-0999" {{attribute_value}}>Moriah Shock Incarceration Correctional Facility 75 Burhart Lane  Mineville  New York 12956-0999</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Ogdensburg Correctional Facility One Correction Way Ogdensburg  New York 13669-2288' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Ogdensburg Correctional Facility One Correction Way Ogdensburg  New York 13669-2288" {{attribute_value}}>Ogdensburg Correctional Facility One Correction Way Ogdensburg  New York 13669-2288</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Orleans Correctional Facility 3531 Gaines Basin Road Albion  New York 14411-9199' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Orleans Correctional Facility 3531 Gaines Basin Road Albion  New York 14411-9199" {{attribute_value}}>Orleans Correctional Facility 3531 Gaines Basin Road Albion  New York 14411-9199</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Otisville Correctional Facility 57 Sanitorium Road Otisville  New York 10963-0008' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Otisville Correctional Facility 57 Sanitorium Road Otisville  New York 10963-0008" {{attribute_value}}>Otisville Correctional Facility 57 Sanitorium Road Otisville  New York 10963-0008</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Queensboro Correctional Facility 47-04 Van Dam Street Long Island City  NY 11101-3081' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Queensboro Correctional Facility 47-04 Van Dam Street Long Island City  NY 11101-3081" {{attribute_value}}>Queensboro Correctional Facility 47-04 Van Dam Street Long Island City  NY 11101-3081</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Riverview Correctional Facility 1110 Tibbits Drive  Ogdensburg  New York 13669-0158' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Riverview Correctional Facility 1110 Tibbits Drive  Ogdensburg  New York 13669-0158" {{attribute_value}}>Riverview Correctional Facility 1110 Tibbits Drive  Ogdensburg  New York 13669-0158</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Shawangunk Correctional Facility 200 Quick Road  Wallkill  New York 12589-0750' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Shawangunk Correctional Facility 200 Quick Road  Wallkill  New York 12589-0750" {{attribute_value}}>Shawangunk Correctional Facility 200 Quick Road  Wallkill  New York 12589-0750</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Sing Sing Correctional Facility 354 Hunter Street Ossining  New York 10562-5442' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Sing Sing Correctional Facility 354 Hunter Street Ossining  New York 10562-5442" {{attribute_value}}>Sing Sing Correctional Facility 354 Hunter Street Ossining  New York 10562-5442</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Southport Correctional Facility 236 Bob Masia Drive Pine City  New York 14871-2000' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Southport Correctional Facility 236 Bob Masia Drive Pine City  New York 14871-2000" {{attribute_value}}>Southport Correctional Facility 236 Bob Masia Drive Pine City  New York 14871-2000</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Sullivan Correctional Facility 325 Riverside Drive   Fallsburg  New York 12733-0116' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Sullivan Correctional Facility 325 Riverside Drive   Fallsburg  New York 12733-0116" {{attribute_value}}>Sullivan Correctional Facility 325 Riverside Drive   Fallsburg  New York 12733-0116</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Taconic Correctional Facility 250 Harris Road Bedford Hills  New York 10507-2497' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Taconic Correctional Facility 250 Harris Road Bedford Hills  New York 10507-2497" {{attribute_value}}>Taconic Correctional Facility 250 Harris Road Bedford Hills  New York 10507-2497</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Ulster Correctional Facility 750 Berme Road Napanoch  New York 12458-0800' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Ulster Correctional Facility 750 Berme Road Napanoch  New York 12458-0800" {{attribute_value}}>Ulster Correctional Facility 750 Berme Road Napanoch  New York 12458-0800</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Upstate Correctional Facility 309 Bare Hill Road  Malone  New York 12953' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Upstate Correctional Facility 309 Bare Hill Road  Malone  New York 12953" {{attribute_value}}>Upstate Correctional Facility 309 Bare Hill Road  Malone  New York 12953</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Wallkill Correctional Facility 50 McKendrick Road  Wallkill  New York 12589-0286' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Wallkill Correctional Facility 50 McKendrick Road  Wallkill  New York 12589-0286" {{attribute_value}}>Wallkill Correctional Facility 50 McKendrick Road  Wallkill  New York 12589-0286</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Washington Correctional Facility 72 Lock Eleven Lane  Comstock  New York 12821-0180' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Washington Correctional Facility 72 Lock Eleven Lane  Comstock  New York 12821-0180" {{attribute_value}}>Washington Correctional Facility 72 Lock Eleven Lane  Comstock  New York 12821-0180</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Watertown Correctional Facility 23147 Swan Road Watertown  New York 13601-9340' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Watertown Correctional Facility 23147 Swan Road Watertown  New York 13601-9340" {{attribute_value}}>Watertown Correctional Facility 23147 Swan Road Watertown  New York 13601-9340</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Wende Correctional Facility 3040 Wende Road Alden  New York 14004-1187' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Wende Correctional Facility 3040 Wende Road Alden  New York 14004-1187" {{attribute_value}}>Wende Correctional Facility 3040 Wende Road Alden  New York 14004-1187</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Willard Drug Treatment Center 7116 County Route 132  Willard  New York 14588-0303' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Willard Drug Treatment Center 7116 County Route 132  Willard  New York 14588-0303" {{attribute_value}}>Willard Drug Treatment Center 7116 County Route 132  Willard  New York 14588-0303</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Woodbourne Correctional Facility 99 Prison Road Woodbourne  New York 12788-1000' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Woodbourne Correctional Facility 99 Prison Road Woodbourne  New York 12788-1000" {{attribute_value}}>Woodbourne Correctional Facility 99 Prison Road Woodbourne  New York 12788-1000</option>
+            {% if customer and customer.metafields.customer_attribute['facility'] %}
+            {% if customer.metafields.customer_attribute['facility'] == 'Wyoming Correctional Facility 3203 Dunbar Road  Attica  New York 14011-0501' %}
+                {% assign attribute_value = 'selected' %}
+            {% else %}
+                {% assign attribute_value = '' %}
+            {% endif %}
+        {% else %}
+            {% assign attribute_value = "" %}
+        {% endif %}
+
+        <option value="Wyoming Correctional Facility 3203 Dunbar Road  Attica  New York 14011-0501" {{attribute_value}}>Wyoming Correctional Facility 3203 Dunbar Road  Attica  New York 14011-0501</option>
+    </select>
+                    {% endif %}
+                </div>
+                            <div class="ca-col-6 ca-code-substitution-policy ">
+                    {% assign match = true %}
+
+    {% if match == true %}
+                    <div>
+{% if customer.metafields.customer_attribute['substitution-policy'] == empty %}
+    {% if customer.metafields.customer_attribute['substitution-policy'] == 'on' %}
+        {% assign attribute_value = 'checked' %}
+    {% else %}
+        {% assign attribute_value = '' %}
+    {% endif %}
+{% else %}
+    {% assign attribute_value = "" %}
+{% endif %}
+
+<input class="ca-value ca-checkbox ca-option ca-code-substitution-policy  " type="checkbox" name="attributes[substitution-policy]"  id="substitution-policy" {{attribute_value}}/>
+<label class="ca-label ca-checkbox-label ca-code-substitution-policy  " for="substitution-policy">Check for NO substitutions, otherwise we may replace out of stock items with equal/like item. </label>
+</div>
+                    {% endif %}
+                </div>
+                            <div class="ca-col-6 ca-code-yes-send-my-loved-one-an ">
+                    {% assign match = true %}
+
+    {% if match == true %}
+                    <div>
+{% if customer.metafields.customer_attribute['yes-send-my-loved-one-an'] == empty %}
+    {% if customer.metafields.customer_attribute['yes-send-my-loved-one-an'] == 'on' %}
+        {% assign attribute_value = 'checked' %}
+    {% else %}
+        {% assign attribute_value = '' %}
+    {% endif %}
+{% else %}
+    {% assign attribute_value = "" %}
+{% endif %}
+
+<input class="ca-value ca-checkbox ca-option ca-code-yes-send-my-loved-one-an  " type="checkbox" name="attributes[yes-send-my-loved-one-an]"  id="yes-send-my-loved-one-an" {{attribute_value}}/>
+<label class="ca-label ca-checkbox-label ca-code-yes-send-my-loved-one-an  " for="yes-send-my-loved-one-an">Yes! Send my loved one an Emma's Premium Catalog </label>
+</div>
+                    {% endif %}
+                </div>
+                    </div>
+    </div>
+</div>
+
