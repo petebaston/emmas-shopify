@@ -212,6 +212,8 @@
   <input type="hidden" id="inmate_state" name="attributes[Inmate State]" value="">
   <input type="hidden" id="inmate_zip" name="attributes[Inmate Zip]" value="">
 </div>
+<!-- Load facility addresses mapping -->
+<script src="{{ 'facility-addresses.js' | asset_url }}" defer></script>
 <script>
   const wrapper = document.querySelector(".exat-attributes-wrap")
   const facilities = ["Adirondack Correctional Facility", "Albion Correctional Facility", "Altona Correctional Facility", "Attica Correctional Facility", "Auburn Correctional Facility", "Bare Hill Correctional Facility", "Bedford Hills Correctional Facility", "Cape Vincent Correctional Facility", "Cayuga Correctional Facility", "Clinton Correctional Facility", "Collins Correctional Facility", "Coxsackie Correctional Facility", "Downstate Correctional Facility", "Eastern Correctional Facility", "Elmira Correctional Facility", "Fishkill Correctional Facility", "Five Points Correctional Facility", "Franklin Correctional Facility", "Gouverneur Correctional Facility", "Great Meadow Correctional Facility", "Green Haven Correctional Facility", "Greene Correctional Facility", "Groveland Correctional Facility", "Hale Creek Asactc Correctional Facility", "Hudson Correctional Facility", "Lakeview Shock Incarceration Correctional Facility", "Marcy Correctional Facility", "Midstate Correctional Facility", "Mohawk Correctional Facility", "Moriah Shock Incarceration Correctional Facility", "Ogdensburg Correctional Facility", "Orleans Correctional Facility", "Otisville Correctional Facility", "Riverview Correctional Facility", "Shawangunk Correctional Facility", "Sing Sing Correctional Facility", "Southport Correctional Facility", "Sullivan Correctional Facility", "Taconic Correctional Facility", "Ulster Correctional Facility", "Upstate Correctional Facility", "Wallkill Correctional Facility", "Washington Correctional Facility", "Wende Correctional Facility", "Willard Drug Treatment", "Woodbourne Correctional Facility", "Wyoming Correctional Facility"];
@@ -279,26 +281,32 @@
           
           facility.value=facilities.find(f=>f.toLowerCase().includes(data.facility.toLowerCase()))
   
-          // Store address data from API response
-          if (data.address || data.facilityAddress) {
-            verifiedAddressData = {
-              name: data.name,
-              address1: data.address || data.facilityAddress || facility.value,
-              city: data.city || data.facilityCity || '',
-              state: data.state || data.facilityState || 'NY',
-              zip: data.zip || data.facilityZip || '',
-              country: 'United States',
-              facility: facility.value
-            };
-            
-            // Store in hidden fields for cart attributes
-            document.getElementById("inmate_address").value = verifiedAddressData.address1;
-            document.getElementById("inmate_city").value = verifiedAddressData.city;
-            document.getElementById("inmate_state").value = verifiedAddressData.state;
-            document.getElementById("inmate_zip").value = verifiedAddressData.zip;
-            
-            console.log('Address data stored:', verifiedAddressData);
+          // Store address data from API response or use facility mapping
+          const selectedFacility = facility.value;
+          let facilityAddressInfo = null;
+          
+          // Check if facility addresses are loaded
+          if (window.facilityAddresses && window.facilityAddresses[selectedFacility]) {
+            facilityAddressInfo = window.facilityAddresses[selectedFacility];
           }
+          
+          verifiedAddressData = {
+            name: data.name,
+            address1: data.address || data.facilityAddress || (facilityAddressInfo ? facilityAddressInfo.address : selectedFacility),
+            city: data.city || data.facilityCity || (facilityAddressInfo ? facilityAddressInfo.city : ''),
+            state: data.state || data.facilityState || (facilityAddressInfo ? facilityAddressInfo.state : 'NY'),
+            zip: data.zip || data.facilityZip || (facilityAddressInfo ? facilityAddressInfo.zip : ''),
+            country: 'United States',
+            facility: selectedFacility
+          };
+          
+          // Store in hidden fields for cart attributes
+          document.getElementById("inmate_address").value = verifiedAddressData.address1;
+          document.getElementById("inmate_city").value = verifiedAddressData.city;
+          document.getElementById("inmate_state").value = verifiedAddressData.state;
+          document.getElementById("inmate_zip").value = verifiedAddressData.zip;
+          
+          console.log('Address data stored:', verifiedAddressData);
   
           inmateName.disabled = true
           facility.disabled = true
@@ -321,6 +329,13 @@
         facility.disabled = false;
         ismanual.value = "Yes"
         wrapper.classList.add("manual")
+        
+        // Clear stored address data when switching to manual mode
+        verifiedAddressData = null;
+        document.getElementById("inmate_address").value = "";
+        document.getElementById("inmate_city").value = "";
+        document.getElementById("inmate_state").value = "";
+        document.getElementById("inmate_zip").value = "";
       })
       form.addEventListener("submit", async function(e){
         if(inmateName.value==="" || facility.value===""){
