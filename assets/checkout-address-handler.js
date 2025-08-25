@@ -33,42 +33,6 @@ class CheckoutAddressHandler {
     return null;
   }
 
-  // Update cart attributes with address information
-  async updateCartAttributes(addressData) {
-    try {
-      const attributes = {
-        'Shipping_First_Name': addressData.firstName || addressData.name?.split(' ')[0] || '',
-        'Shipping_Last_Name': addressData.lastName || addressData.name?.split(' ').slice(1).join(' ') || '',
-        'Shipping_Address1': addressData.address1 || '',
-        'Shipping_City': addressData.city || '',
-        'Shipping_Province': addressData.state || '',
-        'Shipping_Zip': addressData.zip || '',
-        'Shipping_Country': addressData.country || 'United States',
-        'Shipping_Facility': addressData.facility || '',
-        'Inmate_DIN': addressData.din || '',
-        'Inmate_Name': addressData.name || ''
-      };
-
-      const response = await fetch('/cart/update.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ attributes })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update cart attributes');
-      }
-
-      const cart = await response.json();
-      console.log('Cart attributes updated:', cart.attributes);
-      return true;
-    } catch (error) {
-      console.error('Error updating cart attributes:', error);
-      return false;
-    }
-  }
 
   // Create checkout URL with pre-filled address parameters
   createCheckoutUrl(addressData) {
@@ -112,48 +76,11 @@ class CheckoutAddressHandler {
     // Always set country
     params.push(`checkout[shipping_address][country]=${encodeURIComponent(addressData.country || 'United States')}`);
     
-    // Add checkout attributes for reference
-    if (addressData.din) {
-      params.push(`checkout[attributes][inmate_din]=${encodeURIComponent(addressData.din)}`);
-    }
-    
-    if (addressData.name) {
-      params.push(`checkout[attributes][inmate_name]=${encodeURIComponent(addressData.name)}`);
-    }
-    
-    if (addressData.facility) {
-      params.push(`checkout[attributes][facility]=${encodeURIComponent(addressData.facility)}`);
-    }
 
     const queryString = params.join('&');
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   }
 
-  // Handle checkout form submission
-  async handleCheckoutSubmission(formElement, addressData) {
-    if (!addressData) {
-      // No address to pre-fill, proceed normally
-      return true;
-    }
-
-    try {
-      // First update cart attributes
-      await this.updateCartAttributes(addressData);
-
-      // Create checkout URL with address parameters
-      const checkoutUrl = this.createCheckoutUrl(addressData);
-      
-      // Instead of normal form submission, redirect to checkout with parameters
-      window.location.href = checkoutUrl;
-      
-      // Prevent default form submission
-      return false;
-    } catch (error) {
-      console.error('Error handling checkout:', error);
-      // Allow normal checkout to proceed
-      return true;
-    }
-  }
 
   // Initialize on cart page
   init() {
@@ -186,26 +113,13 @@ class CheckoutAddressHandler {
             submitButton.textContent = 'Processing...';
           }
           
-          try {
-            // First update cart attributes
-            await this.updateCartAttributes(addressData);
-            
-            // Create checkout URL with address parameters
-            const checkoutUrl = this.createCheckoutUrl(addressData);
-            
-            console.log('Redirecting to checkout with address:', checkoutUrl);
-            
-            // Redirect to checkout with pre-filled address
-            window.location.href = checkoutUrl;
-          } catch (error) {
-            console.error('Error processing checkout:', error);
-            // Restore button and submit normally
-            if (submitButton) {
-              submitButton.disabled = false;
-              submitButton.textContent = originalText;
-            }
-            checkoutForm.submit();
-          }
+          // Create checkout URL with address parameters
+          const checkoutUrl = this.createCheckoutUrl(addressData);
+          
+          console.log('Redirecting to checkout with address:', checkoutUrl);
+          
+          // Redirect to checkout with pre-filled address
+          window.location.href = checkoutUrl;
         }
       });
     }

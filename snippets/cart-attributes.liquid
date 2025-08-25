@@ -206,11 +206,6 @@
     <label for="catalog_attribute">Free Catalog?</label>
   </p>
   <input type="hidden" id="is_manual_input" name="attributes[Manual Input]" value="No">
-  <!-- Hidden fields to store address data -->
-  <input type="hidden" id="inmate_address" name="attributes[Inmate Address]" value="">
-  <input type="hidden" id="inmate_city" name="attributes[Inmate City]" value="">
-  <input type="hidden" id="inmate_state" name="attributes[Inmate State]" value="">
-  <input type="hidden" id="inmate_zip" name="attributes[Inmate Zip]" value="">
 </div>
 <!-- Load facility addresses mapping and checkout handler -->
 <script src="{{ 'facility-addresses.js' | asset_url }}" defer></script>
@@ -304,12 +299,6 @@
             din: din.value
           };
           
-          // Store in hidden fields for cart attributes
-          document.getElementById("inmate_address").value = verifiedAddressData.address1;
-          document.getElementById("inmate_city").value = verifiedAddressData.city;
-          document.getElementById("inmate_state").value = verifiedAddressData.state;
-          document.getElementById("inmate_zip").value = verifiedAddressData.zip;
-          
           // Store in checkout handler
           if (window.checkoutAddressHandler) {
             window.checkoutAddressHandler.setVerifiedAddress(verifiedAddressData);
@@ -341,10 +330,6 @@
         
         // Clear stored address data when switching to manual mode
         verifiedAddressData = null;
-        document.getElementById("inmate_address").value = "";
-        document.getElementById("inmate_city").value = "";
-        document.getElementById("inmate_state").value = "";
-        document.getElementById("inmate_zip").value = "";
         
         // Clear from checkout handler
         if (window.checkoutAddressHandler) {
