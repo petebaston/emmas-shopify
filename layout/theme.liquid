@@ -42,6 +42,32 @@
       <meta name="description" content="{{ page_description | escape }}">
     {%- endif -%}
 
+     <style>
+/* Reduce spacing AROUND the entire Judge.me reviews section */
+/* Reduce spacing AROUND the entire Judge.me reviews section */
+.jdgm-carousel-wrapper {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+@media (width < 500px) {
+    #shopify-section-template--19713049002242__1709709514e50f2d03 .container {
+        padding-top: 5px;
+        margin-bottom: -30px;
+    }
+}
+
+/* If there's a parent container adding spacing, try this too */
+.jdgm-widget-carousel,
+.jdgm-carousel-section,
+#judgeme_product_reviews .jdgm-widget {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+ </style>
+
     <link rel="canonical" href="{{ canonical_url }}">
 
     {%- if settings.favicon -%}
