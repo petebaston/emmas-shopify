@@ -786,9 +786,7 @@
     "custom_css": [
       ".product-item__action-list {margin-top: 0 !important;}",
       ".product-item__action-button {margin-top: 10px !important;}",
-      "@media screen and (max-width: 600px) {.slideshow__slide-inner {justify-content: center !important; } .product-item {padding: 14px; } .product-item__action-button {border-radius: 30px; }}",
-      "@media screen and (min-width: 641px) {.section {margin: 20px 0 !important; } }",
-      " @media screen and (max-width: 640px) {.section {margin: 15px 0 !important; } }"
+      "@media screen and (max-width: 600px) {.slideshow__slide-inner {justify-content: center !important; } .product-item {padding: 14px; } .product-item__action-button {border-radius: 30px; }}"
     ]
   }
 }
