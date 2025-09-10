@@ -116,6 +116,12 @@ class CheckoutAddressHandler {
           }
           
           try {
+            // BULLETPROOF: Enable disabled fields before form submission
+            const disabledFields = checkoutForm.querySelectorAll('[disabled]');
+            disabledFields.forEach(field => {
+              field.disabled = false;
+            });
+            
             // BULLETPROOF: Submit cart form data first to save attributes
             const formData = new FormData(checkoutForm);
             
