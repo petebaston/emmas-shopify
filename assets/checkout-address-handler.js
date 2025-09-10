@@ -97,13 +97,15 @@ class CheckoutAddressHandler {
     const checkoutForm = document.querySelector('#cart_submit_form, form[action="/cart"]');
     
     if (checkoutForm) {
-      // Override form submission
+      // BULLETPROOF: Use capture phase to run before other handlers
       checkoutForm.addEventListener('submit', async (e) => {
         const addressData = this.getVerifiedAddress();
         
         if (addressData) {
           e.preventDefault();
           e.stopPropagation();
+          
+          console.log('Checkout handler intercepted - saving cart first');
           
           // Show loading state
           const submitButton = checkoutForm.querySelector('button[type="submit"], button[name="checkout"]');
@@ -113,15 +115,42 @@ class CheckoutAddressHandler {
             submitButton.textContent = 'Processing...';
           }
           
-          // Create checkout URL with address parameters
-          const checkoutUrl = this.createCheckoutUrl(addressData);
-          
-          console.log('Redirecting to checkout with address:', checkoutUrl);
-          
-          // Redirect to checkout with pre-filled address
-          window.location.href = checkoutUrl;
+          try {
+            // BULLETPROOF: Submit cart form data first to save attributes
+            const formData = new FormData(checkoutForm);
+            
+            const cartResponse = await fetch('/cart', {
+              method: 'POST',
+              body: formData
+            });
+            
+            if (!cartResponse.ok) {
+              throw new Error(`Cart update failed: ${cartResponse.status}`);
+            }
+            
+            console.log('Cart attributes saved successfully');
+            
+            // Create checkout URL with address parameters
+            const checkoutUrl = this.createCheckoutUrl(addressData);
+            
+            console.log('Redirecting to checkout with address:', checkoutUrl);
+            
+            // Redirect to checkout with pre-filled address
+            window.location.href = checkoutUrl;
+            
+          } catch (error) {
+            console.error('Error in checkout process:', error);
+            
+            // Fallback: restore button and show error
+            if (submitButton) {
+              submitButton.disabled = false;
+              submitButton.textContent = originalText;
+            }
+            
+            alert('There was an error processing your request. Please try again.');
+          }
         }
-      });
+      }, true); // Use capture phase to run first
     }
   }
 
