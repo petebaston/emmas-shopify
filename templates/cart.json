@@ -1,1 +1,149 @@
-{"sections":{"main":{"type":"main-cart","blocks":{"4146b2da-3d32-4083-8a95-c67187a7d32f":{"type":"trust","settings":{"icon":"bi-customer-support","title":"Any Questions? Reach out to us","content":"<p>Call (888) 638-9994 or email us Contact@Emmaspremium.com<\/p>"}},"9e9ab3c4-fe2e-4e56-ab66-66674803b1b3":{"type":"trust","settings":{"icon":"bi-secure-payment","title":"100% Secure Checkout","content":"<p>Our Store is PCI compliant, BBB Accredited, and SSL Verified.<\/p>"}},"trust_YneaPr":{"type":"trust","settings":{"icon":"bi-love","title":"100% Secure Checkout","content":"<p>Our promise to help families first, put us 1st in NYSDOCCS Package Supply<\/p>"}}},"block_order":["4146b2da-3d32-4083-8a95-c67187a7d32f","9e9ab3c4-fe2e-4e56-ab66-66674803b1b3","trust_YneaPr"],"settings":{"enable_order_notes":true,"show_payment_icons":true,"gift_wrap_product":"","gift_wrap_text":"","gift_wrap_button":"Yes","show_shipping_estimator":false,"shipping_estimator_default_country":"United States","trust_heading":"10+ Years, 7.7+ Million Packages, 4.2 Million Families Served: We Are Your NYS Inmate Megastore","upsell_heading":"Add These Essentials With 1 Click","upsell_collection":"personal-care","upsell_products_count":12}},"16435242361c8d2f71":{"type":"reputon-google-reviews-1643523659044","settings":{}},"collection_list_HTcdRc":{"type":"collection-list","blocks":{"collection_QkxmAH":{"type":"collection","settings":{"collection":"entenmanns","image":"shopify:\/\/shop_images\/entenmann.jpg","link":"shopify:\/\/collections\/entenmanns"}},"collection_F9b3Ke":{"type":"collection","settings":{"collection":"amylu","link":"shopify:\/\/collections\/amylu"}},"collection_E34xdG":{"type":"collection","settings":{"collection":"perdue","link":"shopify:\/\/collections\/perdue"}},"collection_X7rbLG":{"type":"collection","settings":{"collection":"bumble-bee","image":"shopify:\/\/shop_images\/bumble_bee_tuna_logo.jpg","link":"shopify:\/\/collections\/bumble-bee"}},"collection_Te7RWe":{"type":"collection","settings":{"collection":"chips","image":"shopify:\/\/shop_images\/352215814_1401876217279091_4118690444744361220_n.jpg","link":"shopify:\/\/collections\/frito-lay-snacks-inmate"}},"collection_kkPKWG":{"type":"collection","settings":{"collection":"crush","link":"shopify:\/\/collections\/cold-drink-mix"}}},"block_order":["collection_QkxmAH","collection_F9b3Ke","collection_E34xdG","collection_X7rbLG","collection_Te7RWe","collection_kkPKWG"],"settings":{"title":"Shop Our Brands","link_title":"View all","link":"shopify:\/\/collections","round_images":true,"show_collection_title":true}},"recently-viewed-products":{"type":"recently-viewed-products","settings":{"title":"Recently viewed","show_quick_buy":true}},"1755182385cefc11bf":{"type":"apps","blocks":{"koin_cart_widget_DHQ8fm":{"type":"shopify:\/\/apps\/koin\/blocks\/cart_widget\/02895843-ca31-4ee5-82a1-bfd81a36a58d","settings":{}}},"block_order":["koin_cart_widget_DHQ8fm"],"settings":{"include_margins":true}}},"order":["main","16435242361c8d2f71","collection_list_HTcdRc","recently-viewed-products","1755182385cefc11bf"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "blocks": {
+        "4146b2da-3d32-4083-8a95-c67187a7d32f": {
+          "type": "trust",
+          "settings": {
+            "icon": "bi-customer-support",
+            "title": "Any Questions? Reach out to us",
+            "content": "<p>Call (888) 638-9994 or email us Contact@Emmaspremium.com</p>"
+          }
+        },
+        "9e9ab3c4-fe2e-4e56-ab66-66674803b1b3": {
+          "type": "trust",
+          "settings": {
+            "icon": "bi-secure-payment",
+            "title": "100% Secure Checkout",
+            "content": "<p>Our Store is PCI compliant, BBB Accredited, and SSL Verified.</p>"
+          }
+        },
+        "trust_YneaPr": {
+          "type": "trust",
+          "settings": {
+            "icon": "bi-love",
+            "title": "100% Secure Checkout",
+            "content": "<p>Our promise to help families first, put us 1st in NYSDOCCS Package Supply</p>"
+          }
+        }
+      },
+      "block_order": [
+        "4146b2da-3d32-4083-8a95-c67187a7d32f",
+        "9e9ab3c4-fe2e-4e56-ab66-66674803b1b3",
+        "trust_YneaPr"
+      ],
+      "settings": {
+        "enable_order_notes": true,
+        "show_payment_icons": true,
+        "gift_wrap_product": "",
+        "gift_wrap_text": "",
+        "gift_wrap_button": "Yes",
+        "show_shipping_estimator": false,
+        "shipping_estimator_default_country": "United States",
+        "trust_heading": "10+ Years, 7.7+ Million Packages, 4.2 Million Families Served: We Are Your NYS Inmate Megastore",
+        "upsell_heading": "Add These Essentials With 1 Click",
+        "upsell_collection": "personal-care",
+        "upsell_products_count": 12
+      }
+    },
+    "16435242361c8d2f71": {
+      "type": "reputon-google-reviews-1643523659044",
+      "settings": {}
+    },
+    "collection_list_HTcdRc": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_QkxmAH": {
+          "type": "collection",
+          "settings": {
+            "collection": "entenmanns",
+            "image": "shopify://shop_images/entenmann.jpg",
+            "link": "shopify://collections/entenmanns"
+          }
+        },
+        "collection_F9b3Ke": {
+          "type": "collection",
+          "settings": {
+            "collection": "amylu",
+            "link": "shopify://collections/amylu"
+          }
+        },
+        "collection_E34xdG": {
+          "type": "collection",
+          "settings": {
+            "collection": "perdue",
+            "link": "shopify://collections/perdue"
+          }
+        },
+        "collection_X7rbLG": {
+          "type": "collection",
+          "settings": {
+            "collection": "bumble-bee",
+            "image": "shopify://shop_images/bumble_bee_tuna_logo.jpg",
+            "link": "shopify://collections/bumble-bee"
+          }
+        },
+        "collection_Te7RWe": {
+          "type": "collection",
+          "settings": {
+            "collection": "chips",
+            "image": "shopify://shop_images/352215814_1401876217279091_4118690444744361220_n.jpg",
+            "link": "shopify://collections/frito-lay-snacks-inmate"
+          }
+        },
+        "collection_kkPKWG": {
+          "type": "collection",
+          "settings": {
+            "collection": "crush",
+            "link": "shopify://collections/cold-drink-mix"
+          }
+        }
+      },
+      "block_order": [
+        "collection_QkxmAH",
+        "collection_F9b3Ke",
+        "collection_E34xdG",
+        "collection_X7rbLG",
+        "collection_Te7RWe",
+        "collection_kkPKWG"
+      ],
+      "settings": {
+        "title": "Shop Our Brands",
+        "link_title": "View all",
+        "link": "shopify://collections",
+        "round_images": true,
+        "show_collection_title": true
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    },
+    "1755182385cefc11bf": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16435242361c8d2f71",
+    "collection_list_HTcdRc",
+    "recently-viewed-products",
+    "1755182385cefc11bf"
+  ]
+}

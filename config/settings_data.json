@@ -59,7 +59,7 @@
     "cart_empty_button_link": "",
     "cart_show_checkout_button": false,
     "cart_show_free_shipping_threshold": false,
-    "cart_free_shipping_threshold": "50",
+    "cart_free_shipping_threshold": "200",
     "social_facebook": "https://www.facebook.com/emmaspremiumservices/",
     "social_twitter": "",
     "social_pinterest": "",
