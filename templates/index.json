@@ -15,13 +15,13 @@
         "slide-2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Screenshot_2025-01-09_160911-min_1.png",
-            "mobile_image": "shopify://shop_images/ripe-pineapple-sits-against-a-blue-background3_1_1.jpg",
+            "image": "shopify://shop_images/Screenshot_2025-09-15_at_11.19.41_PM.png",
+            "mobile_image": "shopify://shop_images/Screenshot_2025-09-15_at_11.19.41_PM.png",
             "show_overlay": true,
             "overlay_opacity": 74,
             "text_color": "#ffffff",
             "title": "NYSDOCCS's #1 Inmate Superstore",
-            "content": "3000 Approved Items, Same Day Shipping*",
+            "content": "4000 Approved Items, Same Day Shipping*",
             "content_position": "bottom_left",
             "button_background": "#ffffff",
             "button_text_color": "#1e2d7d",
@@ -57,8 +57,8 @@
       "custom_css": [
         ".container {padding: 0;}",
         "@media (width < 500px) {.container {padding-top: 5px; }}",
-        "@media screen and (min-width: 641px) { .section { margin: 20px 0 !important; } }",
-        "@media screen and (max-width: 640px) { .section { margin: 15px 0 !important; } }"
+        "@media screen and (min-width: 641px) {.section {margin: 20px 0 !important; }}",
+        "@media screen and (max-width: 640px) {.section {margin: 15px 0 !important; }}"
       ],
       "settings": {
         "include_margins": true
