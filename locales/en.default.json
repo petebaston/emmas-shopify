@@ -584,7 +584,7 @@
       },
       "shipping": {
         "title": "Billing Details",
-        "delivery_title": "Shipping Details",
+        "delivery_title": "Billling Details",
         "shipping_address_title": "Bill To"
       }
     },
