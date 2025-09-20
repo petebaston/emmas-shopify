@@ -174,18 +174,18 @@
       "type": "collection-with-image",
       "custom_css": [],
       "settings": {
-        "collection": "summerwear",
-        "products_count": 12,
+        "collection": "winterwear",
+        "products_count": 16,
         "show_quick_buy": false,
-        "image": "shopify://shop_images/army-running-shorts-mustang-olive-green-second_1580x1234_528107_626511.jpg",
+        "image": "shopify://shop_images/rothco-m-65-field-jacket-9.jpg",
         "background": "#b0b9bf",
         "text_color": "#ffffff",
-        "title": "SUMMER GEAR",
-        "content": "SHORTS, T-SHIRTS, & TANK TOPS",
+        "title": "WINTER GEAR",
+        "content": "JACKETS, THERMALS, GLOVES & MORE",
         "button_background": "#ffffff",
         "button_text_color": "#677279",
         "button_text": "SAME DAY SHIPPING",
-        "button_link": "shopify://collections/summerwear"
+        "button_link": "shopify://collections/winterwear"
       }
     },
     "1632970229d118c338": {
