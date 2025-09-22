@@ -547,7 +547,7 @@
   "shopify": {
     "checkout": {
       "contact": {
-        "shipping_address_title": "Billing Details",
+        "shipping_address_title": "Shipping Details",
         "delivery_option_title": "Billing Details",
         "ship_to_company": "Ship To"
       },
