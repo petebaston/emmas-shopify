@@ -552,8 +552,8 @@
       "payment": {
         "billing_address_description": " ",
         "billing_address_description_no_shipping_address": " ",
-        "same_billing_address_label": " ",
-        "different_billing_address_label": " ",
+        "same_billing_address_label": " Same as billing",
+        "different_billing_address_label": " Billing Details",
         "same_billing_address_checkbox_label": " "
       },
       "delivery_options": {
