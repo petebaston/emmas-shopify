@@ -580,7 +580,7 @@
         "taxes_label": "Processing Fee"
       },
       "shipping": {
-        "delivery_title": "Billling Details",
+        "delivery_title": "Shipping Details",
         "shipping_address_title": "Bill To"
       }
     },
