@@ -547,8 +547,7 @@
   "shopify": {
     "checkout": {
       "contact": {
-        "ship_to_company": "Ship To",
-        "shipping_address_title": "Your Loved One's Package Ship To"
+        "ship_to_company": "Ship To"
       },
       "payment": {
         "billing_address_description": " ",
