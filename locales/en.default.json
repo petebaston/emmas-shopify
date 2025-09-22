@@ -554,7 +554,8 @@
         "billing_address_description_no_shipping_address": " ",
         "same_billing_address_label": " ",
         "different_billing_address_label": " ",
-        "same_billing_address_checkbox_label": " "
+        "same_billing_address_checkbox_label": " ",
+        "billing_address_title": "Shipping Address"
       },
       "delivery_options": {
         "shipping_address": "Shipping Address",
