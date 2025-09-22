@@ -552,7 +552,6 @@
         "ship_to_company": "Ship To"
       },
       "payment": {
-        "billing_address_title": " ",
         "billing_address_description": " ",
         "billing_address_description_no_shipping_address": " ",
         "same_billing_address_label": " ",
