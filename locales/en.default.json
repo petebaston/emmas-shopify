@@ -548,7 +548,7 @@
     "checkout": {
       "contact": {
         "shipping_address_title": "Shipping Details",
-        "delivery_option_title": "Billing Details",
+        "delivery_option_title": "Shipping Details",
         "ship_to_company": "Ship To"
       },
       "payment": {
