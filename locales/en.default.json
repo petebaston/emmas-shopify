@@ -547,7 +547,8 @@
   "shopify": {
     "checkout": {
       "contact": {
-        "ship_to_company": "Ship To"
+        "ship_to_company": "Ship To",
+        "delivery_option_title": "dfdf"
       },
       "payment": {
         "billing_address_description": " ",
