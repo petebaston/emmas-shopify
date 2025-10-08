@@ -56,6 +56,23 @@
         "upsell_products_count": 12
       }
     },
+    "1755182385cefc11bf": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_R9QL4D": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1080
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_R9QL4D"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "16435242361c8d2f71": {
       "type": "reputon-google-reviews-1643523659044",
       "settings": {}
@@ -131,19 +148,13 @@
         "title": "Recently viewed",
         "show_quick_buy": true
       }
-    },
-    "1755182385cefc11bf": {
-      "type": "apps",
-      "settings": {
-        "include_margins": true
-      }
     }
   },
   "order": [
     "main",
+    "1755182385cefc11bf",
     "16435242361c8d2f71",
     "collection_list_HTcdRc",
-    "recently-viewed-products",
-    "1755182385cefc11bf"
+    "recently-viewed-products"
   ]
 }
