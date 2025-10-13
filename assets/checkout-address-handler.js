@@ -4,33 +4,232 @@
 class CheckoutAddressHandler {
   constructor() {
     this.verifiedAddress = null;
+    this.STORAGE_KEY = 'verifiedCheckoutAddress';
+    this.TIMESTAMP_KEY = 'verifiedCheckoutTimestamp';
+    this.MAX_AGE_MS = 30 * 60 * 1000; // 30 minutes
+
+    // Clean up expired data on initialization
+    this.cleanupExpiredData();
   }
 
-  // Store the verified address data
+  // Store the verified address data with multi-layer redundancy
   setVerifiedAddress(addressData) {
-    this.verifiedAddress = addressData;
-    // Also store in sessionStorage as backup
-    if (addressData) {
-      sessionStorage.setItem('verifiedCheckoutAddress', JSON.stringify(addressData));
+    if (!addressData) {
+      console.warn('Attempted to store null/undefined address data');
+      return;
+    }
+
+    const timestamp = Date.now();
+    const dataToStore = {
+      address: addressData,
+      timestamp: timestamp,
+      version: '1.0' // For future compatibility
+    };
+
+    try {
+      // Layer 1: In-memory storage (fastest, but lost on page reload)
+      this.verifiedAddress = dataToStore;
+
+      // Layer 2: localStorage (most persistent - survives tab closes, page reloads)
+      try {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(dataToStore));
+        console.log('✓ Address data saved to localStorage');
+      } catch (localStorageError) {
+        console.warn('localStorage unavailable:', localStorageError);
+      }
+
+      // Layer 3: sessionStorage (backup - survives page reloads in same tab)
+      try {
+        sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(dataToStore));
+        console.log('✓ Address data saved to sessionStorage');
+      } catch (sessionStorageError) {
+        console.warn('sessionStorage unavailable:', sessionStorageError);
+      }
+
+      // Layer 4: Store in hidden cart form fields (most reliable for checkout)
+      this.storeInCartAttributes(addressData);
+
+      console.log('✓ Address data stored successfully across all layers');
+
+    } catch (error) {
+      console.error('Critical error storing address data:', error);
+      // Even if storage fails, keep in-memory version
+      this.verifiedAddress = dataToStore;
     }
   }
 
-  // Get stored address
-  getVerifiedAddress() {
-    if (this.verifiedAddress) {
-      return this.verifiedAddress;
+  // Store address data in hidden form fields for maximum reliability
+  storeInCartAttributes(addressData) {
+    try {
+      const form = document.querySelector('#cart_submit_form, form[action="/cart"]');
+      if (!form) {
+        console.warn('Cart form not found - cannot store in attributes');
+        return;
+      }
+
+      // Store each critical field as a hidden input
+      const fieldsToStore = {
+        '_verified_facility_name': addressData.facility || '',
+        '_verified_facility_address': addressData.address1 || '',
+        '_verified_facility_city': addressData.city || '',
+        '_verified_facility_state': addressData.state || '',
+        '_verified_facility_zip': addressData.zip || '',
+        '_verified_inmate_name': addressData.name || '',
+        '_verified_din': addressData.din || '',
+        '_verification_timestamp': Date.now().toString()
+      };
+
+      Object.keys(fieldsToStore).forEach(fieldName => {
+        // Remove existing hidden field if it exists
+        const existing = form.querySelector(`input[name="attributes[${fieldName}]"]`);
+        if (existing) {
+          existing.remove();
+        }
+
+        // Create new hidden field
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = `attributes[${fieldName}]`;
+        input.value = fieldsToStore[fieldName];
+        input.setAttribute('data-verified-field', 'true');
+        form.appendChild(input);
+      });
+
+      console.log('✓ Address data stored in cart attributes');
+    } catch (error) {
+      console.error('Error storing in cart attributes:', error);
     }
-    // Try to get from sessionStorage
-    const stored = sessionStorage.getItem('verifiedCheckoutAddress');
-    if (stored) {
+  }
+
+  // Get stored address with fallback chain and validation
+  getVerifiedAddress() {
+    // Try each storage layer in order of preference
+    const sources = [
+      { name: 'memory', getter: () => this.verifiedAddress },
+      { name: 'localStorage', getter: () => this.getFromStorage(localStorage) },
+      { name: 'sessionStorage', getter: () => this.getFromStorage(sessionStorage) },
+      { name: 'cartAttributes', getter: () => this.getFromCartAttributes() }
+    ];
+
+    for (const source of sources) {
       try {
-        this.verifiedAddress = JSON.parse(stored);
-        return this.verifiedAddress;
-      } catch (e) {
-        console.error('Error parsing stored address:', e);
+        const data = source.getter();
+        if (data) {
+          // Validate data is not stale
+          if (this.isDataValid(data)) {
+            console.log(`✓ Retrieved valid address data from ${source.name}`);
+
+            // Restore to all layers if found in fallback source
+            if (source.name !== 'memory') {
+              this.verifiedAddress = data;
+            }
+            if (source.name !== 'localStorage') {
+              try {
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
+              } catch (e) { /* ignore */ }
+            }
+
+            return data.address || data; // Return address object
+          } else {
+            console.warn(`Data from ${source.name} is stale or invalid`);
+          }
+        }
+      } catch (error) {
+        console.warn(`Error retrieving from ${source.name}:`, error);
       }
     }
+
+    console.warn('No valid address data found in any storage layer');
     return null;
+  }
+
+  // Get data from browser storage (localStorage or sessionStorage)
+  getFromStorage(storage) {
+    try {
+      const stored = storage.getItem(this.STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        return parsed;
+      }
+    } catch (e) {
+      console.error('Error parsing stored data:', e);
+    }
+    return null;
+  }
+
+  // Retrieve address data from cart form attributes
+  getFromCartAttributes() {
+    try {
+      const form = document.querySelector('#cart_submit_form, form[action="/cart"]');
+      if (!form) return null;
+
+      const facilityName = form.querySelector('input[name="attributes[_verified_facility_name]"]')?.value;
+      const timestamp = form.querySelector('input[name="attributes[_verification_timestamp]"]')?.value;
+
+      if (!facilityName || !timestamp) return null;
+
+      // Reconstruct address data from hidden fields
+      const addressData = {
+        address: {
+          facility: facilityName,
+          address1: form.querySelector('input[name="attributes[_verified_facility_address]"]')?.value || '',
+          city: form.querySelector('input[name="attributes[_verified_facility_city]"]')?.value || '',
+          state: form.querySelector('input[name="attributes[_verified_facility_state]"]')?.value || '',
+          zip: form.querySelector('input[name="attributes[_verified_facility_zip]"]')?.value || '',
+          name: form.querySelector('input[name="attributes[_verified_inmate_name]"]')?.value || '',
+          din: form.querySelector('input[name="attributes[_verified_din]"]')?.value || '',
+          country: 'United States'
+        },
+        timestamp: parseInt(timestamp, 10),
+        version: '1.0'
+      };
+
+      return addressData;
+    } catch (error) {
+      console.error('Error retrieving from cart attributes:', error);
+      return null;
+    }
+  }
+
+  // Validate that data is not stale
+  isDataValid(data) {
+    if (!data) return false;
+
+    // Check if data has required fields
+    const addressData = data.address || data;
+    if (!addressData.facility && !addressData.name) {
+      return false;
+    }
+
+    // Check timestamp if available
+    if (data.timestamp) {
+      const age = Date.now() - data.timestamp;
+      if (age > this.MAX_AGE_MS) {
+        console.warn(`Data is ${Math.round(age / 60000)} minutes old (max ${this.MAX_AGE_MS / 60000} minutes)`);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  // Clean up expired data from storage
+  cleanupExpiredData() {
+    try {
+      [localStorage, sessionStorage].forEach(storage => {
+        try {
+          const data = this.getFromStorage(storage);
+          if (data && !this.isDataValid(data)) {
+            storage.removeItem(this.STORAGE_KEY);
+            console.log('✓ Cleaned up expired data from storage');
+          }
+        } catch (e) {
+          // Ignore cleanup errors
+        }
+      });
+    } catch (error) {
+      console.error('Error during cleanup:', error);
+    }
   }
 
 
@@ -160,10 +359,39 @@ class CheckoutAddressHandler {
     }
   }
 
-  // Clear stored address data
+  // Clear stored address data from all layers
   clearAddress() {
+    console.log('Clearing address data from all storage layers');
+
+    // Clear in-memory storage
     this.verifiedAddress = null;
-    sessionStorage.removeItem('verifiedCheckoutAddress');
+
+    // Clear browser storage
+    try {
+      localStorage.removeItem(this.STORAGE_KEY);
+    } catch (e) {
+      console.warn('Could not clear localStorage:', e);
+    }
+
+    try {
+      sessionStorage.removeItem(this.STORAGE_KEY);
+    } catch (e) {
+      console.warn('Could not clear sessionStorage:', e);
+    }
+
+    // Clear cart attributes
+    try {
+      const form = document.querySelector('#cart_submit_form, form[action="/cart"]');
+      if (form) {
+        const verifiedFields = form.querySelectorAll('input[data-verified-field="true"]');
+        verifiedFields.forEach(field => field.remove());
+        console.log('✓ Cleared cart attribute fields');
+      }
+    } catch (error) {
+      console.error('Error clearing cart attributes:', error);
+    }
+
+    console.log('✓ Address data cleared from all layers');
   }
 }
 
