@@ -69,11 +69,6 @@ class CheckoutAddressHandler {
 
       // Store each critical field as a hidden input
       const fieldsToStore = {
-        '_verified_facility_name': addressData.facility || '',
-        '_verified_facility_address': addressData.address1 || '',
-        '_verified_facility_city': addressData.city || '',
-        '_verified_facility_state': addressData.state || '',
-        '_verified_facility_zip': addressData.zip || '',
         '_verified_inmate_name': addressData.name || '',
         '_verified_din': addressData.din || '',
         '_verification_timestamp': Date.now().toString()
@@ -163,21 +158,17 @@ class CheckoutAddressHandler {
       const form = document.querySelector('#cart_submit_form, form[action="/cart"]');
       if (!form) return null;
 
-      const facilityName = form.querySelector('input[name="attributes[_verified_facility_name]"]')?.value;
+      const inmateName = form.querySelector('input[name="attributes[_verified_inmate_name]"]')?.value;
+      const din = form.querySelector('input[name="attributes[_verified_din]"]')?.value;
       const timestamp = form.querySelector('input[name="attributes[_verification_timestamp]"]')?.value;
 
-      if (!facilityName || !timestamp) return null;
+      if (!inmateName || !timestamp) return null;
 
-      // Reconstruct address data from hidden fields
+      // Reconstruct address data from hidden fields (only essential verified fields)
       const addressData = {
         address: {
-          facility: facilityName,
-          address1: form.querySelector('input[name="attributes[_verified_facility_address]"]')?.value || '',
-          city: form.querySelector('input[name="attributes[_verified_facility_city]"]')?.value || '',
-          state: form.querySelector('input[name="attributes[_verified_facility_state]"]')?.value || '',
-          zip: form.querySelector('input[name="attributes[_verified_facility_zip]"]')?.value || '',
-          name: form.querySelector('input[name="attributes[_verified_inmate_name]"]')?.value || '',
-          din: form.querySelector('input[name="attributes[_verified_din]"]')?.value || '',
+          name: inmateName,
+          din: din || '',
           country: 'United States'
         },
         timestamp: parseInt(timestamp, 10),
