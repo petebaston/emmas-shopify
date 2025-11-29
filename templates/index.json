@@ -15,8 +15,8 @@
         "slide-2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Screenshot_2025-10-30_at_1.31.39_AM.png",
-            "mobile_image": "shopify://shop_images/Screenshot_2025-10-30_at_1.31.39_AM.png",
+            "image": "shopify://shop_images/christmas-baking-treats.jpg",
+            "mobile_image": "shopify://shop_images/christmas-baking-treats.jpg",
             "show_overlay": true,
             "overlay_opacity": 69,
             "text_color": "#ffffff",
