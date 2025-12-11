@@ -64,6 +64,19 @@
         "include_margins": true
       }
     },
+    "image_with_text_YWtVaf": {
+      "type": "image-with-text",
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/30_OFF_1.png",
+        "image_position": "left",
+        "image_width": 50,
+        "title": "THE BEST HOLIDAY GIFT, IS COMFORT",
+        "content": "<p>Nothing says “I care about you” like a soft blanket or a fresh, plush towel. This holiday, share the comfort your loved ones deserve. </p><p>Our collection is crafted to deliver the warmth and coziness that makes home feel close.</p><p><strong>Celebrate the season with 30% OFF on all blankets and towels.</strong><br/>A thoughtful gift, a meaningful gesture—and the perfect way to make the holidays feel a little softer. Wrap your loved ones in softness this season. The gift they’ll use every single day.</p>",
+        "button_text": "SHOP BEDDING",
+        "button_link": "shopify://collections/bedding"
+      }
+    },
     "1718746426336ae586": {
       "type": "apps",
       "settings": {
@@ -700,24 +713,12 @@
       "settings": {
         "include_margins": true
       }
-    },
-    "image_with_text_YWtVaf": {
-      "type": "image-with-text",
-      "name": "Image with text",
-      "settings": {
-        "image": "shopify://shop_images/30_OFF_1.png",
-        "image_position": "left",
-        "image_width": 50,
-        "title": "THE BEST HOLIDAY GIFT, IS COMFORT",
-        "content": "<p>Nothing says “I care about you” like a soft blanket or a fresh, plush towel. This holiday, share the comfort your loved ones deserve. </p><p>Our collection is crafted to deliver the warmth and coziness that makes home feel close.</p><p>Celebrate the season with <strong>30% OFF</strong> on all blankets and towels.<br/><br/>A thoughtful gift, a meaningful gesture—and the perfect way to make the holidays feel a little softer. Wrap your loved ones in softness this season. The gift they’ll use every single day.</p>",
-        "button_text": "SHOP BEDDING",
-        "button_link": "shopify://collections/bedding"
-      }
     }
   },
   "order": [
     "slideshow",
     "1709709514e50f2d03",
+    "image_with_text_YWtVaf",
     "1718746426336ae586",
     "collection_with_image_cMKjpq",
     "4b90ad31-5e32-4f43-9442-50475bd1266a",
@@ -737,7 +738,6 @@
     "featured-collection",
     "1632887683e12b2c2f",
     "blog-posts",
-    "1754835513c936add1",
-    "image_with_text_YWtVaf"
+    "1754835513c936add1"
   ]
 }
