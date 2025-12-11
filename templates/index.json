@@ -700,6 +700,19 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "image_with_text_YWtVaf": {
+      "type": "image-with-text",
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/30_OFF_1.png",
+        "image_position": "left",
+        "image_width": 50,
+        "title": "THE BEST HOLIDAY GIFT, IS COMFORT",
+        "content": "<p>Wrap your loved ones in softness this season. Our premium blankets and towels make the perfect holiday gift—cozy, practical, and designed to bring comfort all year long. Give a gift they’ll use every single day.</p>",
+        "button_text": "SHOP BEDDING",
+        "button_link": "shopify://collections/bedding"
+      }
     }
   },
   "order": [
@@ -724,6 +737,7 @@
     "featured-collection",
     "1632887683e12b2c2f",
     "blog-posts",
-    "1754835513c936add1"
+    "1754835513c936add1",
+    "image_with_text_YWtVaf"
   ]
 }
