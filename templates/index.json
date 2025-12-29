@@ -15,8 +15,8 @@
         "slide-2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Dec_28_2025_11_16_43_PM.png",
-            "mobile_image": "shopify://shop_images/ChatGPT_Image_Dec_28_2025_11_16_43_PM.png",
+            "image": "shopify://shop_images/ChatGPT_Image_Dec_28_2025_11_22_25_PM.png",
+            "mobile_image": "shopify://shop_images/ChatGPT_Image_Dec_28_2025_11_22_25_PM.png",
             "show_overlay": true,
             "overlay_opacity": 58,
             "text_color": "#ffffff",
@@ -25,7 +25,7 @@
             "content_position": "bottom_left",
             "button_background": "#ffffff",
             "button_text_color": "#1e2d7d",
-            "button_text": "NYE INMATE CLOTHING",
+            "button_text": "SHOP INMATE CLOTHING",
             "link": "shopify://collections/clothing"
           }
         }
