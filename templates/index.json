@@ -15,10 +15,10 @@
         "slide-2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Dec_28_2025_11_28_14_PM.png",
-            "mobile_image": "shopify://shop_images/ChatGPT_Image_Dec_28_2025_11_28_14_PM.png",
+            "image": "shopify://shop_images/intro-1761961087.webp",
+            "mobile_image": "shopify://shop_images/intro-1761961087.webp",
             "show_overlay": true,
-            "overlay_opacity": 58,
+            "overlay_opacity": 32,
             "text_color": "#ffffff",
             "title": "NYSDOCCS's Lead Inmate Superstore",
             "content": "4000 Approved Items, Same Day Shipping*",
