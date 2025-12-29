@@ -254,7 +254,7 @@
           "show_announcement": true,
           "background": "#292e43",
           "text_color": "#ffffff",
-          "text": "🎄 ORDER BY 12/21 FOR XMAS DELIVERY🎄 || APPROVED INMATE FOOTWEAR-CLICK HERE👟",
+          "text": "🎊HAPPY NEW YEAR🎊  || APPROVED INMATE FOOTWEAR-CLICK HERE👟",
           "text_position": "center",
           "link": "https://www.steptwofootwear.com",
           "show_newsletter": false,
@@ -346,11 +346,6 @@
       },
       "11945366711752539959": {
         "type": "shopify://apps/zendesk/blocks/zendesk_web_widget/c0b417b1-b90b-4754-baaf-f55627e6acd4",
-        "disabled": false,
-        "settings": {}
-      },
-      "7395447112630719664": {
-        "type": "shopify://apps/avada-seo-suite/blocks/avada-seo/15507c6e-1aa3-45d3-b698-7e175e033440",
         "disabled": false,
         "settings": {}
       },
