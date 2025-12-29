@@ -33,6 +33,9 @@
       "block_order": [
         "slide-2"
       ],
+      "custom_css": [
+        "@media screen and (max-width: 600px) {.slideshow__slide-inner {justify-content: end !important; }}"
+      ],
       "settings": {
         "edge_to_edge": false,
         "section_size": "small",
@@ -62,6 +65,19 @@
       ],
       "settings": {
         "include_margins": true
+      }
+    },
+    "image_with_text_YWtVaf": {
+      "type": "image-with-text",
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/30_OFF.zip_-_MARIA.png",
+        "image_position": "left",
+        "image_width": 50,
+        "title": "THE BEST NEW YEAR GIFT, IS COMFORT",
+        "content": "<p>Nothing says “I care about you” like a soft blanket or a fresh, plush towel. This NEW YEAR share the comfort your loved ones deserve. Our collection is crafted to deliver the warmth and coziness that makes home feel close.</p><p><strong>Celebrate the season with 30% OFF on all blankets and towels.</strong></p><p><br/>A thoughtful gift, a meaningful gesture—and the perfect way to make the holidays feel a little softer. Wrap your loved ones in softness this season. The gift they’ll use every single day.</p>",
+        "button_text": "SHOP BEDDING",
+        "button_link": "shopify://collections/bedding"
       }
     },
     "1718746426336ae586": {
@@ -705,6 +721,7 @@
   "order": [
     "slideshow",
     "1709709514e50f2d03",
+    "image_with_text_YWtVaf",
     "1718746426336ae586",
     "collection_with_image_cMKjpq",
     "4b90ad31-5e32-4f43-9442-50475bd1266a",
