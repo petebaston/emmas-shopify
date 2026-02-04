@@ -15,8 +15,8 @@
         "slide-2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/intro-1761961087.webp",
-            "mobile_image": "shopify://shop_images/intro-1761961087.webp",
+            "image": "shopify://shop_images/Why-Brunch-Is-the-Perfect-Valentines-Day-Meal.jpg",
+            "mobile_image": "shopify://shop_images/Why-Brunch-Is-the-Perfect-Valentines-Day-Meal.jpg",
             "show_overlay": true,
             "overlay_opacity": 32,
             "text_color": "#ffffff",
@@ -25,8 +25,8 @@
             "content_position": "bottom_left",
             "button_background": "#ffffff",
             "button_text_color": "#1e2d7d",
-            "button_text": "SHOP INMATE CLOTHING",
-            "link": "shopify://collections/clothing"
+            "button_text": "SHOP VALENTINE'S DAY",
+            "link": "shopify://collections/valentines"
           }
         }
       },
