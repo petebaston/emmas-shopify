@@ -131,12 +131,12 @@
         "products_count": 20,
         "show_quick_buy": true,
         "image": "shopify://shop_images/Sirloin-Steak.png",
-        "background": "#292e43",
-        "text_color": "#292e43",
+        "background": "#f1b0e1",
+        "text_color": "#ea8ad4",
         "title": "",
         "content": "",
-        "button_background": "#ffffff",
-        "button_text_color": "#292e43",
+        "button_background": "#f1b0e1",
+        "button_text_color": "#ffffff",
         "button_text": "VALENTINE'S DAY DINNER💝",
         "button_link": "shopify://collections/food-products-meats"
       }
