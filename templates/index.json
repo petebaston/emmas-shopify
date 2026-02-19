@@ -15,18 +15,18 @@
         "slide-2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Why-Brunch-Is-the-Perfect-Valentines-Day-Meal.jpg",
-            "mobile_image": "shopify://shop_images/Why-Brunch-Is-the-Perfect-Valentines-Day-Meal.jpg",
+            "image": "shopify://shop_images/ChatGPT_Image_Feb_19_2026_12_04_46_PM.png",
+            "mobile_image": "shopify://shop_images/ChatGPT_Image_Feb_19_2026_12_06_11_PM.png",
             "show_overlay": true,
             "overlay_opacity": 32,
             "text_color": "#ffffff",
             "title": "NYS Inmate Superstore",
-            "content": "",
+            "content": "TRUSTED BY 4+ MILLION FAMILIES",
             "content_position": "bottom_left",
             "button_background": "#ffffff",
-            "button_text_color": "#1e2d7d",
-            "button_text": "SHOP VALENTINE'S DAY",
-            "link": "shopify://collections/valentines"
+            "button_text_color": "#175a17",
+            "button_text": "SHOP SPRING COLLECTION",
+            "link": "shopify://collections/summerwear"
           }
         }
       },
@@ -131,13 +131,13 @@
         "products_count": 20,
         "show_quick_buy": true,
         "image": "shopify://shop_images/Sirloin-Steak.png",
-        "background": "#f1b0e1",
-        "text_color": "#ea8ad4",
+        "background": "#1d5f39",
+        "text_color": "#1d5f39",
         "title": "",
         "content": "",
-        "button_background": "#f1b0e1",
-        "button_text_color": "#ffffff",
-        "button_text": "VALENTINE'S DAY DINNER💝",
+        "button_background": "#ffffff",
+        "button_text_color": "#186438",
+        "button_text": "SPRING BBQ STYLE",
         "button_link": "shopify://collections/food-products-meats"
       }
     },
