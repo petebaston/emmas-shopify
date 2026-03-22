@@ -287,8 +287,12 @@
       orderRefField.value = generateOrderUUID();
     }
 
+    let listenersInitialized = false;
     function initListeners() {
+      if (listenersInitialized) return;
       const din = document.getElementById("din_attribute");
+      if (!din) return;
+      listenersInitialized = true;
       const dinLabel = document.getElementById("din_label");
       const alert = document.getElementById("din_alert");
       const dinInputAlert = document.getElementById("din_input_alert");
