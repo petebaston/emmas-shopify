@@ -3,7 +3,8 @@
     padding: 0 12px !important;
     height: 32px;
   }
-  .exat-attributes-wrap input[disabled], .exat-attributes-wrap select[disabled] {
+  .exat-attributes-wrap input[disabled], .exat-attributes-wrap select[disabled],
+  .exat-attributes-wrap input[readonly], .exat-attributes-wrap select[readonly] {
     cursor: not-allowed;
     background-color: #FAFAFA;
   }
@@ -142,12 +143,14 @@
   <!-- Inmate Name Attribute -->
   <p class="exat-attribute cart-attribute__field hide-not-searched">
     <label for="fullname_attribute">Inmate Full Name *</label>
-    <input placeholder="John Smith" class="form__field" required id="fullname_attribute" type="text" name="attributes[Inmate Full Name]" value="" disabled>
+    <input placeholder="John Smith" class="form__field" required id="fullname_attribute" type="text" value="" disabled>
+    <!-- Hidden field that always submits, even when visible field is disabled -->
+    <input type="hidden" id="fullname_attribute_hidden" name="attributes[Inmate Full Name]" value="">
   </p>
   <!-- Facility attribute -->
   <p class="exat-attribute cart-attribute__field hide-not-searched">
     <label for="facility_attribute">Inmate Facility *</label>
-    <select class="form__field" required id="facility_attribute" name="attributes[Inmate Facility]" disabled>
+    <select class="form__field" required id="facility_attribute" disabled>
       <option value="">select</option>
       <option class="" is-adjust-price="false" variant-id="0" value="Adirondack Correctional Facility">Adirondack Correctional Facility</option>
       <option class="" is-adjust-price="false" variant-id="0" value="Albion Correctional Facility">Albion Correctional Facility</option>
@@ -197,6 +200,8 @@
       <option class="" is-adjust-price="false" variant-id="0" value="Woodbourne Correctional Facility">Woodbourne Correctional Facility</option>
       <option class="" is-adjust-price="false" variant-id="0" value="Wyoming Correctional Facility">Wyoming Correctional Facility</option>
     </select>
+    <!-- Hidden field that always submits, even when select is disabled -->
+    <input type="hidden" id="facility_attribute_hidden" name="attributes[Inmate Facility]" value="">
   </p>
   <!-- Catalog attribute -->
   <div class="manual-mode hide-not-searched"><span id="enable_manual_text">If any of the information above is incorrect, please</span> <button type="button" id="enable_manual" style="color:blue;">click here</button>.</div>
@@ -224,6 +229,9 @@
       const dinInputAlert= document.getElementById("din_input_alert");
       const inmateName = document.getElementById("fullname_attribute");
       const facility = document.getElementById("facility_attribute");
+      // Hidden fields that always submit
+      const inmateNameHidden = document.getElementById("fullname_attribute_hidden");
+      const facilityHidden = document.getElementById("facility_attribute_hidden");
       const dinCon = document.getElementById("din_att_con");
       const ismanual = document.getElementById("is_manual_input");
       const notInCustodyAlert = document.getElementById("not_incustody_alert");
@@ -234,6 +242,18 @@
       const verifyWarning = document.getElementById("verify_warning");
       const verifyBtn = document.getElementById("inmate_search");
       var regex = /^\d{2}[A-Z]\d{4}$/i;
+
+      // Sync hidden fields with visible fields whenever they change
+      if (inmateName && inmateNameHidden) {
+        inmateName.addEventListener("input", function() {
+          inmateNameHidden.value = inmateName.value;
+        });
+      }
+      if (facility && facilityHidden) {
+        facility.addEventListener("change", function() {
+          facilityHidden.value = facility.value;
+        });
+      }
       document.getElementById("inmate_search").addEventListener("click", async function(){
         // Clear any warning when the verify button is clicked
         verifyWarning.classList.remove("show");
@@ -272,10 +292,12 @@
           dinInputAlert.classList.add('display-none');
           alert.classList.add('display-none');
           notInCustodyAlert.classList.add("display-none");
-          
+
           inmateName.value=data.name;
-          
+          if (inmateNameHidden) inmateNameHidden.value = data.name;
+
           facility.value=facilities.find(f=>f.toLowerCase().includes(data.facility.toLowerCase()))
+          if (facilityHidden) facilityHidden.value = facility.value;
   
           // Store address data from API response or use facility mapping
           const selectedFacility = facility.value;
@@ -327,10 +349,14 @@
         facility.disabled = false;
         ismanual.value = "Yes"
         wrapper.classList.add("manual")
-        
+
+        // Sync hidden fields with current values
+        if (inmateNameHidden) inmateNameHidden.value = inmateName.value;
+        if (facilityHidden) facilityHidden.value = facility.value;
+
         // Clear stored address data when switching to manual mode
         verifiedAddressData = null;
-        
+
         // Clear from checkout handler
         if (window.checkoutAddressHandler) {
           window.checkoutAddressHandler.clearAddress();
@@ -340,12 +366,12 @@
         if(inmateName.value==="" || facility.value===""){
           e.preventDefault();
           return;
-        } 
-        
-        // Re-enable fields so they're submitted with the form
-        inmateName.disabled=false;
-        facility.disabled=false;
-        
+        }
+
+        // Ensure hidden fields are synced before submission
+        if (inmateNameHidden) inmateNameHidden.value = inmateName.value;
+        if (facilityHidden) facilityHidden.value = facility.value;
+
         // The checkout handler will intercept and handle the address pre-fill
       })
       

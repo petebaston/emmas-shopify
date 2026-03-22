@@ -209,7 +209,7 @@
             "type": "text",
             "settings": {
               "title": "Our Story, Our Progress, Our Purpose",
-              "content": "<p>Our founder spent nearly 10 years bringing packages to her son, only to see so many others struggling to provide care packages for their loved one. </p><p>She realized that there were millions in need and launched Emma's Premium Services. A platform created to reduce strain on families supporting their loved one. </p><p>To date, Emma's has reached over 1 Million families and shipped over 4.3 Million packages to New York Correctional Facilities.</p>"
+              "content": "<p>Our founder spent nearly 10 years bringing packages to her son, only to see so many others struggling to provide care packages for their loved one. </p><p>She realized that there were millions in need and launched Emma's Premium Services. A platform created to reduce strain on families supporting their loved one. </p><p>Since launching, we have helped connect many families with their loved ones through a reliable, trusted service. </p>"
             }
           },
           "18629a15-b3ee-4fa7-9b84-34a17498cc28": {
@@ -254,7 +254,7 @@
           "show_announcement": true,
           "background": "#292e43",
           "text_color": "#ffffff",
-          "text": "Happy Halloween🎃 Orders $200+ Add King Henry 🍬 Candy FREE! APPROVED INMATE FOOTWEAR-CLICK HERE👟",
+          "text": "FREE MOBILE APP  LIVE💥|| SPRING SAVINGS ARE HERE🌻|| APPROVED FOOTWEAR-CLICK HERE👟",
           "text_position": "center",
           "link": "https://www.steptwofootwear.com",
           "show_newsletter": false,
@@ -349,11 +349,6 @@
         "disabled": false,
         "settings": {}
       },
-      "7395447112630719664": {
-        "type": "shopify://apps/avada-seo-suite/blocks/avada-seo/15507c6e-1aa3-45d3-b698-7e175e033440",
-        "disabled": false,
-        "settings": {}
-      },
       "14060646107696862457": {
         "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
         "disabled": false,
@@ -378,6 +373,11 @@
       },
       "2567389343055140935": {
         "type": "shopify://apps/microsoft-clarity/blocks/clarity_js/31c3d126-8116-4b4a-8ba1-baeda7c4aeea",
+        "disabled": false,
+        "settings": {}
+      },
+      "15879463164198068590": {
+        "type": "shopify://apps/tapcart-mobile-app/blocks/ck_loader/604cad6b-3841-4da3-b864-b96622b4adb8",
         "disabled": false,
         "settings": {}
       }

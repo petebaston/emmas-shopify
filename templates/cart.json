@@ -31,9 +31,9 @@
         "trust_YneaPr": {
           "type": "trust",
           "settings": {
-            "icon": "bi-love",
-            "title": "100% Secure Checkout",
-            "content": "<p>Our promise to help families first, put us 1st in NYSDOCCS Package Supply</p>"
+            "icon": "bi-shield",
+            "title": "NYSDOCCS Warning",
+            "content": "<p>Fraudulent chargebacks are reported to NYSDOCCS & affect inmate’s package privileges, disciplinary action</p>"
           }
         }
       },
