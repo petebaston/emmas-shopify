@@ -263,14 +263,18 @@
 <script src="{{ 'facility-addresses.js' | asset_url }}" defer></script>
 <script src="{{ 'checkout-address-handler.js' | asset_url }}"></script>
 <script>
-  const wrapper = document.querySelector(".exat-attributes-wrap")
+(function() {
+  const wrapper = document.querySelector(".exat-attributes-wrap");
+  if (!wrapper) return;
+
   const nyFacilities = ["Adirondack Correctional Facility", "Albion Correctional Facility", "Altona Correctional Facility", "Attica Correctional Facility", "Auburn Correctional Facility", "Bare Hill Correctional Facility", "Bedford Hills Correctional Facility", "Cape Vincent Correctional Facility", "Cayuga Correctional Facility", "Clinton Correctional Facility", "Collins Correctional Facility", "Coxsackie Correctional Facility", "Downstate Correctional Facility", "Eastern Correctional Facility", "Elmira Correctional Facility", "Fishkill Correctional Facility", "Five Points Correctional Facility", "Franklin Correctional Facility", "Gouverneur Correctional Facility", "Great Meadow Correctional Facility", "Green Haven Correctional Facility", "Greene Correctional Facility", "Groveland Correctional Facility", "Hale Creek Asactc Correctional Facility", "Hudson Correctional Facility", "Lakeview Shock Incarceration Correctional Facility", "Marcy Correctional Facility", "Midstate Correctional Facility", "Mohawk Correctional Facility", "Moriah Shock Incarceration Correctional Facility", "Ogdensburg Correctional Facility", "Orleans Correctional Facility", "Otisville Correctional Facility", "Riverview Correctional Facility", "Shawangunk Correctional Facility", "Sing Sing Correctional Facility", "Southport Correctional Facility", "Sullivan Correctional Facility", "Taconic Correctional Facility", "Ulster Correctional Facility", "Upstate Correctional Facility", "Wallkill Correctional Facility", "Washington Correctional Facility", "Wende Correctional Facility", "Willard Drug Treatment", "Woodbourne Correctional Facility", "Wyoming Correctional Facility"];
   const caFacilities = ["Avenal State Prison", "California Correctional Center", "California Correctional Institution", "California Health Care Facility", "California Institution for Men", "California Institution for Women", "California Medical Facility", "California Men's Colony", "California State Prison, Corcoran", "California State Prison, Los Angeles County", "California State Prison, Sacramento", "Centinela State Prison", "Central California Women's Facility", "Chuckawalla Valley State Prison", "Corcoran State Prison", "Folsom State Prison", "High Desert State Prison", "Ironwood State Prison", "Kern Valley State Prison", "Mule Creek State Prison", "North Kern State Prison", "Pelican Bay State Prison", "Pleasant Valley State Prison", "Richard J. Donovan Correctional Facility", "Salinas Valley State Prison", "San Quentin Rehabilitation Center", "Sierra Conservation Center", "Substance Abuse Treatment Facility", "Valley State Prison", "Wasco State Prison"];
-  
-  // Store the verified address data globally
+  const nyRegex = /^\d{2}[A-Z]\d{4}$/i;
+  const caRegex = /^([A-Z]{2}\d{4}|\d{6})$/i;
+
   let verifiedAddressData = null;
-  
-  // DEMO: Generate a 12-digit UUID for order reference
+
+  // DEMO: Generate a 12-digit alphanumeric reference ID
   function generateOrderUUID() {
     const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let uuid = '';
@@ -280,283 +284,227 @@
     return uuid;
   }
 
-  document.addEventListener("DOMContentLoaded", (event) => {
-    // Set the hidden order reference UUID
-    const orderRefField = document.getElementById("order_ref_uuid");
-    if (orderRefField && !orderRefField.value) {
-      orderRefField.value = generateOrderUUID();
+  // Cache DOM elements
+  const din = document.getElementById("din_attribute");
+  const dinLabel = document.getElementById("din_label");
+  const dinAlert = document.getElementById("din_alert");
+  const dinInputAlert = document.getElementById("din_input_alert");
+  const caInputAlert = document.getElementById("ca_input_alert");
+  const inmateName = document.getElementById("fullname_attribute");
+  const facility = document.getElementById("facility_attribute");
+  const stateSelector = document.getElementById("state_selector");
+  const nyGroup = document.getElementById("ny_facilities_group");
+  const caGroup = document.getElementById("ca_facilities_group");
+  const inmateNameHidden = document.getElementById("fullname_attribute_hidden");
+  const facilityHidden = document.getElementById("facility_attribute_hidden");
+  const ismanual = document.getElementById("is_manual_input");
+  const notInCustodyAlert = document.getElementById("not_incustody_alert");
+  const form = document.getElementById("cart_submit_form");
+  const enableManualText = document.getElementById("enable_manual_text");
+  const enableManual = document.getElementById("enable_manual");
+  const verifyWarning = document.getElementById("verify_warning");
+  const verifyBtn = document.getElementById("inmate_search");
+  const orderRefField = document.getElementById("order_ref_uuid");
+
+  if (!din || !form) return;
+
+  // Set the hidden order reference UUID once
+  if (orderRefField && !orderRefField.value) {
+    orderRefField.value = generateOrderUUID();
+  }
+
+  // --- State switching ---
+  function getSelectedState() {
+    return stateSelector ? stateSelector.value : 'NY';
+  }
+
+  function updateFacilityVisibility() {
+    const state = getSelectedState();
+    if (nyGroup) nyGroup.style.display = state === 'NY' ? '' : 'none';
+    if (caGroup) caGroup.style.display = state === 'CA' ? '' : 'none';
+    if (state === 'CA') {
+      dinLabel.textContent = 'CDCR Number *';
+      din.placeholder = 'EX: AB1234 or 123456';
+      din.name = 'attributes[CDCR Number]';
+    } else {
+      dinLabel.textContent = 'Inmate Din # *';
+      din.placeholder = 'EX: 24A0101';
+      din.name = 'attributes[Inmate Din #]';
     }
+  }
 
-    let listenersInitialized = false;
-    function initListeners() {
-      if (listenersInitialized) return;
-      const din = document.getElementById("din_attribute");
-      if (!din) return;
-      listenersInitialized = true;
-      const dinLabel = document.getElementById("din_label");
-      const alert = document.getElementById("din_alert");
-      const dinInputAlert = document.getElementById("din_input_alert");
-      const caInputAlert = document.getElementById("ca_input_alert");
-      const inmateName = document.getElementById("fullname_attribute");
-      const facility = document.getElementById("facility_attribute");
-      const stateSelector = document.getElementById("state_selector");
-      const nyGroup = document.getElementById("ny_facilities_group");
-      const caGroup = document.getElementById("ca_facilities_group");
-      // Hidden fields that always submit
-      const inmateNameHidden = document.getElementById("fullname_attribute_hidden");
-      const facilityHidden = document.getElementById("facility_attribute_hidden");
-      const dinCon = document.getElementById("din_att_con");
-      const ismanual = document.getElementById("is_manual_input");
-      const notInCustodyAlert = document.getElementById("not_incustody_alert");
-      const form = document.getElementById("cart_submit_form");
-      const enableManualText = document.getElementById("enable_manual_text")
-      const enableManual = document.getElementById("enable_manual")
-      const checkoutButton = document.querySelector('button[name="checkout"]');
-      const verifyWarning = document.getElementById("verify_warning");
-      const verifyBtn = document.getElementById("inmate_search");
-      var nyRegex = /^\d{2}[A-Z]\d{4}$/i;
-      var caRegex = /^([A-Z]{2}\d{4}|\d{6})$/i;
+  function resetForm() {
+    din.value = '';
+    inmateName.value = '';
+    inmateName.disabled = true;
+    facility.value = '';
+    facility.disabled = true;
+    if (inmateNameHidden) inmateNameHidden.value = '';
+    if (facilityHidden) facilityHidden.value = '';
+    wrapper.classList.remove("searched", "manual", "invalid-search");
+    dinInputAlert.classList.add('display-none');
+    caInputAlert.classList.add('display-none');
+    dinAlert.classList.add('display-none');
+    notInCustodyAlert.classList.add('display-none');
+    verifyWarning.classList.remove("show");
+    verifyBtn.classList.remove("highlight");
+  }
 
-      // Helper to get current state
-      function getSelectedState() {
-        return stateSelector ? stateSelector.value : 'NY';
-      }
+  function hideAllAlerts() {
+    dinInputAlert.classList.add('display-none');
+    caInputAlert.classList.add('display-none');
+    dinAlert.classList.add('display-none');
+    notInCustodyAlert.classList.add('display-none');
+  }
 
-      // Helper to get facilities list for current state
-      function getFacilitiesForState(state) {
-        return state === 'CA' ? caFacilities : nyFacilities;
-      }
+  // Initialize visibility (no form reset on first load)
+  updateFacilityVisibility();
 
-      // Toggle facility groups visibility based on state
-      function updateFacilityVisibility() {
-        const state = getSelectedState();
-        if (nyGroup) nyGroup.style.display = state === 'NY' ? '' : 'none';
-        if (caGroup) caGroup.style.display = state === 'CA' ? '' : 'none';
-        // Update label and placeholder based on state
-        if (state === 'CA') {
-          dinLabel.textContent = 'CDCR Number *';
-          din.placeholder = 'EX: AB1234 or 123456';
-          din.name = 'attributes[CDCR Number]';
-        } else {
-          dinLabel.textContent = 'Inmate Din # *';
-          din.placeholder = 'EX: 24A0101';
-          din.name = 'attributes[Inmate Din #]';
-        }
-        // Reset the form state when switching
-        din.value = '';
-        inmateName.value = '';
-        if (inmateNameHidden) inmateNameHidden.value = '';
-        facility.value = '';
-        if (facilityHidden) facilityHidden.value = '';
-        wrapper.classList.remove("searched", "manual", "invalid-search");
-        dinInputAlert.classList.add('display-none');
-        caInputAlert.classList.add('display-none');
-        alert.classList.add('display-none');
-        notInCustodyAlert.classList.add('display-none');
-      }
-
-      // Initialize visibility
+  // State selector change: update UI and reset form
+  if (stateSelector) {
+    stateSelector.addEventListener("change", function() {
       updateFacilityVisibility();
-
-      // State selector change handler
-      if (stateSelector) {
-        stateSelector.addEventListener("change", updateFacilityVisibility);
-      }
-
-      // Sync hidden fields with visible fields whenever they change
-      if (inmateName && inmateNameHidden) {
-        inmateName.addEventListener("input", function() {
-          inmateNameHidden.value = inmateName.value;
-        });
-      }
-      if (facility && facilityHidden) {
-        facility.addEventListener("change", function() {
-          facilityHidden.value = facility.value;
-        });
-      }
-      document.getElementById("inmate_search").addEventListener("click", async function(){
-        // Clear any warning when the verify button is clicked
-        verifyWarning.classList.remove("show");
-        this.classList.remove("highlight");
-
-        wrapper.classList.remove("searched")
-        wrapper.classList.remove("manual")
-
-        const currentState = getSelectedState();
-        const isCA = currentState === 'CA';
-        const regex = isCA ? caRegex : nyRegex;
-        const inputAlert = isCA ? caInputAlert : dinInputAlert;
-
-        // Hide all input alerts first
-        dinInputAlert.classList.add('display-none');
-        caInputAlert.classList.add('display-none');
-
-        if(!regex.test(din.value)){
-          din.focus();
-          inputAlert.classList.remove('display-none');
-          wrapper.classList.add("invalid-search")
-          enableManualText.textContent = "Cannot find details?"
-          enableManual.textContent = "Enter manually"
-          return;
-        }
-        try{
-          // DEMO: Always use the existing NY lookup endpoint for now
-          // Once the CA server endpoint is ready, route based on isCA
-          const response = await fetch("https://emma-server-ce8662596300.herokuapp.com/inmate?inmateDin=" + din.value);
-          const {error, data} = await response.json();
-          if (error){
-            inputAlert.classList.add('display-none');
-            notInCustodyAlert.classList.add("display-none");
-            alert.classList.remove('display-none')
-            wrapper.classList.add("invalid-search")
-            enableManualText.textContent = "Cannot find details?"
-            enableManual.textContent = "Enter manually"
-            return;
-          } else if (data.status !== "IN CUSTODY"){
-            inputAlert.classList.add('display-none');
-            alert.classList.add('display-none');
-            notInCustodyAlert.classList.remove("display-none");
-            wrapper.classList.add("invalid-search")
-            enableManualText.textContent = "Cannot find details?"
-            enableManual.textContent = "Enter manually"
-            return;
-          }
-          inputAlert.classList.add('display-none');
-          alert.classList.add('display-none');
-          notInCustodyAlert.classList.add("display-none");
-
-          inmateName.value=data.name;
-          if (inmateNameHidden) inmateNameHidden.value = data.name;
-
-          const currentFacilities = getFacilitiesForState(currentState);
-          facility.value=currentFacilities.find(f=>f.toLowerCase().includes(data.facility.toLowerCase())) || '';
-          if (facilityHidden) facilityHidden.value = facility.value;
-
-          // Store address data from API response or use facility mapping
-          const selectedFacility = facility.value;
-          let facilityAddressInfo = null;
-
-          // Check if facility addresses are loaded (supports both NY and CA)
-          if (window.facilityAddresses && window.facilityAddresses[selectedFacility]) {
-            facilityAddressInfo = window.facilityAddresses[selectedFacility];
-          }
-
-          verifiedAddressData = {
-            name: data.name,
-            firstName: data.name ? data.name.split(' ')[0] : '',
-            lastName: data.name ? data.name.split(' ').slice(1).join(' ') : '',
-            address1: data.address || data.facilityAddress || (facilityAddressInfo ? facilityAddressInfo.address : selectedFacility),
-            city: data.city || data.facilityCity || (facilityAddressInfo ? facilityAddressInfo.city : ''),
-            state: data.state || data.facilityState || (facilityAddressInfo ? facilityAddressInfo.state : currentState),
-            zip: data.zip || data.facilityZip || (facilityAddressInfo ? facilityAddressInfo.zip : ''),
-            country: 'United States',
-            facility: selectedFacility,
-            din: din.value,
-            lookupState: currentState
-          };
-
-          // Store in checkout handler
-          if (window.checkoutAddressHandler) {
-            window.checkoutAddressHandler.setVerifiedAddress(verifiedAddressData);
-          }
-
-          console.log('Address data stored:', verifiedAddressData);
-
-          inmateName.disabled = true
-          facility.disabled = true
-          ismanual.value = "No"
-          wrapper.classList.remove("manual")
-          wrapper.classList.add("searched")
-          wrapper.classList.remove("invalid-search")
-          enableManualText.textContent = "If any of the information above is incorrect, please"
-          enableManual.textContent = "click here"
-        } catch(err){
-          console.log(err)
-          inputAlert.classList.add('display-none');
-          notInCustodyAlert.classList.add("display-none");
-          alert.classList.remove('display-none')
-        }
-      })
-      
-      enableManual.addEventListener("click", async function(){
-        inmateName.disabled = false;
-        facility.disabled = false;
-        ismanual.value = "Yes"
-        wrapper.classList.add("manual")
-
-        // Sync hidden fields with current values
-        if (inmateNameHidden) inmateNameHidden.value = inmateName.value;
-        if (facilityHidden) facilityHidden.value = facility.value;
-
-        // Clear stored address data when switching to manual mode
-        verifiedAddressData = null;
-
-        // Clear from checkout handler
-        if (window.checkoutAddressHandler) {
-          window.checkoutAddressHandler.clearAddress();
-        }
-      })
-      form.addEventListener("submit", async function(e){
-        if(inmateName.value==="" || facility.value===""){
-          e.preventDefault();
-          return;
-        }
-
-        // Ensure hidden fields are synced before submission
-        if (inmateNameHidden) inmateNameHidden.value = inmateName.value;
-        if (facilityHidden) facilityHidden.value = facility.value;
-
-        // The checkout handler will intercept and handle the address pre-fill
-      })
-      
-      // Also attach event listener to the document body to catch dynamically added checkout buttons
-      document.body.addEventListener("click", function(e) {
-        // Check if the clicked element is the checkout button or a child of it
-        if (e.target.matches('button[name="checkout"], button[name="checkout"] *')) {
-          // Check if verification has been done
-          if(!wrapper.classList.contains("searched") && !wrapper.classList.contains("manual")) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Show warning and highlight verify button
-            verifyWarning.classList.add("show");
-            verifyBtn.classList.add("highlight");
-            
-            // Scroll to the verify button
-            verifyBtn.scrollIntoView({behavior: "smooth", block: "center"});
-            
-            // Remove highlight after 5 seconds
-            setTimeout(() => {
-              verifyBtn.classList.remove("highlight");
-            }, 5000);
-            
-            return false;
-          }
-        }
-      }, true); // Use capture phase to catch events before they reach the checkout button
-    }
-  
-    initListeners();
-  
-    const cartSection = document.querySelector('#main .shopify-section');
-    const config = { childList: true, subtree: true };
-  
-    const observer = new MutationObserver((mutationsList) => {
-      for (const mutation of mutationsList) {
-        if (mutation.type === 'childList') {
-          initListeners();
-        }
-      }
+      resetForm();
     });
-  
-    observer.observe(cartSection, config);
-    
-    // Run initListeners immediately and then again after a short delay
-    // to ensure we catch the checkout button if it's loaded dynamically
-    initListeners();
-    
-    setTimeout(() => {
-      initListeners();
-    }, 1000);
+  }
+
+  // --- Sync hidden fields ---
+  if (inmateName && inmateNameHidden) {
+    inmateName.addEventListener("input", function() {
+      inmateNameHidden.value = inmateName.value;
+    });
+  }
+  if (facility && facilityHidden) {
+    facility.addEventListener("change", function() {
+      facilityHidden.value = facility.value;
+    });
+  }
+
+  // --- Verify button ---
+  verifyBtn.addEventListener("click", async function() {
+    verifyWarning.classList.remove("show");
+    this.classList.remove("highlight");
+    wrapper.classList.remove("searched", "manual");
+    hideAllAlerts();
+
+    const currentState = getSelectedState();
+    const isCA = currentState === 'CA';
+    const regex = isCA ? caRegex : nyRegex;
+    const inputAlert = isCA ? caInputAlert : dinInputAlert;
+
+    if (!regex.test(din.value)) {
+      din.focus();
+      inputAlert.classList.remove('display-none');
+      wrapper.classList.add("invalid-search");
+      enableManualText.textContent = "Cannot find details?";
+      enableManual.textContent = "Enter manually";
+      return;
+    }
+
+    try {
+      // DEMO: Always use the existing NY lookup endpoint for now
+      // Once the CA server endpoint is ready, route based on isCA
+      const response = await fetch("https://emma-server-ce8662596300.herokuapp.com/inmate?inmateDin=" + din.value);
+      const { error, data } = await response.json();
+
+      if (error) {
+        dinAlert.classList.remove('display-none');
+        wrapper.classList.add("invalid-search");
+        enableManualText.textContent = "Cannot find details?";
+        enableManual.textContent = "Enter manually";
+        return;
+      }
+      if (data.status !== "IN CUSTODY") {
+        notInCustodyAlert.classList.remove("display-none");
+        wrapper.classList.add("invalid-search");
+        enableManualText.textContent = "Cannot find details?";
+        enableManual.textContent = "Enter manually";
+        return;
+      }
+
+      inmateName.value = data.name;
+      if (inmateNameHidden) inmateNameHidden.value = data.name;
+
+      const currentFacilities = isCA ? caFacilities : nyFacilities;
+      facility.value = currentFacilities.find(f => f.toLowerCase().includes(data.facility.toLowerCase())) || '';
+      if (facilityHidden) facilityHidden.value = facility.value;
+
+      // Store address data from API response or use facility mapping
+      const selectedFacility = facility.value;
+      let facilityAddressInfo = null;
+      if (window.facilityAddresses && window.facilityAddresses[selectedFacility]) {
+        facilityAddressInfo = window.facilityAddresses[selectedFacility];
+      }
+
+      verifiedAddressData = {
+        name: data.name,
+        firstName: data.name ? data.name.split(' ')[0] : '',
+        lastName: data.name ? data.name.split(' ').slice(1).join(' ') : '',
+        address1: data.address || data.facilityAddress || (facilityAddressInfo ? facilityAddressInfo.address : selectedFacility),
+        city: data.city || data.facilityCity || (facilityAddressInfo ? facilityAddressInfo.city : ''),
+        state: data.state || data.facilityState || (facilityAddressInfo ? facilityAddressInfo.state : currentState),
+        zip: data.zip || data.facilityZip || (facilityAddressInfo ? facilityAddressInfo.zip : ''),
+        country: 'United States',
+        facility: selectedFacility,
+        din: din.value,
+        lookupState: currentState
+      };
+
+      if (window.checkoutAddressHandler) {
+        window.checkoutAddressHandler.setVerifiedAddress(verifiedAddressData);
+      }
+      console.log('Address data stored:', verifiedAddressData);
+
+      inmateName.disabled = true;
+      facility.disabled = true;
+      ismanual.value = "No";
+      wrapper.classList.remove("manual", "invalid-search");
+      wrapper.classList.add("searched");
+      enableManualText.textContent = "If any of the information above is incorrect, please";
+      enableManual.textContent = "click here";
+    } catch (err) {
+      console.log(err);
+      dinAlert.classList.remove('display-none');
+    }
   });
+
+  // --- Manual entry ---
+  enableManual.addEventListener("click", function() {
+    inmateName.disabled = false;
+    facility.disabled = false;
+    ismanual.value = "Yes";
+    wrapper.classList.add("manual");
+    if (inmateNameHidden) inmateNameHidden.value = inmateName.value;
+    if (facilityHidden) facilityHidden.value = facility.value;
+    verifiedAddressData = null;
+    if (window.checkoutAddressHandler) {
+      window.checkoutAddressHandler.clearAddress();
+    }
+  });
+
+  // --- Form submit ---
+  form.addEventListener("submit", function(e) {
+    if (inmateName.value === "" || facility.value === "") {
+      e.preventDefault();
+      return;
+    }
+    if (inmateNameHidden) inmateNameHidden.value = inmateName.value;
+    if (facilityHidden) facilityHidden.value = facility.value;
+  });
+
+  // --- Checkout guard (event delegation, added once) ---
+  document.body.addEventListener("click", function(e) {
+    if (e.target.matches('button[name="checkout"], button[name="checkout"] *')) {
+      if (!wrapper.classList.contains("searched") && !wrapper.classList.contains("manual")) {
+        e.preventDefault();
+        e.stopPropagation();
+        verifyWarning.classList.add("show");
+        verifyBtn.classList.add("highlight");
+        verifyBtn.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(function() { verifyBtn.classList.remove("highlight"); }, 5000);
+        return false;
+      }
+    }
+  }, true);
+})();
 </script>
