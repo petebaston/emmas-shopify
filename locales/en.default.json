@@ -1007,7 +1007,7 @@
   },
   "customer_accounts": {
     "order_details": {
-      "billing_address": "Shipping Address"
+      "billing_address": "Billing Address"
     }
   }
 }
